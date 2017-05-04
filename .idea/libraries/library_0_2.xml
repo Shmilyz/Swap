@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="library-0.2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.liuguangqiang.cookie/library/0.2/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.liuguangqiang.cookie/library/0.2/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.liuguangqiang.cookie/library/0.2/209dfc7f6d148f9adf12f5e1b9b35567e97d1d86/library-0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

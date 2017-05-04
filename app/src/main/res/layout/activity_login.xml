@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="免费注册"
+        android:textSize="15dp"
+        android:textColor="#5A87E4"
+        android:background="@android:color/transparent"
+        android:id="@+id/registerbutton"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_below="@+id/loginbutton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="登      录"
+        android:textColor="#FFFFFF"
+        android:background="#5A87E4"
+        android:textSize="15dp"
+        android:id="@+id/loginbutton"
+        android:layout_marginTop="11dp"
+        android:layout_below="@+id/editText2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:met_baseColor="#0056d3"
+        app:met_primaryColor="#c757d6"
+        app:met_floatingLabel="normal"
+        app:met_clearButton= "true"
+        android:id="@+id/editText2"
+        android:hint=" 密码"
+        android:inputType="textPassword"
+        android:layout_marginTop="12dp"
+        android:imeOptions="actionDone"
+        android:layout_below="@+id/editText1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:id="@+id/imageView5"
+        android:src="@mipmap/one"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="67dp" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:met_baseColor="#0056d3"
+        app:met_primaryColor="#c757d6"
+        app:met_floatingLabel="normal"
+        app:met_maxCharacters="10"
+        app:met_clearButton= "true"
+        android:id="@+id/editText1"
+        android:hint=" 账户"
+        android:layout_marginTop="50dp"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:layout_below="@+id/imageView5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>
