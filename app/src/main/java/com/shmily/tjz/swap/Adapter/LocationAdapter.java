@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.shmily.tjz.swap.Db.Fruit;
+import com.shmily.tjz.swap.Db.ShoesDb;
 import com.shmily.tjz.swap.R;
 
 import java.util.List;
@@ -16,9 +16,9 @@ import java.util.List;
  * Created by Shmily_Z on 2017/5/2.
  */
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder> {
-    private List<Fruit> data;
+    private List<ShoesDb> data;
 
-    public LocationAdapter(List<Fruit> data) {
+    public LocationAdapter(List<ShoesDb> data) {
         this.data = data;
     }
 

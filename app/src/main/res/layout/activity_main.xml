@@ -29,7 +29,7 @@
       android:layout_height="match_parent"
       android:id="@+id/main_fragment"
       android:orientation="vertical"
-      app:layout_behavior="com.shmily.tjz.swap.FixScrollingFooterBehavior"
+      app:layout_behavior="com.shmily.tjz.swap.Utils.FixScrollingFooterBehavior"
       />
   </android.support.design.widget.CoordinatorLayout>
   <android.support.design.widget.NavigationView

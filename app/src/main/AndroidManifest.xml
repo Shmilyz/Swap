@@ -41,7 +41,7 @@
             android:theme="@style/AppTheme.translucent" />
         <activity android:name=".Rubbish.LoginActivity" />
         <activity android:name=".Rubbish.SignActivity" />
-        <activity android:name=".LocationActivity" />
+        <activity android:name=".Rubbish.LocationActivity" />
 
         <service
             android:name="com.baidu.location.f"

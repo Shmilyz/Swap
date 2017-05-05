@@ -27,8 +27,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.liuguangqiang.cookie.CookieBar;
 import com.liuguangqiang.cookie.OnActionClickListener;
-import com.shmily.tjz.swap.Db.Fruit;
-import com.shmily.tjz.swap.Adapter.FruitAdapter;
+import com.shmily.tjz.swap.Adapter.ShoesAdapter;
+import com.shmily.tjz.swap.Db.ShoesDb;
 import com.shmily.tjz.swap.Gson.Shoes;
 import com.shmily.tjz.swap.SelectActivity;
 import com.shmily.tjz.swap.R;
@@ -53,8 +53,8 @@ public class MainFragment extends Fragment {
     private SwipeRefreshLayout swipeRefresh;
     FloatingToolbar mFloatingToolbar;
     RecyclerView recyclerView;
-    private List<Fruit> fruitList=new ArrayList<>();
-    private FruitAdapter adapter;
+    private List<ShoesDb> shoesDbList =new ArrayList<>();
+    private ShoesAdapter adapter;
     private Handler handler;
     final int WHAT_NEWS = 1 ;
     private ProgressDialog pDialog ;
@@ -163,7 +163,7 @@ public class MainFragment extends Fragment {
 //        StaggeredGridLayoutManager layoutManger=new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.HORIZONTAL);
 //        瀑布。
                         recyclerView.setLayoutManager(layoutManger);
-                        adapter=new FruitAdapter(fruitList);
+                        adapter=new ShoesAdapter(shoesDbList);
                         recyclerView.setAdapter(adapter);
                         mFloatingToolbar.attachRecyclerView(recyclerView);
                         break;
@@ -220,15 +220,15 @@ public class MainFragment extends Fragment {
 
     }
     private void init() {
-       /* fruitList.clear();
+       /* shoesDbList.clear();
         for (int i=0;i<50;i++){
 //这个Random表达的是随机数，index等于fruits的数组的长度，这里random从0开始的，
 // 然后index等于random的随机数，然后fruitList加入fruit【】的随机。for语句则表示来50个。
             Random random=new Random();
             int index=random.nextInt(fruits.length);
-            fruitList.add(fruits[index]);
+            shoesDbList.add(fruits[index]);
         }*/
-        fruitList.clear();
+        shoesDbList.clear();
         RequestParams params=new RequestParams("http://www.shmilyz.com/ForAndroidHttp/select.action");
         String results= "select * from shoes";
         params.addBodyParameter("uname",results);
@@ -245,15 +245,16 @@ public class MainFragment extends Fragment {
                     List<Shoes> shoesList=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<Shoes>>(){}.getType());
                     for(Shoes shoes : shoesList)
                     {
-                            Fruit fruit=new Fruit(shoes.getStyle(),shoes.getPicture());
-                        fruitList.add(fruit);
-                        Message msg = handler.obtainMessage() ;
-                        // 设置消息内容（可选）
-                        // 设置消息类型
-                        msg.what = WHAT_NEWS;
-                        // 发送消息
-                        handler.sendMessage(msg) ;
+                            ShoesDb shoesDb =new ShoesDb(shoes.getStyle(),shoes.getPicture());
+                        shoesDbList.add(shoesDb);
+
                     }
+                    Message msg = handler.obtainMessage() ;
+                    // 设置消息内容（可选）
+                    // 设置消息类型
+                    msg.what = WHAT_NEWS;
+                    // 发送消息
+                    handler.sendMessage(msg) ;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

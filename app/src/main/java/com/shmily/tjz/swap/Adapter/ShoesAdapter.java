@@ -19,19 +19,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.shmily.tjz.swap.Db.Fruit;
+import com.shmily.tjz.swap.Db.ShoesDb;
 import com.shmily.tjz.swap.FruitActivity;
 import com.shmily.tjz.swap.R;
 
 import java.util.List;
 
-public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
+public class ShoesAdapter extends RecyclerView.Adapter<ShoesAdapter.ViewHolder>{
 
-    private static final String TAG = "FruitAdapter";
+    private static final String TAG = "ShoesAdapter";
 
     private Context mContext;
 
-    private List<Fruit> mFruitList;
+    private List<ShoesDb> mShoesDbList;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
@@ -46,14 +46,14 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
         }
     }
 
-    public FruitAdapter(List<Fruit> fruitList) {
-        mFruitList = fruitList;
+    public ShoesAdapter(List<ShoesDb> shoesDbList) {
+        mShoesDbList = shoesDbList;
     }
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Fruit fruit = mFruitList.get(position);
-        holder.fruitName.setText(fruit.getName());
-        Glide.with(mContext).load(fruit.getImageId()).into(holder.fruitImage);
+        ShoesDb shoesDb = mShoesDbList.get(position);
+        holder.fruitName.setText(shoesDb.getName());
+        Glide.with(mContext).load(shoesDb.getImageId()).into(holder.fruitImage);
 
         /*
         *  Glide.with(GlideActivity.this)
@@ -83,10 +83,10 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
-                Fruit fruit = mFruitList.get(position);
+                ShoesDb shoesDb = mShoesDbList.get(position);
                 Intent intent = new Intent(mContext, FruitActivity.class);
-                intent.putExtra(FruitActivity.FRUIT_NAME, fruit.getName());
-               intent.putExtra(FruitActivity.FRUIT_IMAGE_ID, fruit.getImageId());
+                intent.putExtra(FruitActivity.FRUIT_NAME, shoesDb.getName());
+               intent.putExtra(FruitActivity.FRUIT_IMAGE_ID, shoesDb.getImageId());
                 mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) mContext).toBundle());
 
             }
@@ -98,7 +98,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
 
     @Override
     public int getItemCount() {
-        return mFruitList.size();
+        return mShoesDbList.size();
     }
 
 }

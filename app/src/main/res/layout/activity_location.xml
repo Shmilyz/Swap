@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.shmily.tjz.swap.LocationActivity">
+    tools:context="com.shmily.tjz.swap.Rubbish.LocationActivity">
 
     <com.baidu.mapapi.map.MapView
         android:layout_width="match_parent"

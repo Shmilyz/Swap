@@ -4,10 +4,10 @@ package com.shmily.tjz.swap.Db;
  * Created by Shmily_Z on 2017/4/2.
  */
 
-public class Fruit {
+public class ShoesDb {
     private String name;
     private String imageId;
-    public Fruit(String name, String imageId) {
+    public ShoesDb(String name, String imageId) {
         this.name = name;
         this.imageId = imageId;
     }

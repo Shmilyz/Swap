@@ -104,7 +104,7 @@ public class SelectActivity extends AppCompatActivity {
         singleChoose = (MultiLineChooseLayout) findViewById(R.id.flowLayout);
         singleChoose1 = (MultiLineChooseLayout) findViewById(R.id.flowLayout1);
         rangeSeekbar = (CrystalRangeSeekbar) findViewById(R.id.rangeSeekbar1);
-        button = (RoundButton) findViewById(R.id.position);
+        button = (RoundButton) findViewById(R.id.Position);
         tvMin = (TextView) findViewById(R.id.left);
         tvMax = (TextView) findViewById(R.id.right);
         mColorData.add("男士");

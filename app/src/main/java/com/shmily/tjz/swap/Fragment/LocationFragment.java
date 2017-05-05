@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.liuguangqiang.cookie.CookieBar;
 import com.liuguangqiang.cookie.OnActionClickListener;
-import com.shmily.tjz.swap.Db.Fruit;
+import com.shmily.tjz.swap.Db.ShoesDb;
 import com.shmily.tjz.swap.Gson.Shoes;
 import com.shmily.tjz.swap.Adapter.LocationAdapter;
 import com.shmily.tjz.swap.R;
@@ -39,7 +39,7 @@ import java.util.List;
 
 public class LocationFragment extends Fragment {
     private View rootView;
-    private List<Fruit> fruitList=new ArrayList<>();
+    private List<ShoesDb> shoesDbList =new ArrayList<>();
     private  TextView text;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,14 +77,14 @@ public class LocationFragment extends Fragment {
                                 .show();
 
                         DiscreteScrollView scrollView = (DiscreteScrollView) rootView.findViewById(R.id.picker);
-                        scrollView.setAdapter(new LocationAdapter(fruitList));
+                        scrollView.setAdapter(new LocationAdapter(shoesDbList));
                         scrollView.setItemTransformer(new ScaleTransformer.Builder()
                                 .setMinScale(0.8f)
                                 .build());
                         scrollView.setOnItemChangedListener(new DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder>() {
                             @Override
                             public void onCurrentItemChanged(@NonNull RecyclerView.ViewHolder viewHolder, int adapterPosition) {
-                                onItemChanged(fruitList.get(adapterPosition));
+                                onItemChanged(shoesDbList.get(adapterPosition));
                             }
                         });
                     }
@@ -96,13 +96,13 @@ public class LocationFragment extends Fragment {
     }
 
     private void init() {
-       /* fruitList.clear();
+       /* shoesDbList.clear();
         for (int i=0;i<50;i++){
 //这个Random表达的是随机数，index等于fruits的数组的长度，这里random从0开始的，
 // 然后index等于random的随机数，然后fruitList加入fruit【】的随机。for语句则表示来50个。
             Random random=new Random();
             int index=random.nextInt(fruits.length);
-            fruitList.add(fruits[index]);
+            shoesDbList.add(fruits[index]);
         }*/
         RequestParams params=new RequestParams("http://www.shmilyz.com/ForAndroidHttp/select.action");
         String results= "select * from shoes";
@@ -120,8 +120,8 @@ public class LocationFragment extends Fragment {
                     List<Shoes> shoesList=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<Shoes>>(){}.getType());
                     for(Shoes shoes : shoesList)
                     {
-                        Fruit fruit=new Fruit(shoes.getStyle(),shoes.getPicture());
-                        fruitList.add(fruit);
+                        ShoesDb shoesDb =new ShoesDb(shoes.getStyle(),shoes.getPicture());
+                        shoesDbList.add(shoesDb);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -153,7 +153,7 @@ public class LocationFragment extends Fragment {
 
 
 
-    private void onItemChanged(Fruit fruit) {
-             text.setText(fruit.getName());
+    private void onItemChanged(ShoesDb shoesDb) {
+             text.setText(shoesDb.getName());
     }
 }
