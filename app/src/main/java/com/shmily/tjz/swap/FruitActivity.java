@@ -65,7 +65,7 @@ public class FruitActivity extends AppCompatActivity {
 
                             @Override
                             public void onClick(View v) {
-                                Toast.makeText(FruitActivity.this, "收藏成功！", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(FruitActivity.this, "收藏成功！！", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .show();
