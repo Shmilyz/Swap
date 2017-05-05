@@ -60,7 +60,7 @@ public class FruitActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v,"确认收藏？",Snackbar.LENGTH_LONG)
+                Snackbar.make(v,"确认收藏？？",Snackbar.LENGTH_LONG)
                         .setAction("确认", new View.OnClickListener() {
 
                             @Override
