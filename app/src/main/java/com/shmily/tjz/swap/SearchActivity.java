@@ -112,6 +112,7 @@ public class SearchActivity extends AppCompatActivity {
 *     if (!TextUtils.isEmpty(s.toString())){
             replaceFragment(new MainFragment());
 
+
                 }
                 else {
                     replaceFragment(new SearchFragment());
