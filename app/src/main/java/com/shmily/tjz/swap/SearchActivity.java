@@ -113,6 +113,7 @@ public class SearchActivity extends AppCompatActivity {
             replaceFragment(new MainFragment());
 
 
+
                 }
                 else {
                     replaceFragment(new SearchFragment());
