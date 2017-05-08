@@ -1,18 +1,11 @@
 package com.shmily.tjz.swap;
 
 import android.Manifest;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.Build;
-import android.os.Handler;
-import android.preference.PreferenceActivity;
-import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,29 +13,25 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.transition.Fade;
-import android.transition.Slide;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.rubensousa.floatingtoolbar.FloatingToolbar;
 import com.shmily.tjz.swap.Fragment.LocationFragment;
-import com.shmily.tjz.swap.Fragment.MainFragment;
 import com.shmily.tjz.swap.Fragment.ViewPagerFragmwnt;
+import com.shmily.tjz.swap.LitePal.Data;
+import com.shmily.tjz.swap.LitePal.Hot;
+import com.shmily.tjz.swap.Srevice.SearchService;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
@@ -61,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent Startservice=new Intent(this, SearchService.class);
+        startService(Startservice);
         replaceFragment(new ViewPagerFragmwnt());
         SharedPreferences prefs=getSharedPreferences("user", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor=prefs.edit();
@@ -95,6 +86,8 @@ Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
             public boolean onNavigationItemSelected( MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.nav_setting:
+
+                        editor.apply();
                         editor.remove("username");
                         editor.remove("denglu");
                         editor.commit();

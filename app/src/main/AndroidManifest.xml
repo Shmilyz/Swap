@@ -48,10 +48,20 @@
             android:enabled="true"
             android:process=":remote" />
 
-        <activity android:name=".A">
+        <activity android:name=".A" />
+        <activity android:name=".SignLoginActivity" />
+        <activity
+            android:name=".SearchActivity"
+            android:theme="@style/AppTheme.search"
+            android:windowSoftInputMode="adjustPan" />
 
-        </activity>
-        <activity android:name=".SignLoginActivity"></activity>
+        <service
+            android:name=".Srevice.SearchService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
-</manifest>
+</manifest><!--
+            android:windowSoftInputMode="adjustPan"
+防止小键盘出来压缩Listview
+-->

@@ -30,6 +30,7 @@ import com.liuguangqiang.cookie.OnActionClickListener;
 import com.shmily.tjz.swap.Adapter.ShoesAdapter;
 import com.shmily.tjz.swap.Db.ShoesDb;
 import com.shmily.tjz.swap.Gson.Shoes;
+import com.shmily.tjz.swap.SearchActivity;
 import com.shmily.tjz.swap.SelectActivity;
 import com.shmily.tjz.swap.R;
 
@@ -69,7 +70,6 @@ public class MainFragment extends Fragment {
         fade.setDuration(700L);
         getActivity().getWindow().setEnterTransition(fade);
         setHasOptionsMenu(true);
-
         initView();
         new CookieBar.Builder(getActivity())
                 .setTitle("欢迎您")
@@ -165,7 +165,6 @@ public class MainFragment extends Fragment {
                         recyclerView.setLayoutManager(layoutManger);
                         adapter=new ShoesAdapter(shoesDbList);
                         recyclerView.setAdapter(adapter);
-                        mFloatingToolbar.attachRecyclerView(recyclerView);
                         break;
 
                 }
@@ -183,6 +182,13 @@ public class MainFragment extends Fragment {
                     case R.id.menu_shaixuan:
                                 Intent intent=new Intent(getActivity(),SelectActivity.class);
                                 getActivity().startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                        break;
+                    case R.id.menu_sousuo:
+                        Intent intent1=new Intent(getActivity(),SearchActivity.class);
+                        getActivity().startActivity(intent1, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                        break;
+                    case R.id.menu_xihuan:
+                        mFloatingToolbar.hide();
                         break;
                     default:
                 }

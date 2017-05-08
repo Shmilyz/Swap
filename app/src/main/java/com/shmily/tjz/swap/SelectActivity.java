@@ -96,7 +96,7 @@ public class SelectActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_select);
         Explode explode = new Explode();
-        explode.setDuration(700L);
+        explode.setDuration(300L);
         getWindow().setEnterTransition(explode);
 
         ButterKnife.bind(this);

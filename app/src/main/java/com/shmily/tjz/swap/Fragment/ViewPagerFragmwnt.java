@@ -32,7 +32,7 @@ public class ViewPagerFragmwnt extends Fragment{
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getActivity().getSupportFragmentManager(), FragmentPagerItems.with(getActivity())
                 .add(R.string.a, MainFragment.class)
-                .add(R.string.b, SearchFragment.class)
+                .add(R.string.b, SpecialFragment.class)
                 .create());
 
         ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);

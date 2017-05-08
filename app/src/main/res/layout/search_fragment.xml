@@ -1,14 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFF"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.mancj.materialsearchbar.MaterialSearchBar
-        app:mt_speechMode="true"
-        app:mt_hint="Custom hint"
-        app:mt_maxSuggestionsCount="10"
+
+
+
+    <TextView
+                    android:layout_marginTop="22dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="热门搜索"
+                    android:textColor="#C8D2D1"
+                    android:layout_marginLeft="33dp"
+                    android:typeface="monospace"
+                    android:textSize="17sp"
+                    />
+
+
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/searchBar" />
-</LinearLayout>
+        android:id="@+id/list_view"
+        >
+
+    </ListView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="最近搜索"
+            android:textColor="#C8D2D1"
+            android:layout_marginTop="14dp"
+            android:layout_marginLeft="34dp"
+            android:typeface="monospace"
+            android:textSize="17sp"
+            />
+
+
+
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recent_view"
+        >
+    </ListView>
+        </LinearLayout>
+
+
+
