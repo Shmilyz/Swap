@@ -4,6 +4,7 @@ package com.shmily.tjz.swap;
 * */
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
@@ -25,6 +27,7 @@ import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ihidea.multilinechooselib.MultiLineChooseLayout;
+import com.shmily.tjz.swap.Adapter.SearchHotAdapter;
 import com.shmily.tjz.swap.Gson.Shoes;
 
 import org.json.JSONArray;
@@ -75,6 +78,7 @@ public class SelectActivity extends AppCompatActivity {
     private RoundButton button;
     private CrystalRangeSeekbar rangeSeekbar;
     private TextView tvMin, tvMax;
+    private String select_result;
     final StringBuilder builder = new StringBuilder();
     private boolean select, select1, select2, select3;
 
@@ -89,6 +93,8 @@ public class SelectActivity extends AppCompatActivity {
 
     }*/
 
+
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +106,7 @@ public class SelectActivity extends AppCompatActivity {
         getWindow().setEnterTransition(explode);
 
         ButterKnife.bind(this);
+        initView();
 
         singleChoose = (MultiLineChooseLayout) findViewById(R.id.flowLayout);
         singleChoose1 = (MultiLineChooseLayout) findViewById(R.id.flowLayout1);
@@ -163,7 +170,29 @@ public class SelectActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    private void initView() {
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                // 负责接收Handler消息，并执行UI更新
+                // 判断消息的来源：通过消息的类型 what
+                switch (msg.what) {
+                    case WHAT_NEWS:
+
+                        SharedPreferences.Editor editor =getSharedPreferences("select_result",MODE_PRIVATE).edit();
+                        editor.putString("result",select_result );
+                        editor.putBoolean("can",true);
+                        editor.apply();
+                        setResult(RESULT_OK);
+                        SelectActivity.this.finish();
+                        break;
+
+                }
+
+            }
+        };
     }
 
     private void checkbox() {
@@ -367,23 +396,15 @@ public class SelectActivity extends AppCompatActivity {
         final StringBuilder bu=new StringBuilder();
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
-            public void onSuccess(String result) {
+            public void onSuccess( String result) {
 
-                try {
-                    JSONObject jsonobject=new JSONObject(result);
-                    JSONArray shoesArray=jsonobject.getJSONArray("result");
-                    Gson gson=new Gson();
-                    List<Shoes> shoesList=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<Shoes>>(){}.getType());
-                    for(Shoes shoes : shoesList)
-                    {
-                        bu.append(shoes.getPicture());
-                    }
-                    Intent intent = new Intent(SelectActivity.this, A.class);
-                    intent.putExtra("ss", (Serializable) bu);
-                    startActivity(intent);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                select_result=result;
+                Message msg = handler.obtainMessage();
+                // 设置消息内容（可选）
+                // 设置消息类型
+                msg.what = WHAT_NEWS;
+                // 发送消息
+                handler.sendMessage(msg);
 
             }
 

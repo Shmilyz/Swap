@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.github.rubensousa.floatingtoolbar.FloatingToolbar;
 import com.google.gson.Gson;
@@ -55,13 +56,36 @@ public class MainFragment extends Fragment {
     FloatingToolbar mFloatingToolbar;
     RecyclerView recyclerView;
     private List<ShoesDb> shoesDbList =new ArrayList<>();
-    private ShoesAdapter adapter;
+    public ShoesAdapter adapter;
     private Handler handler;
     final int WHAT_NEWS = 1 ;
     private ProgressDialog pDialog ;
 
     String username;
+
+    @Override
+    public void onResume() {
+
+        super.onResume();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case 1:
+                if (resultCode==getActivity().RESULT_OK)
+                {
+                    init();
+                    adapter.notifyDataSetChanged();
+                }
+                break;
+            default:
+        }
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView=inflater.inflate(R.layout.main_fragment, container, false);
@@ -78,6 +102,7 @@ public class MainFragment extends Fragment {
                 .setAction("确认", new OnActionClickListener() {
                     @Override
                     public void onClick() {
+
                     }
                 })
                 .show();
@@ -105,7 +130,7 @@ public class MainFragment extends Fragment {
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshFruits();
+                refreshShoes();
             }
 
 
@@ -151,26 +176,7 @@ public class MainFragment extends Fragment {
             }
         });*/
         init();
-        handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                // 负责接收Handler消息，并执行UI更新
-                // 判断消息的来源：通过消息的类型 what
-                switch (msg.what) {
-                    case WHAT_NEWS:
-                        RecyclerView recyclerView= (RecyclerView) rootView.findViewById(R.id.recycler_view);
-                        GridLayoutManager layoutManger=new GridLayoutManager(getActivity(),2);
-//        StaggeredGridLayoutManager layoutManger=new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.HORIZONTAL);
-//        瀑布。
-                        recyclerView.setLayoutManager(layoutManger);
-                        adapter=new ShoesAdapter(shoesDbList);
-                        recyclerView.setAdapter(adapter);
-                        break;
 
-                }
-
-            }
-        } ;
 
 
 
@@ -181,7 +187,8 @@ public class MainFragment extends Fragment {
                 switch (item.getItemId()){
                     case R.id.menu_shaixuan:
                                 Intent intent=new Intent(getActivity(),SelectActivity.class);
-                                getActivity().startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+
+                                startActivityForResult(intent, 1,ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                         break;
                     case R.id.menu_sousuo:
                         Intent intent1=new Intent(getActivity(),SearchActivity.class);
@@ -202,7 +209,7 @@ public class MainFragment extends Fragment {
         });
     }
 
-    private void refreshFruits() {
+    public void refreshShoes() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -225,7 +232,31 @@ public class MainFragment extends Fragment {
         }).start();
 
     }
-    private void init() {
+    public void re(){
+        init();
+        adapter.notifyDataSetChanged();
+    }
+    public void init() {
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                // 负责接收Handler消息，并执行UI更新
+                // 判断消息的来源：通过消息的类型 what
+                switch (msg.what) {
+                    case WHAT_NEWS:
+                        RecyclerView recyclerView= (RecyclerView) rootView.findViewById(R.id.recycler_view);
+                        GridLayoutManager layoutManger=new GridLayoutManager(getActivity(),2);
+//        StaggeredGridLayoutManager layoutManger=new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.HORIZONTAL);
+//        瀑布。
+                        recyclerView.setLayoutManager(layoutManger);
+                        adapter=new ShoesAdapter(shoesDbList);
+                        recyclerView.setAdapter(adapter);
+                        break;
+
+                }
+
+            }
+        } ;
        /* shoesDbList.clear();
         for (int i=0;i<50;i++){
 //这个Random表达的是随机数，index等于fruits的数组的长度，这里random从0开始的，
@@ -244,7 +275,15 @@ public class MainFragment extends Fragment {
             public void onSuccess(String result) {
 
                 try {
-
+                    SharedPreferences pref=getActivity().getSharedPreferences("select_result", getActivity().MODE_PRIVATE);
+                    SharedPreferences.Editor editor=pref.edit();
+                    boolean can=pref.getBoolean("can",false);
+                    if (can) {
+                        result = pref.getString("result", "");
+                        editor.remove("can");
+                        editor.putBoolean("can",false);
+                        editor.apply();
+                    }
                     JSONObject jsonobject=new JSONObject(result);
                     JSONArray shoesArray=jsonobject.getJSONArray("result");
                     Gson gson=new Gson();

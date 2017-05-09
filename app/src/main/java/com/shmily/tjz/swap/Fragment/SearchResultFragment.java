@@ -32,7 +32,8 @@ import java.util.List;
  * Created by Shmily_Z on 2017/5/8.
  */
 
-public class ResultFragment extends Fragment {
+public class SearchResultFragment extends Fragment {
+
     private View rootView;
     private Handler handler;
     final int WHAT_NEWS = 1 ;
@@ -42,7 +43,7 @@ public class ResultFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.result_fragment, container, false);
+        rootView = inflater.inflate(R.layout.search_result_fragment, container, false);
         initview();
         return rootView;
     }
@@ -50,7 +51,7 @@ public class ResultFragment extends Fragment {
     private void initview() {
         Bundle bundle = getArguments();//从activity传过来的Bundle
         if(bundle!=null){
-            result= bundle.getString("results");
+            result= bundle.getString("search_results");
             Toast.makeText(getActivity(), bundle.getString("results"), Toast.LENGTH_SHORT).show();
         }
         init();

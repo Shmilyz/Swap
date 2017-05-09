@@ -23,12 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shmily.tjz.swap.Fragment.LocationFragment;
+import com.shmily.tjz.swap.Fragment.MainFragment;
 import com.shmily.tjz.swap.Fragment.ViewPagerFragmwnt;
-import com.shmily.tjz.swap.LitePal.Data;
-import com.shmily.tjz.swap.LitePal.Hot;
 import com.shmily.tjz.swap.Srevice.SearchService;
-
-import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,10 +38,13 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
-        } else {
+        }
+
+        else {
             super.onBackPressed();
         }
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         Intent Startservice=new Intent(this, SearchService.class);
         startService(Startservice);
         replaceFragment(new ViewPagerFragmwnt());
+
         SharedPreferences prefs=getSharedPreferences("user", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor=prefs.edit();
         boolean isGuideLoaded=prefs.getBoolean("denglu",false);
