@@ -8,21 +8,27 @@ public class Shoes {
 
 
     /**
-     * no : new
-     * iid : null
-     * price : 1350
-     * sex : woman
-     * style : run
-     * id : 4
-     * brand : vans
-     * picture : null
+     * no : 全新
+     * iid : 1
+     * price : 660
+     * sex : 男士
+     * miaoshu : Jordan官方 JORDAN CP3.X XDR AE 男子篮球运动休闲鞋 922655
+     * style : basketball
+     * location : 北辰区
+     * biaoti : JORDAN男子篮球运动休闲鞋 922655
+     * id : 1
+     * brand : aj
+     * picture : http://www.shmilyz.com/picture/1.jpg
      */
 
     private String no;
     private String iid;
     private int price;
     private String sex;
+    private String miaoshu;
     private String style;
+    private String location;
+    private String biaoti;
     private int id;
     private String brand;
     private String picture;
@@ -59,12 +65,36 @@ public class Shoes {
         this.sex = sex;
     }
 
+    public String getMiaoshu() {
+        return miaoshu;
+    }
+
+    public void setMiaoshu(String miaoshu) {
+        this.miaoshu = miaoshu;
+    }
+
     public String getStyle() {
         return style;
     }
 
     public void setStyle(String style) {
         this.style = style;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getBiaoti() {
+        return biaoti;
+    }
+
+    public void setBiaoti(String biaoti) {
+        this.biaoti = biaoti;
     }
 
     public int getId() {

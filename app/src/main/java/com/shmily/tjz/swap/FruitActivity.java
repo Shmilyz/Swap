@@ -1,6 +1,5 @@
 package com.shmily.tjz.swap;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,8 +12,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
-import android.transition.Fade;
-import android.transition.Slide;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,12 +19,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.github.rubensousa.floatingtoolbar.FloatingToolbar;
 import com.jude.swipbackhelper.SwipeBackHelper;
 
 public class FruitActivity extends AppCompatActivity {
-    public static final String FRUIT_NAME="fruit_name";
-    public static final String FRUIT_IMAGE_ID="fruit_image_id";
+    public static final String SHOES_NAME ="shoes_biaoti";
+    public static final String SHOES_IMAGE_ID ="fruit_image_id";
     FloatingActionButton fab;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -40,8 +36,8 @@ public class FruitActivity extends AppCompatActivity {
 
         SwipeBackHelper.onCreate(this);
         Intent intent=getIntent();
-        String fruitName=intent.getStringExtra(FRUIT_NAME);
-        String fruitImageId=intent.getStringExtra(FRUIT_IMAGE_ID);
+        String fruitName=intent.getStringExtra(SHOES_NAME);
+        String fruitImageId=intent.getStringExtra(SHOES_IMAGE_ID);
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
         CollapsingToolbarLayout collapsingToolbar= (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         ImageView fruitImageView= (ImageView) findViewById(R.id.fruit_image_view);

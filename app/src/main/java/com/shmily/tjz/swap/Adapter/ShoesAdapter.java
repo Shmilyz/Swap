@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.shmily.tjz.swap.Db.ShoesDb;
 import com.shmily.tjz.swap.FruitActivity;
+import com.shmily.tjz.swap.Gson.Shoes;
 import com.shmily.tjz.swap.R;
 
 import java.util.List;
@@ -31,7 +32,8 @@ public class ShoesAdapter extends RecyclerView.Adapter<ShoesAdapter.ViewHolder>{
 
     private Context mContext;
 
-    private List<ShoesDb> mShoesDbList;
+    private List<Shoes> mShoesList;
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
@@ -46,14 +48,14 @@ public class ShoesAdapter extends RecyclerView.Adapter<ShoesAdapter.ViewHolder>{
         }
     }
 
-    public ShoesAdapter(List<ShoesDb> shoesDbList) {
-        mShoesDbList = shoesDbList;
+    public ShoesAdapter(List<Shoes> shoesList) {
+        mShoesList = shoesList;
     }
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ShoesDb shoesDb = mShoesDbList.get(position);
-        holder.fruitName.setText(shoesDb.getName());
-        Glide.with(mContext).load(shoesDb.getImageId()).into(holder.fruitImage);
+        Shoes shoes = mShoesList.get(position);
+        holder.fruitName.setText(shoes.getMiaoshu());
+        Glide.with(mContext).load(shoes.getPicture()).into(holder.fruitImage);
 
         /*
         *  Glide.with(GlideActivity.this)
@@ -83,10 +85,11 @@ public class ShoesAdapter extends RecyclerView.Adapter<ShoesAdapter.ViewHolder>{
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
-                ShoesDb shoesDb = mShoesDbList.get(position);
+                Shoes shoes = mShoesList.get(position);
                 Intent intent = new Intent(mContext, FruitActivity.class);
-                intent.putExtra(FruitActivity.FRUIT_NAME, shoesDb.getName());
-               intent.putExtra(FruitActivity.FRUIT_IMAGE_ID, shoesDb.getImageId());
+                intent.putExtra(FruitActivity.SHOES_NAME, shoes.getMiaoshu());
+               intent.putExtra(FruitActivity.SHOES_IMAGE_ID, shoes.getPicture());
+
                 mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) mContext).toBundle());
 
             }
@@ -98,7 +101,7 @@ public class ShoesAdapter extends RecyclerView.Adapter<ShoesAdapter.ViewHolder>{
 
     @Override
     public int getItemCount() {
-        return mShoesDbList.size();
+        return mShoesList.size();
     }
 
 }

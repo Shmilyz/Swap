@@ -55,7 +55,7 @@ public class MainFragment extends Fragment {
     private SwipeRefreshLayout swipeRefresh;
     FloatingToolbar mFloatingToolbar;
     RecyclerView recyclerView;
-    private List<ShoesDb> shoesDbList =new ArrayList<>();
+    private List<Shoes> shoesDbList =new ArrayList<>();
     public ShoesAdapter adapter;
     private Handler handler;
     final int WHAT_NEWS = 1 ;
@@ -290,8 +290,8 @@ public class MainFragment extends Fragment {
                     List<Shoes> shoesList=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<Shoes>>(){}.getType());
                     for(Shoes shoes : shoesList)
                     {
-                            ShoesDb shoesDb =new ShoesDb(shoes.getStyle(),shoes.getPicture());
-                        shoesDbList.add(shoesDb);
+
+                        shoesDbList.add(shoes);
 
                     }
                     Message msg = handler.obtainMessage() ;
