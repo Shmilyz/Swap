@@ -19,11 +19,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.shmily.tjz.swap.Db.ShoesDb;
-import com.shmily.tjz.swap.FruitActivity;
+import com.shmily.tjz.swap.ShoesActivity;
 import com.shmily.tjz.swap.Gson.Shoes;
 import com.shmily.tjz.swap.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShoesAdapter extends RecyclerView.Adapter<ShoesAdapter.ViewHolder>{
@@ -32,7 +32,7 @@ public class ShoesAdapter extends RecyclerView.Adapter<ShoesAdapter.ViewHolder>{
 
     private Context mContext;
 
-    private List<Shoes> mShoesList;
+    private List<Shoes> mShoesList=new ArrayList<>();
 
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -85,10 +85,10 @@ public class ShoesAdapter extends RecyclerView.Adapter<ShoesAdapter.ViewHolder>{
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
-                Shoes shoes = mShoesList.get(position);
-                Intent intent = new Intent(mContext, FruitActivity.class);
-                intent.putExtra(FruitActivity.SHOES_NAME, shoes.getMiaoshu());
-               intent.putExtra(FruitActivity.SHOES_IMAGE_ID, shoes.getPicture());
+                Shoes shoes = mShoesList.get(position-1);
+                Intent intent = new Intent(mContext, ShoesActivity.class);
+                intent.putExtra(ShoesActivity.SHOES_NAME, shoes.getMiaoshu());
+               intent.putExtra(ShoesActivity.SHOES_IMAGE_ID, shoes.getPicture());
 
                 mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) mContext).toBundle());
 

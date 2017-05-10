@@ -13,7 +13,6 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Fade;
@@ -26,14 +25,17 @@ import android.widget.Toast;
 import com.github.rubensousa.floatingtoolbar.FloatingToolbar;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
+
 import com.liuguangqiang.cookie.CookieBar;
 import com.liuguangqiang.cookie.OnActionClickListener;
 import com.shmily.tjz.swap.Adapter.ShoesAdapter;
-import com.shmily.tjz.swap.Db.ShoesDb;
 import com.shmily.tjz.swap.Gson.Shoes;
 import com.shmily.tjz.swap.SearchActivity;
 import com.shmily.tjz.swap.SelectActivity;
 import com.shmily.tjz.swap.R;
+import com.shmily.tjz.swap.Utils.SqlListResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,22 +47,27 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Created by Shmily_Z on 2017/5/2.
  */
 
 public class MainFragment extends Fragment {
     private View rootView;
+    private XRecyclerView mRecyclerView;
     private DrawerLayout mDrawerLayout;
-    private SwipeRefreshLayout swipeRefresh;
     FloatingToolbar mFloatingToolbar;
-    RecyclerView recyclerView;
     private List<Shoes> shoesDbList =new ArrayList<>();
+    private List<Shoes> ceshi =new ArrayList<>();
     public ShoesAdapter adapter;
     private Handler handler;
     final int WHAT_NEWS = 1 ;
+    final int WHAT_NEWSS = 2 ;
+int start=10;
+    int return_start=10;
+    boolean load=true;
+    boolean return_load=false;
     private ProgressDialog pDialog ;
-
     String username;
 
     @Override
@@ -76,6 +83,8 @@ public class MainFragment extends Fragment {
             case 1:
                 if (resultCode==getActivity().RESULT_OK)
                 {
+                    load=false;
+                    return_load=true;
                     init();
                     adapter.notifyDataSetChanged();
                 }
@@ -125,7 +134,7 @@ public class MainFragment extends Fragment {
         final FloatingActionButton fab= (FloatingActionButton) rootView.findViewById(R.id.fab);
         mFloatingToolbar= (FloatingToolbar) rootView.findViewById(R.id.floatingToolbar);
         mFloatingToolbar.attachFab(fab);
-        swipeRefresh= (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh);
+      /*  swipeRefresh= (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh);
         swipeRefresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -135,6 +144,35 @@ public class MainFragment extends Fragment {
 
 
         });
+*/
+
+        /*swipeRefresh= (TwinklingRefreshLayout) rootView.findViewById(R.id.swipe_refresh);
+        swipeRefresh.setEnableOverScroll(true);
+        swipeRefresh.setHeaderView(new ProgressLayout(getActivity()));
+        swipeRefresh.setBottomView(new LoadingView(getActivity()));
+        swipeRefresh.setFloatRefresh(true);
+        swipeRefresh.setOnRefreshListener(new RefreshListenerAdapter() {
+
+            @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefresh.finishRefreshing();
+                    }
+                },2000);
+            }
+
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefresh.finishLoadmore();
+                    }
+                },2000);
+            }
+        });*/
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,6 +246,7 @@ public class MainFragment extends Fragment {
             }
         });
     }
+/*
 
     public void refreshShoes() {
         new Thread(new Runnable() {
@@ -224,7 +263,7 @@ public class MainFragment extends Fragment {
                     public void run() {
                         init();
                         adapter.notifyDataSetChanged();
-                        swipeRefresh.setRefreshing(false);
+                        mRecyclerView.refreshComplete();
 //                        告诉它刷新结束，收回进度条。
                     }
                 });
@@ -232,11 +271,48 @@ public class MainFragment extends Fragment {
         }).start();
 
     }
-    public void re(){
-        init();
-        adapter.notifyDataSetChanged();
-    }
+*/
+
     public void init() {
+
+
+
+
+        mRecyclerView = (XRecyclerView)rootView.findViewById(R.id.recycler_view);
+        mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+
+                new Handler().postDelayed(new Runnable(){
+                    public void run() {
+                        init();
+                        mRecyclerView.refreshComplete();
+                    }
+
+                }, 3000);            //refresh data here
+            }
+
+            @Override
+            public void onLoadMore() {
+                new Handler().postDelayed(new Runnable(){
+                    public void run() {
+                        if (load) {
+                            load(start);
+                            start = start + 10;
+
+                        }
+                        if (return_load){
+                            returnload(return_start);
+                            return_start=return_start+10;
+
+                        }
+                        mRecyclerView.loadMoreComplete();
+                    }
+
+                }, 1000);            //refresh data here
+
+            }
+        });
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -244,13 +320,57 @@ public class MainFragment extends Fragment {
                 // 判断消息的来源：通过消息的类型 what
                 switch (msg.what) {
                     case WHAT_NEWS:
-                        RecyclerView recyclerView= (RecyclerView) rootView.findViewById(R.id.recycler_view);
+
                         GridLayoutManager layoutManger=new GridLayoutManager(getActivity(),2);
 //        StaggeredGridLayoutManager layoutManger=new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.HORIZONTAL);
 //        瀑布。
-                        recyclerView.setLayoutManager(layoutManger);
+                        mRecyclerView.setLayoutManager(layoutManger);
+                        mRecyclerView.setArrowImageView(R.mipmap.iconfont_downgrey);
+                        mRecyclerView.setRefreshProgressStyle(2);
+                        mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.Pacman);
+
+
+                        /*SqlListResult sqlListResult=new SqlListResult();
+                        sqlListResult.getList(0,5,"select * from shoes");
+                         new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(210);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                getActivity().runOnUiThread(new Runnable() {
+                                    //                    runOnUiThread()方法的将线程切换回主线程，因为我们知道我们无法再副线程里面进行ui的变化，所以我们用这个方法。
+                                    @Override
+                                    public void run() {
+
+                                        SharedPreferences prefs = getActivity().getSharedPreferences("SqlListResult", Context.MODE_PRIVATE);
+                                        final SharedPreferences.Editor editor = prefs.edit();
+                                        String aa = prefs.getString("sqllistresult", null);
+                                        editor.commit();
+                                        List<Shoes> sql= null;
+                                        try {
+                                            JSONObject jsonobject=new JSONObject(aa);
+                                            JSONArray shoesArray=jsonobject.getJSONArray("result");
+                                            Gson gson=new Gson();
+                                            sql = gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<Shoes>>(){}.getType());
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                        adapter=new ShoesAdapter(sql);
+                                        mRecyclerView.setAdapter(adapter);
+
+//                        告诉它刷新结束，收回进度条。
+                                    }
+                                });
+                            }
+                        }).start();*/
+
                         adapter=new ShoesAdapter(shoesDbList);
-                        recyclerView.setAdapter(adapter);
+                        mRecyclerView.setAdapter(adapter);
+
                         break;
 
                 }
@@ -267,7 +387,7 @@ public class MainFragment extends Fragment {
         }*/
         shoesDbList.clear();
         RequestParams params=new RequestParams("http://www.shmilyz.com/ForAndroidHttp/select.action");
-        String results= "select * from shoes";
+        String results= "select * from shoes"+" LIMIT "+0+","+10;
         params.addBodyParameter("uname",results);
 
         x.http().post(params, new Callback.CacheCallback<String>() {
@@ -327,4 +447,152 @@ public class MainFragment extends Fragment {
             }
         });
     }
- }
+
+    private void returnload(int load_returnstart) {
+
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                // 负责接收Handler消息，并执行UI更新
+                // 判断消息的来源：通过消息的类型 what
+                switch (msg.what) {
+                    case WHAT_NEWSS:
+
+                        adapter.notifyDataSetChanged();
+                        mRecyclerView.loadMoreComplete();
+
+                }
+            }
+        };
+
+
+
+        RequestParams params=new RequestParams("http://www.shmilyz.com/ForAndroidHttp/select.action");
+        SharedPreferences pref=getActivity().getSharedPreferences("select_result", getActivity().MODE_PRIVATE);
+        SharedPreferences.Editor editor=pref.edit();
+        String resultss= pref.getString("sql_result","");
+        editor.remove("sql_result");
+        editor.apply();
+        String results=resultss+" LIMIT "+load_returnstart+","+"10";
+        params.addBodyParameter("uname",results);
+        x.http().post(params, new Callback.CacheCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+
+                try {
+                    JSONObject jsonobject=new JSONObject(result);
+                    JSONArray shoesArray=jsonobject.getJSONArray("result");
+                    Gson gson=new Gson();
+                    List<Shoes> shoesList=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<Shoes>>(){}.getType());
+                    for(Shoes shoes : shoesList)
+                    {
+
+                        shoesDbList.add(shoes);
+
+                    }
+                    Message msg = handler.obtainMessage() ;
+                    // 设置消息内容（可选）
+                    // 设置消息类型
+                    msg.what = WHAT_NEWSS;
+                    // 发送消息
+                    handler.sendMessage(msg) ;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
+
+    }
+
+    private void load(int load_start) {
+
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                // 负责接收Handler消息，并执行UI更新
+                // 判断消息的来源：通过消息的类型 what
+                switch (msg.what) {
+                    case WHAT_NEWSS:
+
+                            adapter.notifyDataSetChanged();
+                            mRecyclerView.loadMoreComplete();
+
+                }
+            }
+        };
+
+
+        RequestParams params=new RequestParams("http://www.shmilyz.com/ForAndroidHttp/select.action");
+        String results= "select * from shoes"+" LIMIT "+load_start+","+"10";
+        params.addBodyParameter("uname",results);
+        x.http().post(params, new Callback.CacheCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+
+                try {
+                    JSONObject jsonobject=new JSONObject(result);
+                    JSONArray shoesArray=jsonobject.getJSONArray("result");
+                    Gson gson=new Gson();
+                    List<Shoes> shoesList=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<Shoes>>(){}.getType());
+                    for(Shoes shoes : shoesList)
+                    {
+
+                        shoesDbList.add(shoes);
+
+                    }
+                    Message msg = handler.obtainMessage() ;
+                    // 设置消息内容（可选）
+                    // 设置消息类型
+                    msg.what = WHAT_NEWSS;
+                    // 发送消息
+                    handler.sendMessage(msg) ;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
+
+    }
+}

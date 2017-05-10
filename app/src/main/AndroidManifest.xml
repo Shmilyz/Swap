@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FruitActivity"
+            android:name=".ShoesActivity"
             android:theme="@style/FruitActivityTheme" />
         <activity
             android:name=".SelectActivity"

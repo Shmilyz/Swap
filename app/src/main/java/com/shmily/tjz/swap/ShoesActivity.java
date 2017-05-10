@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.jude.swipbackhelper.SwipeBackHelper;
 
-public class FruitActivity extends AppCompatActivity {
+public class ShoesActivity extends AppCompatActivity {
     public static final String SHOES_NAME ="shoes_biaoti";
     public static final String SHOES_IMAGE_ID ="fruit_image_id";
     FloatingActionButton fab;
@@ -30,9 +30,9 @@ public class FruitActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fruit);
-        Explode explode = new Explode();
+       /* Explode explode = new Explode();
         explode.setDuration(700L);
-        getWindow().setEnterTransition(explode);
+        getWindow().setEnterTransition(explode);*/
 
         SwipeBackHelper.onCreate(this);
         Intent intent=getIntent();
@@ -50,8 +50,7 @@ public class FruitActivity extends AppCompatActivity {
         }
         collapsingToolbar.setTitle(fruitName);
       Glide.with(this).load(fruitImageId).into(fruitImageView);
-        String fruitcontent=generateFruitContent(fruitName);
-        fruitContentText.setText(fruitcontent);
+        fruitContentText.setText(fruitName);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +60,7 @@ public class FruitActivity extends AppCompatActivity {
 
                             @Override
                             public void onClick(View v) {
-                                Toast.makeText(FruitActivity.this, "收藏成功！！", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ShoesActivity.this, "收藏成功！！", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .show();
@@ -81,13 +80,13 @@ public class FruitActivity extends AppCompatActivity {
         SwipeBackHelper.onDestroy(this);
     }
 
-    private String generateFruitContent(String fruitName) {
+   /* private String generateFruitContent(String fruitName) {
         StringBuilder fruitContent=new StringBuilder();
         for(int i=0;i<500;i++){
             fruitContent.append(fruitName);
         }
         return fruitContent.toString();
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

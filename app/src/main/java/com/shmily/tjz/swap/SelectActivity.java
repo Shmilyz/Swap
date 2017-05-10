@@ -84,7 +84,7 @@ public class SelectActivity extends AppCompatActivity {
 
     private Handler handler;
     final int WHAT_NEWS = 1 ;
-
+    String results;
   /*  @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -184,6 +184,7 @@ public class SelectActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor =getSharedPreferences("select_result",MODE_PRIVATE).edit();
                         editor.putString("result",select_result );
                         editor.putBoolean("can",true);
+                        editor.putString("sql_result",results);
                         editor.apply();
                         setResult(RESULT_OK);
                         SelectActivity.this.finish();
@@ -389,11 +390,10 @@ public class SelectActivity extends AppCompatActivity {
             builder.append("price ").append(" between ").append(min).append(" and ").append(max);
         }
 
-
         RequestParams params=new RequestParams("http://www.shmilyz.com/ForAndroidHttp/select.action");
-        String results= String.valueOf(builder);
-        params.addBodyParameter("uname",results);
-        final StringBuilder bu=new StringBuilder();
+         results= String.valueOf(builder);
+        String last_results=results+" LIMIT 0,10";
+        params.addBodyParameter("uname",last_results);
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess( String result) {
