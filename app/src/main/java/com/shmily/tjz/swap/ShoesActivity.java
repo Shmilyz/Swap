@@ -8,23 +8,29 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.Explode;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.huewu.pla.lib.MultiColumnListView;
+import com.huewu.pla.lib.internal.PLA_AdapterView;
 import com.jude.swipbackhelper.SwipeBackHelper;
+import com.shmily.tjz.swap.Adapter.SpecialAdapter;
+import com.shmily.tjz.swap.Db.ShoesSpecial;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShoesActivity extends AppCompatActivity {
     public static final String SHOES_NAME ="shoes_biaoti";
     public static final String SHOES_IMAGE_ID ="fruit_image_id";
     FloatingActionButton fab;
+    private SpecialAdapter adapter;
+    private List<ShoesSpecial> shoessearchList = new ArrayList<>();
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +53,7 @@ public class ShoesActivity extends AppCompatActivity {
 
         collapsingToolbar.setTitle(fruitName);
       Glide.with(this).load(fruitImageId).into(fruitImageView);
-        fruitContentText.setText(fruitName);
+//        fruitContentText.setText(fruitName);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,8 +69,28 @@ public class ShoesActivity extends AppCompatActivity {
                         .show();
             }
         });
+//        initview();
     }
+    private void initview() {
+        for (int i = 1; i <= 10; i++) {
+            StringBuilder url = new StringBuilder();
+            url.append("http://www.shmilyz.com/search/").append(i).append(".png");
+            String urls = String.valueOf(url);
+            ShoesSpecial shoessearch = new ShoesSpecial(urls);
+            shoessearchList.add(shoessearch);
 
+        }
+        MultiColumnListView multicolumn = (MultiColumnListView)findViewById(R.id.list);
+        adapter = new SpecialAdapter(ShoesActivity.this, shoessearchList);
+        multicolumn.setAdapter(adapter);
+        multicolumn.setOnItemClickListener(new PLA_AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(PLA_AdapterView<?> parent, View view, int position, long id) {
+                String pos= String.valueOf(position);
+                Toast.makeText(ShoesActivity.this, pos, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);

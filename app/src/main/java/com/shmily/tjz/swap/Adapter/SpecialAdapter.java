@@ -8,8 +8,8 @@ import android.view.WindowManager;
 import android.widget.BaseAdapter;
 
 import com.jcodecraeer.imageloader.ImageLoader;
+import com.shmily.tjz.swap.Db.ShoesSpecial;
 import com.shmily.tjz.swap.R;
-import com.shmily.tjz.swap.Db.ShoesSearch;
 import com.shmily.tjz.swap.Utils.ScaleImageView;
 
 import java.util.List;
@@ -18,14 +18,14 @@ import java.util.List;
  * Created by Shmily_Z on 2017/5/3.
  */
 
-public class SearchAdapter extends BaseAdapter {
+public class SpecialAdapter extends BaseAdapter {
     private static final String TAG = "ImageGridAdapter";
     private static final boolean DEBUG = true;
     private ImageLoader mLoader;
-    private List<ShoesSearch> mImageList;
+    private List<ShoesSpecial> mImageList;
     private LayoutInflater mLayoutInflater;
-    public SearchAdapter(Context context,
-                         List<ShoesSearch> list) {
+    public SpecialAdapter(Context context,
+                          List<ShoesSpecial> list) {
         mLoader = new ImageLoader(context);
         mLoader.setIsUseMediaStoreThumbnails(false);
         mImageList = list;

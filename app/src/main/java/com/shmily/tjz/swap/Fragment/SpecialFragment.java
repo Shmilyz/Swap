@@ -13,10 +13,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.huewu.pla.lib.MultiColumnListView;
 import com.huewu.pla.lib.internal.PLA_AdapterView;
+import com.shmily.tjz.swap.Db.ShoesSpecial;
 import com.shmily.tjz.swap.Gson.Special;
 import com.shmily.tjz.swap.R;
-import com.shmily.tjz.swap.Adapter.SearchAdapter;
-import com.shmily.tjz.swap.Db.ShoesSearch;
+import com.shmily.tjz.swap.Adapter.SpecialAdapter;
 import com.shmily.tjz.swap.Utils.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -38,9 +38,9 @@ import java.util.List;
 
 public class SpecialFragment extends Fragment {
     private View rootView;
-    private List<ShoesSearch> shoessearchList = new ArrayList<>();
+    private List<ShoesSpecial> shoessearchList = new ArrayList<>();
 
-    private SearchAdapter adapter;
+    private SpecialAdapter adapter;
     List<String> list =new ArrayList<>();
     List<Object> arrayList=new ArrayList<>();
     private Handler handler;
@@ -59,7 +59,7 @@ public class SpecialFragment extends Fragment {
             StringBuilder url = new StringBuilder();
             url.append("http://www.shmilyz.com/search/").append(i).append(".png");
             String urls = String.valueOf(url);
-            ShoesSearch shoessearch = new ShoesSearch(urls);
+            ShoesSpecial shoessearch = new ShoesSpecial(urls);
             images.add(shoessearch);
         }*/
         RequestParams params=new RequestParams("http://www.shmilyz.com/ForAndroidHttp/select.action");
@@ -162,12 +162,12 @@ public class SpecialFragment extends Fragment {
             StringBuilder url = new StringBuilder();
             url.append("http://www.shmilyz.com/search/").append(i).append(".png");
             String urls = String.valueOf(url);
-            ShoesSearch shoessearch = new ShoesSearch(urls);
+            ShoesSpecial shoessearch = new ShoesSpecial(urls);
             shoessearchList.add(shoessearch);
 
         }
         MultiColumnListView multicolumn = (MultiColumnListView) rootView.findViewById(R.id.list);
-        adapter = new SearchAdapter(getActivity(), shoessearchList);
+        adapter = new SpecialAdapter(getActivity(), shoessearchList);
         multicolumn.setAdapter(adapter);
         multicolumn.setOnItemClickListener(new PLA_AdapterView.OnItemClickListener() {
             @Override
