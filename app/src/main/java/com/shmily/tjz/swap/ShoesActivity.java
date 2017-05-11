@@ -44,10 +44,7 @@ public class ShoesActivity extends AppCompatActivity {
         TextView fruitContentText= (TextView) findViewById(R.id.fruit_content_text);
         fab= (FloatingActionButton) findViewById(R.id.fab);
         setSupportActionBar(toolbar);
-        ActionBar actionBar=getSupportActionBar();
-        if(actionBar!=null){
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+
         collapsingToolbar.setTitle(fruitName);
       Glide.with(this).load(fruitImageId).into(fruitImageView);
         fruitContentText.setText(fruitName);
@@ -88,13 +85,5 @@ public class ShoesActivity extends AppCompatActivity {
         return fruitContent.toString();
     }*/
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+
 }

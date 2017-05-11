@@ -83,6 +83,7 @@ int start=10;
             case 1:
                 if (resultCode==getActivity().RESULT_OK)
                 {
+                    return_start=10;
                     load=false;
                     return_load=true;
                     init();

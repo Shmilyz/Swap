@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingTop="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/icon_image"
+        android:src="@mipmap/aa"
+        android:layout_marginLeft="16dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/username"
+        android:text="你的微笑百度搜不到。"
+        android:layout_marginTop="12dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/icon_image"
+        android:textSize="14sp"
+        android:layout_marginLeft="16dp"
+         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/icon_image"
+        android:layout_below="@id/username"
+        android:text="中国 天津市 西青区"
+        android:textColor="#42DEB7"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:textSize="10sp"
+        />
+
+</RelativeLayout>

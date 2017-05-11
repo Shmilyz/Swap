@@ -27,11 +27,7 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.main">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ShoesActivity"
@@ -58,7 +54,18 @@
         <service
             android:name=".Srevice.SearchService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".Rubbish.RubbishActivity"
+                android:theme="@style/FruitActivityTheme"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest><!--
