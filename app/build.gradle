@@ -34,7 +34,7 @@ dependencies {
     compile 'liji.library.dev:multilinechooselib:1.4.0'
     compile 'com.jude:swipebackhelper:3.1.2'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
-    compile 'org.xutils:xutils:3.3.40'
+    compile 'org.xutils:xutils:3.5.0'
     compile 'com.github.czy1121:roundbutton:1.1.0'
     compile 'com.crystal:crystalrangeseekbar:1.1.1'
     compile 'com.github.rubensousa:floatingtoolbar:1.4.4'

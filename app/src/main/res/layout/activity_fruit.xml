@@ -117,15 +117,17 @@
                     <include  layout="@layout/info_nest"/>
                 </LinearLayout>
 
-                <fragment
-                    android:id="@+id/fg1"
+
+                <com.huewu.pla.lib.MultiColumnListView
                     android:layout_marginTop="20dp"
                     android:layout_below="@id/infonest"
+                    android:background="#FFFFFF"
+                    android:id="@+id/show_list"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:name="com.shmily.tjz.swap.Fragment.SpecialFragment"
-                    />
-
+                    android:layout_height="2100dp"
+                    pla:plaColumnNumber="2"
+                    pla:plaLandscapeColumnNumber="2">
+                </com.huewu.pla.lib.MultiColumnListView>
             </RelativeLayout>
 
         </RelativeLayout>

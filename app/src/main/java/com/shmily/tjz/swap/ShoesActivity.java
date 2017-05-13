@@ -69,7 +69,7 @@ public class ShoesActivity extends AppCompatActivity {
                         .show();
             }
         });
-//        initview();
+        initview();
     }
     private void initview() {
         for (int i = 1; i <= 10; i++) {
@@ -80,7 +80,7 @@ public class ShoesActivity extends AppCompatActivity {
             shoessearchList.add(shoessearch);
 
         }
-        MultiColumnListView multicolumn = (MultiColumnListView)findViewById(R.id.list);
+        MultiColumnListView multicolumn = (MultiColumnListView)findViewById(R.id.show_list);
         adapter = new SpecialAdapter(ShoesActivity.this, shoessearchList);
         multicolumn.setAdapter(adapter);
         multicolumn.setOnItemClickListener(new PLA_AdapterView.OnItemClickListener() {

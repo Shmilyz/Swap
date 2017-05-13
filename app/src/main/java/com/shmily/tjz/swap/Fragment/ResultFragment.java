@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shmily.tjz.swap.Adapter.ShoesAdapter;
-import com.shmily.tjz.swap.Db.ShoesDb;
 import com.shmily.tjz.swap.Gson.Shoes;
 import com.shmily.tjz.swap.R;
 

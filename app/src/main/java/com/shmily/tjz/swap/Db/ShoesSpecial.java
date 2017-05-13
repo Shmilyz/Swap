@@ -5,17 +5,17 @@ package com.shmily.tjz.swap.Db;
  */
 
 public class ShoesSpecial {
-    private String imageId;
+    private String imageUrl;
 
-    public ShoesSpecial(String imageId) {
-        this.imageId = imageId;
+    public ShoesSpecial(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public String getImageId() {
-        return imageId;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImageId(String imageId) {
-        this.imageId = imageId;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
