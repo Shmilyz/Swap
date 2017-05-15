@@ -50,7 +50,7 @@ public class ShoesActivity extends AppCompatActivity {
         TextView fruitContentText= (TextView) findViewById(R.id.fruit_content_text);
         fab= (FloatingActionButton) findViewById(R.id.fab);
         setSupportActionBar(toolbar);
-
+        initview();
         collapsingToolbar.setTitle(fruitName);
       Glide.with(this).load(fruitImageId).into(fruitImageView);
 //        fruitContentText.setText(fruitName);
@@ -69,10 +69,9 @@ public class ShoesActivity extends AppCompatActivity {
                         .show();
             }
         });
-        initview();
     }
     private void initview() {
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 4; i++) {
             StringBuilder url = new StringBuilder();
             url.append("http://www.shmilyz.com/search/").append(i).append(".png");
             String urls = String.valueOf(url);
@@ -80,7 +79,7 @@ public class ShoesActivity extends AppCompatActivity {
             shoessearchList.add(shoessearch);
 
         }
-        MultiColumnListView multicolumn = (MultiColumnListView)findViewById(R.id.show_list);
+        MultiColumnListView multicolumn = (MultiColumnListView) findViewById(R.id.show_sec_list);
         adapter = new SpecialAdapter(ShoesActivity.this, shoessearchList);
         multicolumn.setAdapter(adapter);
         multicolumn.setOnItemClickListener(new PLA_AdapterView.OnItemClickListener() {
@@ -91,6 +90,7 @@ public class ShoesActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);

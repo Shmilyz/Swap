@@ -47,6 +47,7 @@
             android:textColor="#FFFFFF"
             android:textSize="15sp"
             />
+
     </LinearLayout>
 
     <ezy.ui.view.RoundButton
