@@ -32,4 +32,16 @@
         android:id="@+id/po"
         android:text="ssss"
         />
+    <ezy.ui.view.RoundButton
+        android:layout_marginTop="20dp"
+        android:layout_width="90dp"
+        android:layout_height="20dp"
+        app:btnStrokeWidth="2dp"
+        android:text="查看全部评价"
+        android:id="@+id/weather"
+        app:btnCornerRadius="10dp"
+        app:btnStrokeColor="#111212"
+        android:textSize="12sp"
+        android:textColor="#42DEB7"
+        />
 </LinearLayout>

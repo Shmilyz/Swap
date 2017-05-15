@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:pla="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_marginTop="10dp"
     android:layout_width="match_parent"
@@ -58,19 +57,23 @@
               />
 
         </RelativeLayout>
-        <ezy.ui.view.RoundButton
-            android:layout_marginTop="20dp"
-            android:layout_below="@id/dicuss"
-            android:layout_width="90dp"
-            android:layout_height="20dp"
-            app:btnStrokeWidth="1dp"
-            android:text="查看全部评价"
-            android:id="@+id/weather"
-            app:btnCornerRadius="10dp"
-            app:btnStrokeColor="#42DEB7"
-            android:textSize="12sp"
-            android:textColor="#42DEB7"
-            />
+
+
+            <ezy.ui.view.RoundButton
+                android:layout_marginTop="13dp"
+                android:layout_below="@id/dicuss"
+                android:layout_width="90dp"
+                android:layout_height="25dp"
+                app:btnStrokeWidth="0.5dp"
+                android:text="查看全部评价"
+                android:id="@+id/weather"
+                app:btnCornerRadius="10dp"
+                app:btnStrokeColor="#42DEB7"
+                android:textSize="12sp"
+                android:textColor="#42DEB7"
+                android:layout_gravity="center"
+                />
+
     </LinearLayout>
     <com.huewu.pla.lib.MultiColumnListView
         android:background="#FFFFFF"
