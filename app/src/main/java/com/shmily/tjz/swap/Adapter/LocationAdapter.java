@@ -25,7 +25,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View v = inflater.inflate(R.layout.item_shop_card, parent, false);
+        View v = inflater.inflate(R.layout.item_location_card, parent, false);
         return new ViewHolder(v);
     }
 

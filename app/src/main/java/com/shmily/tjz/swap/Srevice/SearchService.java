@@ -46,14 +46,53 @@ public class SearchService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         update();
+        updates();
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        int anHour = 20* 60*1000; // 这是8小时的毫秒数
+        int anHour = 20*60*1000; // 这是8小时的毫秒数
         long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
         Intent i = new Intent(this, SearchService.class);
         PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
         manager.cancel(pi);
         manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, pi);
         return super.onStartCommand(intent, flags, startId);
+    }
+    private void updates() {
+
+        RequestParams params=new RequestParams("http://www.shmilyz.com/ForAndroidHttp/select.action");
+        String results= "select * from shoes";
+        params.addBodyParameter("uname",results);
+
+        x.http().post(params, new Callback.CacheCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                final SharedPreferences pref=getSharedPreferences("shoes_result_service",MODE_PRIVATE);
+                final SharedPreferences.Editor editor=pref.edit();
+                editor.clear();
+                editor.putString("all_result",result);
+                editor.apply();
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
     }
 
     private void update() {

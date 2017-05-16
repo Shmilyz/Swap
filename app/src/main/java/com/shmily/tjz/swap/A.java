@@ -34,7 +34,7 @@ public class A extends AppCompatActivity {
         String b = (String) intent.getSerializableExtra("ss");
 //        a.setText(b);
 
-                Position Position = new Position();
+               /* Position Position = new Position();
                 Position.getLocation(A.this);
                 new Thread(new Runnable() {
                     @Override
@@ -57,11 +57,13 @@ public class A extends AppCompatActivity {
                             }
                         });
                     }
-                }).start();
+                }).start();*/
+        SharedPreferences pref=getSharedPreferences("shoes_result_service",MODE_PRIVATE);
+    String result=pref.getString("shoes_result_service","");
+        a.setText(result);
 
 
-
-            int i=1;
+        int i=1;
         StringBuilder url=new StringBuilder();
         url.append("http://www.shmilyz.com/search/").append(i).append(".png");
         String urls= String.valueOf(url);

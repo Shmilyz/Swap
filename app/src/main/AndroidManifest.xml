@@ -60,12 +60,10 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".Rubbish.RubbishActivity"
-                android:theme="@style/FruitActivityTheme"
-            >
+        <activity
+            android:name=".Rubbish.RubbishActivity"
+            android:theme="@style/FruitActivityTheme"></activity>
 
-
-        </activity>
     </application>
 
 </manifest><!--

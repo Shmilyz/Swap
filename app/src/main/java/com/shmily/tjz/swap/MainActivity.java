@@ -23,7 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shmily.tjz.swap.Fragment.LocationFragment;
-import com.shmily.tjz.swap.Fragment.MainFragment;
 import com.shmily.tjz.swap.Fragment.ViewPagerFragmwnt;
 import com.shmily.tjz.swap.Srevice.SearchService;
 
@@ -52,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Intent Startservice=new Intent(this, SearchService.class);
         startService(Startservice);
+
+
         replaceFragment(new ViewPagerFragmwnt());
 
         SharedPreferences prefs=getSharedPreferences("user", Context.MODE_PRIVATE);

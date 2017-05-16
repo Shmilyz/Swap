@@ -98,6 +98,7 @@
                     android:textColor="#D3D3D3"
                     android:layout_marginTop="5dp"
                     />
+
                 <LinearLayout
                     android:id="@+id/usernest"
                     android:layout_width="match_parent"
@@ -107,6 +108,7 @@
                     >
                     <include  layout="@layout/user_nest"/>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -122,13 +124,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_below="@id/infonest"
+                    android:id="@+id/show_src"
                     >
-                    <fragment
-                        android:id="@+id/show_src_fragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:name="com.shmily.tjz.swap.Fragment.ShowSrcFragment"
-                        />
+
+                    <include  layout="@layout/show_src"/>
                 </LinearLayout>
             </RelativeLayout>
 
@@ -167,9 +166,7 @@
             android:layout_weight="1" >
             <TextView
                 android:background="@color/translucent"
-
                 android:clickable="true"
-
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
