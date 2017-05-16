@@ -5,16 +5,18 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.transition.Fade;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -35,7 +37,8 @@ import com.shmily.tjz.swap.Gson.Shoes;
 import com.shmily.tjz.swap.SearchActivity;
 import com.shmily.tjz.swap.SelectActivity;
 import com.shmily.tjz.swap.R;
-import com.shmily.tjz.swap.Utils.SqlListResult;
+import com.shmily.tjz.swap.ShoesActivity;
+import com.weavey.loading.lib.LoadingLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,12 +50,15 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.CONNECTIVITY_SERVICE;
+
 
 /**
  * Created by Shmily_Z on 2017/5/2.
  */
 
 public class MainFragment extends Fragment {
+    private LoadingLayout loadingLayout;
     private View rootView;
     private XRecyclerView mRecyclerView;
     private DrawerLayout mDrawerLayout;
@@ -99,6 +105,7 @@ int start=10;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView=inflater.inflate(R.layout.main_fragment, container, false);
+
         //        过场动画
         Fade fade = new Fade();
         fade.setDuration(700L);
@@ -116,7 +123,55 @@ int start=10;
                     }
                 })
                 .show();
+        loadnet();
+
         return rootView;
+    }
+
+    private void loadnet() {
+        loadingLayout=(LoadingLayout)rootView.findViewById(R.id.main_fragment_load_layout);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(CONNECTIVITY_SERVICE);
+        //获取系统的连接服务。
+         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        //获取网络的连接情况。
+        if (networkInfo != null && networkInfo.isAvailable()) {
+          /*  if (networkInfo.getType()==connectivityManager.TYPE_WIFI){
+                Toast.makeText(A.this,"网络已启动啦(WIFI)",Toast.LENGTH_SHORT).show();
+            }else if (networkInfo.getType()==connectivityManager.TYPE_MOBILE) {
+                Toast.makeText(A.this,"网络已启动啦(3G)",Toast.LENGTH_SHORT).show();
+
+            }*/
+            loadingLayout.setStatus(LoadingLayout.Success);//加载成功
+
+
+        } else {
+            loadingLayout.setStatus(LoadingLayout.No_Network);//无网络
+
+        }
+        loadingLayout.setOnReloadListener(new LoadingLayout.OnReloadListener() {
+            @Override
+            public void onReload(View v) {
+                ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(CONNECTIVITY_SERVICE);
+                //获取系统的连接服务。
+                 NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+                //获取网络的连接情况。
+                if (networkInfo != null && networkInfo.isAvailable()) {
+          /*  if (networkInfo.getType()==connectivityManager.TYPE_WIFI){
+                Toast.makeText(A.this,"网络已启动啦(WIFI)",Toast.LENGTH_SHORT).show();
+            }else if (networkInfo.getType()==connectivityManager.TYPE_MOBILE) {
+                Toast.makeText(A.this,"网络已启动啦(3G)",Toast.LENGTH_SHORT).show();
+
+            }*/
+                    loadingLayout.setStatus(LoadingLayout.Success);//加载成功
+                    init();
+
+                } else {
+                    Snackbar.make(v,"改善网络环境后再试。",Snackbar.LENGTH_LONG)
+                            .show();
+                }
+
+            }
+        });
     }
 
     private void initView() {
@@ -520,6 +575,7 @@ int start=10;
 
             @Override
             public boolean onCache(String result) {
+
                 return false;
             }
         });

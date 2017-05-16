@@ -48,7 +48,9 @@
             android:enabled="true"
             android:process=":remote" />
 
-        <activity android:name=".A" />
+        <activity android:name=".A" >
+
+        </activity>
         <activity android:name=".SignLoginActivity" />
         <activity
             android:name=".SearchActivity"
@@ -66,7 +68,9 @@
 
     </application>
 
-</manifest><!--
+</manifest>
+
+    <!--
             android:windowSoftInputMode="adjustPan"
 防止小键盘出来压缩Listview
 -->

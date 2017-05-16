@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
+<com.weavey.loading.lib.LoadingLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main_fragment_load_layout"
+    app:isFirstVisible="true">
+<android.support.v4.widget.DrawerLayout
+
     android:id="@+id/activity_main"
     android:background="#FFFFFF"
     android:layout_width="match_parent"
@@ -45,3 +51,4 @@
 
 
 </android.support.v4.widget.DrawerLayout>
+</com.weavey.loading.lib.LoadingLayout>
