@@ -1,9 +1,17 @@
 package com.shmily.tjz.swap.Fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +26,7 @@ import com.shmily.tjz.swap.Gson.Special;
 import com.shmily.tjz.swap.R;
 import com.shmily.tjz.swap.Adapter.SpecialAdapter;
 import com.shmily.tjz.swap.Utils.GlideImageLoader;
+import com.weavey.loading.lib.LoadingLayout;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -32,6 +41,8 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.CONNECTIVITY_SERVICE;
+
 /**
  * Created by Shmily_Z on 2017/5/3.
  */
@@ -45,12 +56,45 @@ public class SpecialFragment extends Fragment {
     List<Object> arrayList=new ArrayList<>();
     private Handler handler;
     final int WHAT_NEWS = 1 ;
+
+    private IntentFilter intentFilter;
+    private LocalReceiver localReceiver;
+    private LocalBroadcastManager localBroadcastManger;
+    private LoadingLayout loadingLayout;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.special_fragment, container, false);
+        localBroadcastManger=LocalBroadcastManager.getInstance(getActivity());
+        intentFilter=new IntentFilter();
+        intentFilter.addAction("com.shmily.tjz.swap.LOCAL_SPECIAL");
+        localReceiver=new LocalReceiver();
+        localBroadcastManger.registerReceiver(localReceiver,intentFilter);
+        loadnet();
         initroll();
         initview();
         return rootView;
+    }
+    private void loadnet() {
+        loadingLayout=(LoadingLayout)rootView.findViewById(R.id.special_fragment_load_layout);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(CONNECTIVITY_SERVICE);
+        //获取系统的连接服务。
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        //获取网络的连接情况。
+        if (networkInfo != null && networkInfo.isAvailable()) {
+          /*  if (networkInfo.getType()==connectivityManager.TYPE_WIFI){
+                Toast.makeText(A.this,"网络已启动啦(WIFI)",Toast.LENGTH_SHORT).show();
+            }else if (networkInfo.getType()==connectivityManager.TYPE_MOBILE) {
+                Toast.makeText(A.this,"网络已启动啦(3G)",Toast.LENGTH_SHORT).show();
+
+            }*/
+            loadingLayout.setStatus(LoadingLayout.Success);//加载成功
+
+
+        } else {
+            loadingLayout.setStatus(LoadingLayout.Loading);
+        }
+
     }
 
     private void initroll() {
@@ -157,6 +201,12 @@ public class SpecialFragment extends Fragment {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        localBroadcastManger.unregisterReceiver(localReceiver);
+    }
+
     private void initview() {
         for (int i = 1; i <= 24; i++) {
             StringBuilder url = new StringBuilder();
@@ -177,4 +227,13 @@ public class SpecialFragment extends Fragment {
             }
         });
     }
+
+     class LocalReceiver extends BroadcastReceiver{
+         @Override
+         public void onReceive(Context context, Intent intent) {
+             loadnet();
+             initroll();
+             initview();
+                    }
+     }
 }

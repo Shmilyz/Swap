@@ -15,6 +15,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.transition.Fade;
@@ -69,7 +70,9 @@ public class MainFragment extends Fragment {
     private Handler handler;
     final int WHAT_NEWS = 1 ;
     final int WHAT_NEWSS = 2 ;
-int start=10;
+    private LocalBroadcastManager localBroadcastManger;
+
+    int start=10;
     int return_start=10;
     boolean load=true;
     boolean return_load=false;
@@ -164,6 +167,9 @@ int start=10;
             }*/
                     loadingLayout.setStatus(LoadingLayout.Success);//加载成功
                     init();
+                    Intent intent=new Intent("com.shmily.tjz.swap.LOCAL_SPECIAL");
+                    localBroadcastManger=LocalBroadcastManager.getInstance(getActivity());
+                    localBroadcastManger.sendBroadcast(intent);
 
                 } else {
                     Snackbar.make(v,"改善网络环境后再试。",Snackbar.LENGTH_LONG)

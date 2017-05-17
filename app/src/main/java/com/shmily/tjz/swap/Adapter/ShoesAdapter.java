@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.shmily.tjz.swap.ShoesActivity;
 import com.shmily.tjz.swap.Gson.Shoes;
 import com.shmily.tjz.swap.R;
@@ -55,7 +56,8 @@ public class ShoesAdapter extends RecyclerView.Adapter<ShoesAdapter.ViewHolder>{
     public void onBindViewHolder(ViewHolder holder, int position) {
         Shoes shoes = mShoesList.get(position);
         holder.fruitName.setText(shoes.getMiaoshu());
-        Glide.with(mContext).load(shoes.getPicture()).into(holder.fruitImage);
+        Glide.with(mContext).load(shoes.getPicture()). skipMemoryCache( true ).diskCacheStrategy(DiskCacheStrategy.NONE).into(holder.fruitImage);
+
 
         /*
         *  Glide.with(GlideActivity.this)

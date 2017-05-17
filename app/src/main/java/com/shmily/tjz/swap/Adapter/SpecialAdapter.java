@@ -60,6 +60,7 @@ public class SpecialAdapter extends BaseAdapter {
         }
         holder = (ViewHolder) convertView.getTag();
         mLoader.DisplayImage(mImageList.get(position).getImageUrl(), holder.imageView);
+        mLoader.clearCache();
         return convertView;
     }
 

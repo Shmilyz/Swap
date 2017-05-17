@@ -2,6 +2,7 @@ package com.shmily.tjz.swap;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -14,23 +15,60 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.weavey.loading.lib.LoadingLayout;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.engine.impl.GlideEngine;
+import com.zhihu.matisse.filter.Filter;
+import android.net.Uri;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class A extends AppCompatActivity {
 
-    @BindView(R.id.a)
-    TextView a;
+
     ImageView imageView;
     @BindView(R.id.po)
     Button po;
+    private static final int REQUEST_CODE_CHOOSE = 23;
+    List<Uri> mSelected;
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
+            mSelected = Matisse.obtainResult(data);
+            Toast.makeText(this, mSelected.get(0).toString(), Toast.LENGTH_SHORT).show();
+            Glide.with(this).load(mSelected.get(0).toString()).into(imageView);
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a);
+
+        Button button= (Button) findViewById(R.id.select);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Matisse.from(A.this)
+                        .choose(MimeType.allOf())
+                        .countable(true)
+                        .maxSelectable(9)
+                        .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
+                        .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+                        .thumbnailScale(0.85f)
+                        .imageEngine(new GlideEngine())
+                        .theme(R.style.Matisse_Dracula)
+                        .forResult(REQUEST_CODE_CHOOSE);
+            }
+        });
+
+
+
         LoadingLayout  loading = (LoadingLayout) findViewById(R.id.load_layout);
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         //获取系统的连接服务。
@@ -59,7 +97,6 @@ public class A extends AppCompatActivity {
                 }
             });
         imageView = (ImageView) findViewById(R.id.image);
-        ButterKnife.bind(this);
         Intent intent = getIntent();
 
         String b = (String) intent.getSerializableExtra("ss");
@@ -91,14 +128,13 @@ public class A extends AppCompatActivity {
                 }).start();*/
         SharedPreferences pref = getSharedPreferences("shoes_result_service", MODE_PRIVATE);
         String result = pref.getString("shoes_result_service", "");
-        a.setText(result);
 
 
         int i = 1;
         StringBuilder url = new StringBuilder();
         url.append("http://www.shmilyz.com/search/").append(i).append(".png");
         String urls = String.valueOf(url);
-        Glide.with(this).load(urls).into(imageView);
+//        Glide.with(this).load(urls).into(imageView);
 
     }
 }

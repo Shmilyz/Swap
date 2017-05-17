@@ -22,8 +22,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jcodecraeer.imageloader.ImageLoader;
 import com.shmily.tjz.swap.Fragment.LocationFragment;
 import com.shmily.tjz.swap.Fragment.ViewPagerFragmwnt;
+import com.shmily.tjz.swap.Rubbish.LoginActivity;
 import com.shmily.tjz.swap.Srevice.SearchService;
 
 import java.util.ArrayList;
@@ -32,9 +34,17 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     String username;
+    private ImageLoader mLoader;
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
+    }
 
     @Override
     public void onBackPressed() {
+        mLoader = new ImageLoader(MainActivity.this);
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         }
@@ -62,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (!isGuideLoaded){
 
-            Intent intent=new Intent(MainActivity.this,SignLoginActivity.class);
+            Intent intent=new Intent(MainActivity.this,LoginActivity.class);
             startActivity(intent);
             MainActivity.this.finish();
         }

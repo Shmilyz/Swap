@@ -7,6 +7,7 @@ package com.shmily.tjz.swap.Utils;
 import android.app.Application;
 import android.content.Context;
 
+
 import com.shmily.tjz.swap.R;
 import com.weavey.loading.lib.LoadingLayout;
 
@@ -19,6 +20,7 @@ import org.xutils.x;
 
 public class MyApplication extends Application {
     private  static Context context;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -39,6 +41,8 @@ public class MyApplication extends Application {
                 .setReloadButtonTextSize(14)
                 .setReloadButtonTextColor(R.color.black)
                 .setReloadButtonWidthAndHeight(150,40);
+        LoadingLayout.getConfig().setLoadingPageLayout(R.layout.define_loading_page);
+
 
     }
     /*

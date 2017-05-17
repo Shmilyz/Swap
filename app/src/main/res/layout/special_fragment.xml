@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<com.weavey.loading.lib.LoadingLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:pla="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/special_fragment_load_layout"
+    app:isFirstVisible="true">
+<ScrollView
+
     android:fillViewport="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 <LinearLayout
     android:orientation="vertical"
-    android:background="#FFF"
+    android:background="#384A56"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.youth.banner.Banner
@@ -17,7 +23,7 @@
         android:layout_height="200dp" />
 
     <com.huewu.pla.lib.MultiColumnListView
-        android:background="#FFFFFF"
+        android:background="#384A56"
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="2100dp"
@@ -26,3 +32,4 @@
     </com.huewu.pla.lib.MultiColumnListView>
 </LinearLayout>
 </ScrollView>
+   </com.weavey.loading.lib.LoadingLayout>
