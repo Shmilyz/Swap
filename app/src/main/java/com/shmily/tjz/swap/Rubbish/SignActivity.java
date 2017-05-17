@@ -10,9 +10,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.jaiky.imagespickers.ImageConfig;
+import com.jaiky.imagespickers.ImageSelector;
+import com.jaiky.imagespickers.ImageSelectorActivity;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.shmily.tjz.swap.A;
 import com.shmily.tjz.swap.MainActivity;
 import com.shmily.tjz.swap.R;
+import com.shmily.tjz.swap.Utils.ImageConfigGlideLoader;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,11 +25,107 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
-public class SignActivity extends AppCompatActivity {
+import java.io.File;
+import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
+
+public class SignActivity extends AppCompatActivity {
+    private CircleImageView imageView;
     private MaterialEditText uname,upass;
     private Button button;
     String name,pass;
+    String image_path;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == ImageSelector.IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            // 获取选中的图片路径列表 Get Images Path List
+            List<String> pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT);
+            Toast.makeText(this, pathList.get(0).toString(), Toast.LENGTH_SHORT).show();
+            File file1=new File(pathList.get(0).toString());
+            Luban.get(this)
+                    .load(file1)                     //传人要压缩的图片
+                    .putGear(Luban.THIRD_GEAR)      //设定压缩档次，默认三挡
+                    .setCompressListener(new OnCompressListener() { //设置回调
+
+                        @Override
+                        public void onStart() {
+                            // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                        }
+                        @Override
+                        public void onSuccess(File file) {
+                             image_path=file.getPath();
+                            //Toast.makeText(SignActivity.this, file.getPath(), Toast.LENGTH_SHORT).show();
+
+                            // TODO 压缩成功后调用，返回压缩后的图片文件
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            // TODO 当压缩过去出现问题时调用
+                        }
+                    }).launch();    //启动压缩
+
+        }
+
+    }
+
+    private void uploadFile(File file) {
+        RequestParams params = new RequestParams("http://www.shmilyz.com/ForAndroidUpload/upload.do") ;
+        params.setMultipart(true);    // 文件上传必须有该语句
+        params.addBodyParameter("file" , "headimage");
+        params.addBodyParameter("username" , name);
+        params.addBodyParameter("userphoto" , file);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+
+                try {
+                    JSONObject json = new JSONObject(result);
+                    String results = json.getString("result");
+
+                    if (results.equals("1")) {
+                        Toast.makeText(SignActivity.this, "注册成功！", Toast.LENGTH_SHORT).show();
+                        SharedPreferences prefs=getSharedPreferences("user", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor=prefs.edit();
+                        editor.putString("username",name);
+                        editor.putBoolean("denglu",true);
+                        editor.commit();
+                        Intent intent=new Intent(SignActivity.this,MainActivity.class);
+                        startActivity(intent);
+                        SignActivity.this.finish();
+                    } else {
+                        Toast.makeText(SignActivity.this, "失败！！！", Toast.LENGTH_SHORT).show();
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        }) ;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +133,33 @@ public class SignActivity extends AppCompatActivity {
         uname= (MaterialEditText) findViewById(R.id.editText3);
         upass= (MaterialEditText) findViewById(R.id.editText4);
         button= (Button) findViewById(R.id.registerbutton);
+        imageView= (CircleImageView) findViewById(R.id.sign_image);
+        signimage();
         init();
+    }
+
+    private void signimage() {
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageConfig imageConfig
+                        = new ImageConfig.Builder(new ImageConfigGlideLoader())
+                        // 修改状态栏颜色
+                        .steepToolBarColor(getResources().getColor(R.color.blue))
+                        // 标题的背景颜色
+                        .titleBgColor(getResources().getColor(R.color.blue))
+                        // 提交按钮字体的颜色
+                        .titleSubmitTextColor(getResources().getColor(R.color.white))
+                        // 标题颜色
+                        .titleTextColor(getResources().getColor(R.color.white))
+                        .showCamera()
+                     .singleSelect()
+                        .crop()
+                        .build();
+                ImageSelector.open(SignActivity.this, imageConfig);
+
+            }
+        });
     }
 
     private void init() {
@@ -53,7 +180,8 @@ public class SignActivity extends AppCompatActivity {
             String results = json.getString("result");
 
             if (results.equals("1")) {
-                Toast.makeText(SignActivity.this, "注册成功！", Toast.LENGTH_SHORT).show();
+                uploadFile(new File(image_path));
+               /* Toast.makeText(SignActivity.this, "注册成功！", Toast.LENGTH_SHORT).show();
                 SharedPreferences prefs=getSharedPreferences("user", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor=prefs.edit();
                 editor.putString("username",name);
@@ -61,7 +189,7 @@ public class SignActivity extends AppCompatActivity {
                 editor.commit();
                 Intent intent=new Intent(SignActivity.this,MainActivity.class);
                 startActivity(intent);
-                SignActivity.this.finish();
+                SignActivity.this.finish();*/
             } else {
                 Toast.makeText(SignActivity.this, "失败！！！", Toast.LENGTH_SHORT).show();
 

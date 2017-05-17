@@ -8,24 +8,29 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
-
-
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/sign_image"
+        android:src="@mipmap/camera"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
     <com.rengwuxian.materialedittext.MaterialEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editText3"
+        android:layout_below="@id/sign_image"
         app:met_baseColor="#0056d3"
         app:met_primaryColor="#c757d6"
         app:met_floatingLabel="normal"
         app:met_maxCharacters="10"
         app:met_clearButton= "true"
         android:hint=" 账户"
-        android:layout_marginTop="89dp"
+        android:layout_marginTop="20dp"
         android:imeOptions="actionNext"
         android:inputType="text"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:layout_width="match_parent"
@@ -55,5 +60,8 @@
         android:layout_below="@+id/editText4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+
+
 </RelativeLayout>
 

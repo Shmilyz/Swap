@@ -1,5 +1,6 @@
 package com.shmily.tjz.swap;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -10,10 +11,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.imnjh.imagepicker.SImagePicker;
+import com.imnjh.imagepicker.activity.PhotoPickerActivity;
+import com.jaiky.imagespickers.ImageConfig;
+import com.jaiky.imagespickers.ImageLoader;
+import com.jaiky.imagespickers.ImageSelector;
+import com.jaiky.imagespickers.ImageSelectorActivity;
+import com.shmily.tjz.swap.Rubbish.ForSelectGlideImageLoader;
+import com.shmily.tjz.swap.Utils.GlideImageLoader;
+import com.shmily.tjz.swap.Utils.ImageConfigGlideLoader;
+import com.theartofdev.edmodo.cropper.CropImage;
 import com.weavey.loading.lib.LoadingLayout;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -21,49 +33,167 @@ import com.zhihu.matisse.engine.impl.GlideEngine;
 import com.zhihu.matisse.filter.Filter;
 import android.net.Uri;
 
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class A extends AppCompatActivity {
 
 
-    ImageView imageView;
+    CircleImageView imageView;
     @BindView(R.id.po)
     Button po;
     private static final int REQUEST_CODE_CHOOSE = 23;
+    private static final int REQUEST_CODE_IMAGE = 25;
+
     List<Uri> mSelected;
+    private LinearLayout llContainer;
 
+    private void uploadFile(File file) {
+        RequestParams params = new RequestParams("http://www.shmilyz.com/ForAndroidUpload/upload.do") ;
+        params.setMultipart(true);    // 文件上传必须有该语句
+        params.addBodyParameter("file" , "headimage");
+        params.addBodyParameter("username" , "张三");
+        params.addBodyParameter("userphoto" , file);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
 
+                Toast.makeText(A.this, result, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        }) ;
+
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
+     /*   if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
             mSelected = Matisse.obtainResult(data);
-            Toast.makeText(this, mSelected.get(0).toString(), Toast.LENGTH_SHORT).show();
-            Glide.with(this).load(mSelected.get(0).toString()).into(imageView);
+//            Toast.makeText(this, mSelected.get(0).toString(), Toast.LENGTH_SHORT).show();
+            CropImage.activity( mSelected.get(0))
+                    .start(this);
+
         }
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                Glide.with(this).load(resultUri).into(imageView);
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        }*/
+
+      /*  if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_IMAGE) {
+            final ArrayList<String> pathList =
+                    data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT_SELECTION);
+            final boolean original =
+                    data.getBooleanExtra(PhotoPickerActivity.EXTRA_RESULT_ORIGINAL, false);
+        }*/
+        if (requestCode == ImageSelector.IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            // 获取选中的图片路径列表 Get Images Path List
+            List<String> pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT);
+            Toast.makeText(this, pathList.get(0).toString(), Toast.LENGTH_SHORT).show();
+                 File file1=new File(pathList.get(0).toString());
+
+           Luban.get(this)
+                    .load(file1)                     //传人要压缩的图片
+                    .putGear(Luban.THIRD_GEAR)      //设定压缩档次，默认三挡
+                    .setCompressListener(new OnCompressListener() { //设置回调
+
+                        @Override
+                        public void onStart() {
+                            // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                        }
+                        @Override
+                        public void onSuccess(File file) {
+                            uploadFile(file);
+                            // TODO 压缩成功后调用，返回压缩后的图片文件
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            // TODO 当压缩过去出现问题时调用
+                        }
+                    }).launch();    //启动压缩
+
+        }
+
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a);
-
+        llContainer= (LinearLayout) findViewById(R.id.llContainer);
         Button button= (Button) findViewById(R.id.select);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Matisse.from(A.this)
+
+
+               /* SImagePicker
+                        .from(A.this)
+                        .maxCount(9)
+                        .rowCount(3)
+                        .showCamera(true)
+                        .pickMode(SImagePicker.MODE_IMAGE)
+                        .forResult(REQUEST_CODE_IMAGE);*/
+           /*     Matisse.from(A.this)
                         .choose(MimeType.allOf())
                         .countable(true)
-                        .maxSelectable(9)
+                        .maxSelectable(1)
                         .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
                         .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
                         .thumbnailScale(0.85f)
                         .imageEngine(new GlideEngine())
                         .theme(R.style.Matisse_Dracula)
-                        .forResult(REQUEST_CODE_CHOOSE);
+                        .forResult(REQUEST_CODE_CHOOSE);*/
+                /*两种方式实现加载图片选择器和剪裁 但是第二种的作者实现的图片选择器有细节bug，所以采用这种组合式的图片选择器，先选择后剪裁。*/
+
+
+                ImageConfig imageConfig
+                        = new ImageConfig.Builder(new ImageConfigGlideLoader())
+                        // 修改状态栏颜色
+                        .steepToolBarColor(getResources().getColor(R.color.blue))
+                        // 标题的背景颜色
+                        .titleBgColor(getResources().getColor(R.color.blue))
+                        // 提交按钮字体的颜色
+                        .titleSubmitTextColor(getResources().getColor(R.color.white))
+                        // 标题颜色
+                        .titleTextColor(getResources().getColor(R.color.white))
+                        .showCamera()
+                  /*    .singleSelect()
+//                        .crop(1, 2, 500, 1000)
+                        .crop()*/
+                        .setContainer(llContainer, 4, true)
+                        .setContainer(llContainer)
+                        .build();
+                ImageSelector.open(A.this, imageConfig);
             }
         });
 
@@ -96,7 +226,7 @@ public class A extends AppCompatActivity {
                     Toast.makeText(A.this, "AAAA", Toast.LENGTH_SHORT).show();
                 }
             });
-        imageView = (ImageView) findViewById(R.id.image);
+        imageView = (CircleImageView) findViewById(R.id.icon_image);
         Intent intent = getIntent();
 
         String b = (String) intent.getSerializableExtra("ss");

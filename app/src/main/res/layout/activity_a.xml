@@ -20,7 +20,16 @@
         android:id="@+id/select"
         android:text="选择照片"
         />
+    <LinearLayout
+        android:id="@+id/llContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
 
+    </LinearLayout>
     <com.like.LikeButton
         app:icon_type="heart"
         app:icon_size="25dp"
@@ -28,10 +37,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/image"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/icon_image"
+        android:layout_marginLeft="16dp"
         />
     <Button
         android:layout_width="match_parent"
