@@ -31,13 +31,14 @@ import java.io.File;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import github.ishaan.buttonprogressbar.ButtonProgressBar;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
 public class SignActivity extends AppCompatActivity {
     private CircleImageView imageView;
     private MaterialEditText uname,upass;
-    private Button button;
+    private ButtonProgressBar button;
     String name,pass;
     String image_path;
     @Override
@@ -94,7 +95,6 @@ public class SignActivity extends AppCompatActivity {
                     String results = json.getString("result");
 
                     if (results.equals("1")) {
-                        Toast.makeText(SignActivity.this, "注册成功！", Toast.LENGTH_SHORT).show();
                         SharedPreferences prefs=getSharedPreferences("user", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor=prefs.edit();
                         editor.putString("username",name);
@@ -137,7 +137,7 @@ public class SignActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign);
         uname= (MaterialEditText) findViewById(R.id.editText3);
         upass= (MaterialEditText) findViewById(R.id.editText4);
-        button= (Button) findViewById(R.id.registerbutton);
+        button= (ButtonProgressBar) findViewById(R.id.registerbutton);
         imageView= (CircleImageView) findViewById(R.id.sign_image);
         signimage();
         init();
@@ -177,6 +177,7 @@ public class SignActivity extends AppCompatActivity {
                 params.addBodyParameter("uname",name);
                 params.addBodyParameter("upass",pass);
                 if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(pass)) {
+                    button.startLoader();
                     x.http().post(params, new Callback.CacheCallback<String>() {
     @Override
     public void onSuccess(String result) {
