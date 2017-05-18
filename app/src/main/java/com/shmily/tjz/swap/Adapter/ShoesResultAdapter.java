@@ -24,11 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Shmily_Z on 2017/5/16.
+ * Created by Shmily_Z on 2017/5/18.
  */
 
-public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.ViewHolder> {
-    private static final String TAG = "RecommendAdapter";
+public class ShoesResultAdapter extends RecyclerView.Adapter<ShoesResultAdapter.ViewHolder> {
+    private static final String TAG = "ShoesAdapter";
 
     private Context mContext;
 
@@ -36,23 +36,27 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
 
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView ShoesImage;
+        CardView cardView;
+        ImageView fruitImage;
+        TextView fruitName;
 
         public ViewHolder(View view) {
             super(view);
-            ShoesImage = (ImageView) view.findViewById(R.id.recommend_card_image);
+            cardView = (CardView) view;
+            fruitImage = (ImageView) view.findViewById(R.id.fruit_image);
+            fruitName = (TextView) view.findViewById(R.id.fruit_name);
         }
     }
 
-    public RecommendAdapter(List<Shoes> shoesList) {
+    public ShoesResultAdapter(List<Shoes> shoesList) {
         mShoesList = shoesList;
     }
     @Override
-    public void onBindViewHolder(RecommendAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ShoesResultAdapter.ViewHolder holder, int position) {
         Shoes shoes = mShoesList.get(position);
-        Glide.with(mContext).load(shoes.getPicture())
-                .diskCacheStrategy( DiskCacheStrategy.NONE )
-        .into(holder.ShoesImage);
+        holder.fruitName.setText(shoes.getMiaoshu());
+        Glide.with(mContext).load(shoes.getPicture()).diskCacheStrategy( DiskCacheStrategy.NONE ).into(holder.fruitImage);
+//. skipMemoryCache( true ).diskCacheStrategy(DiskCacheStrategy.NONE)
 
         /*
         *  Glide.with(GlideActivity.this)
@@ -69,15 +73,15 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
     }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public RecommendAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ShoesResultAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mContext == null) {
             mContext = parent.getContext();
         }
-        final View view = LayoutInflater.from(mContext).inflate(R.layout.recommend_card_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.fruit_item, parent, false);
 
 
-        final RecommendAdapter.ViewHolder holder = new RecommendAdapter.ViewHolder(view);
-        holder.ShoesImage.setOnClickListener(new View.OnClickListener() {
+        final ShoesResultAdapter.ViewHolder holder = new ShoesResultAdapter.ViewHolder(view);
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
@@ -86,8 +90,9 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
                 Intent intent = new Intent(mContext, ShoesActivity.class);
                 intent.putExtra(ShoesActivity.SHOES_NAME, shoes.getMiaoshu());
                 intent.putExtra(ShoesActivity.SHOES_IMAGE_ID, shoes.getPicture());
+
                 mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) mContext).toBundle());
-                ((Activity) mContext).finish();
+
             }
         });
         return holder;

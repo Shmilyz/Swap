@@ -38,7 +38,11 @@ public class SearchResultFragment extends Fragment {
     final int WHAT_NEWS = 1 ;
     String result;
     private List<Shoes> shoesDbList =new ArrayList<>();
+    private List<String> searchresultsList =new ArrayList<String>();
+    String results;
     private ShoesAdapter adapter;
+    StringBuilder builder = new StringBuilder();
+    char[] c;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -51,7 +55,6 @@ public class SearchResultFragment extends Fragment {
         Bundle bundle = getArguments();//从activity传过来的Bundle
         if(bundle!=null){
             result= bundle.getString("search_results");
-            Toast.makeText(getActivity(), bundle.getString("results"), Toast.LENGTH_SHORT).show();
         }
         init();
         handler = new Handler() {
@@ -86,9 +89,32 @@ public class SearchResultFragment extends Fragment {
             shoesDbList.add(fruits[index]);
         }*/
         shoesDbList.clear();
+        searchresultsList.clear();
+
+        c=result.toCharArray();
+
+        for(int a = 0; a < c.length; a++) {
+            String st = String.valueOf(c[a]);
+            searchresultsList.add(st);
+        }
+        if (searchresultsList.size()>1){
+            Toast.makeText(getActivity(),searchresultsList.get(0) , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),searchresultsList.get(1) , Toast.LENGTH_SHORT).show();
+
+            builder.append("SELECT * FROM shoes WHERE miaoshu LIKE '%").append(searchresultsList.get(0)).append("%' ");
+            for (int i=1;i<searchresultsList.size();i++){
+                    builder.append("and miaoshu like '%").append(searchresultsList.get(i)).append("%'");
+            }
+            results= String.valueOf(builder);
+        }
+        else{
+            results= "select * from shoes where miaoshu like '%"+result+"%'" + "";
+        }
+
+
+
         RequestParams params=new RequestParams("http://www.shmilyz.com/ForAndroidHttp/select.action");
-        String results= "select * from shoes where miaoshu like '%"+result+"%'" +
-                "";
+
         params.addBodyParameter("uname",results);
 
         x.http().post(params, new Callback.CacheCallback<String>() {

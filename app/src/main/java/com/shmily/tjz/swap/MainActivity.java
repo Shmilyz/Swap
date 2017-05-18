@@ -22,6 +22,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jcodecraeer.imageloader.ImageLoader;
 import com.shmily.tjz.swap.Fragment.LocationFragment;
 import com.shmily.tjz.swap.Fragment.ViewPagerFragmwnt;
@@ -31,16 +33,14 @@ import com.shmily.tjz.swap.Srevice.SearchService;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     String username;
     private ImageLoader mLoader;
+    SharedPreferences.Editor editor;
 
-    @Override
-    protected void onDestroy() {
-
-        super.onDestroy();
-    }
 
     @Override
     public void onBackPressed() {
@@ -59,14 +59,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Intent Startservice=new Intent(this, SearchService.class);
         startService(Startservice);
 
-
-        replaceFragment(new ViewPagerFragmwnt());
-
         SharedPreferences prefs=getSharedPreferences("user", Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor=prefs.edit();
+        editor=prefs.edit();
         boolean isGuideLoaded=prefs.getBoolean("denglu",false);
         username=prefs.getString("username",null);
 
@@ -76,7 +74,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             MainActivity.this.finish();
         }
-Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
+
+
+        Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
 
@@ -85,20 +85,53 @@ Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
             actionBar.setHomeAsUpIndicator(R.mipmap.gengduo);
             actionBar.setTitle(" ");
         }
+
+        replaceFragment(new ViewPagerFragmwnt());
+
+        List<String> permissionList = new ArrayList<>();
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.READ_PHONE_STATE);
+        }
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (!permissionList.isEmpty()) {
+            String [] permissions = permissionList.toArray(new String[permissionList.size()]);
+            ActivityCompat.requestPermissions(MainActivity.this, permissions, 1);
+        } else {
+            init();
+        }
+
+
+
+    }
+
+    private void init() {
         mDrawerLayout= (DrawerLayout) findViewById(R.id.activity_main);
         NavigationView navView= (NavigationView)findViewById(R.id.nav_view);
         View headerLayout = navView.inflateHeaderView(R.layout.nav_header);
         TextView name= (TextView) headerLayout.findViewById(R.id.username);
         name.setText(username);
-              navView.setCheckedItem(R.id.nav_me);
 
+        CircleImageView headimage= (CircleImageView) headerLayout.findViewById(R.id.icon_image);
+
+       String url="http://www.shmilyz.com/headimage/"+username+".jpg";
+
+            Glide.with(MainActivity.this)
+                .load(url)
+                .diskCacheStrategy( DiskCacheStrategy.NONE )
+                .into(headimage);
+
+        navView.setCheckedItem(R.id.nav_me);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
 
             @Override
             public boolean onNavigationItemSelected( MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.nav_setting:
-
                         editor.apply();
                         editor.remove("username");
                         editor.remove("denglu");
@@ -108,7 +141,7 @@ Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
                         MainActivity.this.finish();
                         break;
                     case R.id.nav_theme:
-                        List<String> permissionList = new ArrayList<>();
+                      /*  List<String> permissionList = new ArrayList<>();
                         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                             permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
                         }
@@ -122,9 +155,10 @@ Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
                             String [] permissions = permissionList.toArray(new String[permissionList.size()]);
                             ActivityCompat.requestPermissions(MainActivity.this, permissions, 1);
                         } else {
-                            replaceFragment(new LocationFragment());
-                            mDrawerLayout.closeDrawers();
-                        }
+
+                        }*/
+                        replaceFragment(new LocationFragment());
+                        mDrawerLayout.closeDrawers();
                         //                    在这里编写逻辑性的东西。
                 }
                 return true;
@@ -148,12 +182,15 @@ Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
                     for (int result : grantResults) {
                         if (result != PackageManager.PERMISSION_GRANTED) {
                             Toast.makeText(this, "必须同意所有权限才能使用本程序", Toast.LENGTH_SHORT).show();
-                            finish();
+                            MainActivity.this.finish();
                             return;
                         }
                     }
-                    replaceFragment(new LocationFragment());
-                    mDrawerLayout.closeDrawers();
+                    /*replaceFragment(new LocationFragment());
+                    mDrawerLayout.closeDrawers();*/
+                    init();
+
+
                 } else {
                     Toast.makeText(this, "发生未知错误", Toast.LENGTH_SHORT).show();
                     finish();

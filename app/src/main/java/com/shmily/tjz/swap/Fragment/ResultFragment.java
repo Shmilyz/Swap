@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shmily.tjz.swap.Adapter.ShoesAdapter;
+import com.shmily.tjz.swap.Adapter.ShoesResultAdapter;
 import com.shmily.tjz.swap.Gson.Shoes;
 import com.shmily.tjz.swap.R;
 
@@ -32,16 +33,21 @@ import java.util.List;
  */
 
 public class ResultFragment extends Fragment {
+
     private View rootView;
     private Handler handler;
     final int WHAT_NEWS = 1 ;
     String result;
     private List<Shoes> shoesDbList =new ArrayList<>();
-    private ShoesAdapter adapter;
+    private List<String> searchresultsList =new ArrayList<String>();
+    String results;
+    private ShoesResultAdapter adapter;
+    StringBuilder builder = new StringBuilder();
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.result_fragment, container, false);
+        rootView = inflater.inflate(R.layout.search_result_fragment, container, false);
         initview();
         return rootView;
     }
@@ -50,7 +56,6 @@ public class ResultFragment extends Fragment {
         Bundle bundle = getArguments();//从activity传过来的Bundle
         if(bundle!=null){
             result= bundle.getString("results");
-            Toast.makeText(getActivity(), bundle.getString("results"), Toast.LENGTH_SHORT).show();
         }
         init();
         handler = new Handler() {
@@ -65,7 +70,7 @@ public class ResultFragment extends Fragment {
 //        StaggeredGridLayoutManager layoutManger=new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.HORIZONTAL);
 //        瀑布。
                         recyclerView.setLayoutManager(layoutManger);
-                        adapter=new ShoesAdapter(shoesDbList);
+                        adapter=new ShoesResultAdapter(shoesDbList);
                         recyclerView.setAdapter(adapter);
                         break;
 
@@ -85,9 +90,31 @@ public class ResultFragment extends Fragment {
             shoesDbList.add(fruits[index]);
         }*/
         shoesDbList.clear();
+        searchresultsList.clear();
+
+        char[] c=result.toCharArray();
+
+        for(int a = 0; a < c.length; a++) {
+            String st = String.valueOf(c[a]);
+            searchresultsList.add(st);
+        }
+        if (searchresultsList.size()>1){
+
+
+            builder.append("SELECT * FROM shoes WHERE miaoshu LIKE '%").append(searchresultsList.get(0)).append("%' ");
+            for (int i=1;i<searchresultsList.size();i++){
+                builder.append("and miaoshu like '%").append(searchresultsList.get(i)).append("%'");
+            }
+            results= String.valueOf(builder);
+        }
+        else{
+            results= "select * from shoes where miaoshu like '%"+result+"%'" + "";
+        }
+
+
+
         RequestParams params=new RequestParams("http://www.shmilyz.com/ForAndroidHttp/select.action");
-        String results= "select * from shoes where miaoshu like '%"+result+"%'" +
-                "";
+
         params.addBodyParameter("uname",results);
 
         x.http().post(params, new Callback.CacheCallback<String>() {

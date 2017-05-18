@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.shmily.tjz.swap.Db.ShoesDb;
 import com.shmily.tjz.swap.R;
 
@@ -33,6 +34,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         Glide.with(holder.itemView.getContext())
                 .load(data.get(position).getImageId())
+                .diskCacheStrategy( DiskCacheStrategy.NONE )
                 .into(holder.image);
     }
 

@@ -21,7 +21,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:id="@+id/icon_image"
-        android:src="@mipmap/aa"
+        android:src="@mipmap/camera"
         android:layout_marginBottom="24dp"
         android:layout_above="@+id/username"
         android:layout_centerHorizontal="true" />

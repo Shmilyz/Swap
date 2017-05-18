@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jaiky.imagespickers.ImageConfig;
 import com.jaiky.imagespickers.ImageSelector;
 import com.jaiky.imagespickers.ImageSelectorActivity;
@@ -45,8 +47,11 @@ public class SignActivity extends AppCompatActivity {
         if (requestCode == ImageSelector.IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             // 获取选中的图片路径列表 Get Images Path List
             List<String> pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT);
-            Toast.makeText(this, pathList.get(0).toString(), Toast.LENGTH_SHORT).show();
             File file1=new File(pathList.get(0).toString());
+            Glide.with(SignActivity.this)
+                    .load(file1)
+                    .diskCacheStrategy( DiskCacheStrategy.NONE )
+                    .into(imageView);
             Luban.get(this)
                     .load(file1)                     //传人要压缩的图片
                     .putGear(Luban.THIRD_GEAR)      //设定压缩档次，默认三挡
@@ -145,9 +150,9 @@ public class SignActivity extends AppCompatActivity {
                 ImageConfig imageConfig
                         = new ImageConfig.Builder(new ImageConfigGlideLoader())
                         // 修改状态栏颜色
-                        .steepToolBarColor(getResources().getColor(R.color.blue))
+                        .steepToolBarColor(getResources().getColor(R.color.colorPrimary))
                         // 标题的背景颜色
-                        .titleBgColor(getResources().getColor(R.color.blue))
+                        .titleBgColor(getResources().getColor(R.color.colorPrimary))
                         // 提交按钮字体的颜色
                         .titleSubmitTextColor(getResources().getColor(R.color.white))
                         // 标题颜色

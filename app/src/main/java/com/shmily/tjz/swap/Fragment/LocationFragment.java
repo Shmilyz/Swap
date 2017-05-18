@@ -44,6 +44,7 @@ public class LocationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView=inflater.inflate(R.layout.location_fragment, container, false);
+
          text= (TextView) rootView.findViewById(R.id.texta);
         setHasOptionsMenu(true);
         init();
@@ -64,6 +65,7 @@ public class LocationFragment extends Fragment {
                         SharedPreferences prefs = getActivity().getSharedPreferences("location", Context.MODE_PRIVATE);
                         final SharedPreferences.Editor editor = prefs.edit();
                         String location = prefs.getString("City", null);
+                        editor.clear();
                         editor.commit();
                         new CookieBar.Builder(getActivity())
                                 .setTitle("您的定位是")
