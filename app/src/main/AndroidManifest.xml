@@ -27,6 +27,7 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.main">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,11 +48,11 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
-        <activity android:name=".A" >
 
-        </activity>
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity android:name=".A"></activity>
         <activity android:name=".SignLoginActivity" />
         <activity
             android:name=".SearchActivity"
@@ -65,13 +66,13 @@
 
         <activity
             android:name=".Rubbish.RubbishActivity"
-            android:theme="@style/FruitActivityTheme"></activity>
+            android:theme="@style/FruitActivityTheme" />
+        <activity android:name=".MapActivity">
 
+        </activity>
     </application>
 
-</manifest>
-
-    <!--
+</manifest><!--
             android:windowSoftInputMode="adjustPan"
 防止小键盘出来压缩Listview
 -->
