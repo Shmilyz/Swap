@@ -40,8 +40,14 @@
         <activity
             android:name=".SelectActivity"
             android:theme="@style/AppTheme.translucent" />
-        <activity android:name=".Rubbish.LoginActivity" />
-        <activity android:name=".Rubbish.SignActivity" />
+        <activity android:name=".LoginActivity"
+            android:theme="@style/login"
+
+            />
+        <activity android:name=".SignActivity"
+            android:theme="@style/login"
+
+            />
         <activity android:name=".Rubbish.LocationActivity" />
 
         <service
@@ -53,12 +59,11 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".A"></activity>
-        <activity android:name=".SignLoginActivity" />
+        <activity android:name=".Rubbish.SignLoginActivity" />
         <activity
             android:name=".SearchActivity"
             android:theme="@style/AppTheme.search"
             android:windowSoftInputMode="adjustPan" />
-
         <service
             android:name=".Srevice.SearchService"
             android:enabled="true"

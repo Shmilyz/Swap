@@ -78,7 +78,6 @@ public class MapActivity extends AppCompatActivity {
                     DrivingRouteOverlay overlay = new DrivingRouteOverlay(mBaiduMap);
                     mBaiduMap.setOnMarkerClickListener(overlay);
                     String distant= String.valueOf(result.getRouteLines().get(0).getDistance()/1000);
-;
                     Toast.makeText(MapActivity.this, distant+"公里", Toast.LENGTH_SHORT).show();
                     overlay.setData(result.getRouteLines().get(0));
                     overlay.addToMap();

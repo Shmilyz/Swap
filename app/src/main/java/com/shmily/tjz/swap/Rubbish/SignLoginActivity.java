@@ -1,4 +1,4 @@
-package com.shmily.tjz.swap;
+package com.shmily.tjz.swap.Rubbish;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,30 +7,19 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Handler;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.transition.ChangeBounds;
 import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,6 +28,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.shmily.tjz.swap.MainActivity;
+import com.shmily.tjz.swap.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,7 +37,6 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
-import java.util.Map;
 public class SignLoginActivity extends AppCompatActivity {
     MaterialEditText email, pass, email2, pass2, confirmPass;
     RelativeLayout relativeLayout, relativeLayout2;

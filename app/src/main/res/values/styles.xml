@@ -1,5 +1,11 @@
 <resources>
 
+    <style name="login" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorAccent">#000</item>
+    <item name="colorPrimaryDark">#90000000</item>
+    </style>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>

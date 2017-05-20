@@ -77,7 +77,7 @@ public class ShoesResultAdapter extends RecyclerView.Adapter<ShoesResultAdapter.
         if (mContext == null) {
             mContext = parent.getContext();
         }
-        View view = LayoutInflater.from(mContext).inflate(R.layout.fruit_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.shoes_item, parent, false);
 
 
         final ShoesResultAdapter.ViewHolder holder = new ShoesResultAdapter.ViewHolder(view);

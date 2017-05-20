@@ -1,13 +1,14 @@
-package com.shmily.tjz.swap.Rubbish;
+package com.shmily.tjz.swap;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -15,10 +16,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jaiky.imagespickers.ImageConfig;
 import com.jaiky.imagespickers.ImageSelector;
 import com.jaiky.imagespickers.ImageSelectorActivity;
-import com.rengwuxian.materialedittext.MaterialEditText;
-import com.shmily.tjz.swap.A;
-import com.shmily.tjz.swap.MainActivity;
-import com.shmily.tjz.swap.R;
 import com.shmily.tjz.swap.Utils.ImageConfigGlideLoader;
 
 import org.json.JSONException;
@@ -37,7 +34,7 @@ import top.zibin.luban.OnCompressListener;
 
 public class SignActivity extends AppCompatActivity {
     private CircleImageView imageView;
-    private MaterialEditText uname,upass;
+    private EditText uname,upass;
     private ButtonProgressBar button;
     String name,pass;
     String image_path;
@@ -95,14 +92,22 @@ public class SignActivity extends AppCompatActivity {
                     String results = json.getString("result");
 
                     if (results.equals("1")) {
-                        SharedPreferences prefs=getSharedPreferences("user", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor=prefs.edit();
-                        editor.putString("username",name);
-                        editor.putBoolean("denglu",true);
-                        editor.commit();
-                        Intent intent=new Intent(SignActivity.this,MainActivity.class);
-                        startActivity(intent);
-                        SignActivity.this.finish();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                SharedPreferences prefs=getSharedPreferences("user", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor=prefs.edit();
+                                editor.putString("username",name);
+                                editor.putBoolean("denglu",true);
+                                editor.commit();
+                                Intent intent=new Intent(SignActivity.this,MainActivity.class);
+                                button.stopLoader();
+                                startActivity(intent);
+                                SignActivity.this.finish();
+                            }
+                        }, 1200);
+
+
                     } else {
                         Toast.makeText(SignActivity.this, "失败！！！", Toast.LENGTH_SHORT).show();
 
@@ -135,8 +140,8 @@ public class SignActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign);
-        uname= (MaterialEditText) findViewById(R.id.editText3);
-        upass= (MaterialEditText) findViewById(R.id.editText4);
+        uname= (EditText) findViewById(R.id.editText3);
+        upass= (EditText) findViewById(R.id.editText4);
         button= (ButtonProgressBar) findViewById(R.id.registerbutton);
         imageView= (CircleImageView) findViewById(R.id.sign_image);
         signimage();
@@ -177,7 +182,7 @@ public class SignActivity extends AppCompatActivity {
                 params.addBodyParameter("uname",name);
                 params.addBodyParameter("upass",pass);
                 if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(pass)) {
-                    button.startLoader();
+
                     x.http().post(params, new Callback.CacheCallback<String>() {
     @Override
     public void onSuccess(String result) {
@@ -186,6 +191,8 @@ public class SignActivity extends AppCompatActivity {
             String results = json.getString("result");
 
             if (results.equals("1")) {
+                button.startLoader();
+
                 uploadFile(new File(image_path));
                /* Toast.makeText(SignActivity.this, "注册成功！", Toast.LENGTH_SHORT).show();
                 SharedPreferences prefs=getSharedPreferences("user", Context.MODE_PRIVATE);
@@ -198,7 +205,6 @@ public class SignActivity extends AppCompatActivity {
                 SignActivity.this.finish();*/
             } else {
                 Toast.makeText(SignActivity.this, "失败！！！", Toast.LENGTH_SHORT).show();
-
             }
 
 

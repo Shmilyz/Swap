@@ -191,7 +191,6 @@ public class A extends AppCompatActivity {
 //                        .crop(1, 2, 500, 1000)
                         .crop()*/
                         .setContainer(llContainer, 4, true)
-                        .setContainer(llContainer)
                         .build();
                 ImageSelector.open(A.this, imageConfig);
             }

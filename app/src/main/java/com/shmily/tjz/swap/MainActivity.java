@@ -26,8 +26,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jcodecraeer.imageloader.ImageLoader;
 import com.shmily.tjz.swap.Fragment.LocationFragment;
+import com.shmily.tjz.swap.Fragment.ReleaseFragment;
 import com.shmily.tjz.swap.Fragment.ViewPagerFragmwnt;
-import com.shmily.tjz.swap.Rubbish.LoginActivity;
 import com.shmily.tjz.swap.Srevice.SearchService;
 
 import java.util.ArrayList;

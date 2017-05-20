@@ -13,6 +13,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.shmily.tjz.swap.Fragment.MainFragment;
@@ -62,6 +63,8 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                Toast.makeText(SearchActivity.this, "c", Toast.LENGTH_SHORT).show();
+
                 if (!TextUtils.isEmpty(s.toString().trim())){
                     ResultFragment resultFragment=new ResultFragment();
                     Bundle bundle=new Bundle();

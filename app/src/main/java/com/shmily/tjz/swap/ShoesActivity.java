@@ -12,7 +12,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -26,10 +25,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.huewu.pla.lib.MultiColumnListView;
 import com.huewu.pla.lib.internal.PLA_AdapterView;
-import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jude.swipbackhelper.SwipeBackHelper;
 import com.shmily.tjz.swap.Adapter.RecommendAdapter;
-import com.shmily.tjz.swap.Adapter.ShoesAdapter;
 import com.shmily.tjz.swap.Adapter.SpecialAdapter;
 import com.shmily.tjz.swap.Db.ShoesSpecial;
 import com.shmily.tjz.swap.Gson.Shoes;
@@ -56,7 +53,7 @@ public class ShoesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fruit);
+        setContentView(R.layout.activity_shoes);
        /* Explode explode = new Explode();
         explode.setDuration(700L);
         getWindow().setEnterTransition(explode);*/
