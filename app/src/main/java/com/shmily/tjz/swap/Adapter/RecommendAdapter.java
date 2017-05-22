@@ -54,18 +54,6 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
                 .diskCacheStrategy( DiskCacheStrategy.NONE )
         .into(holder.ShoesImage);
 
-        /*
-        *  Glide.with(GlideActivity.this)
-                        .load("http://www.qqzhi.com/uploadpic/2014-06-05/231505771.jpg")
-                        .asGif()
-                        //获取后存储，断网后仍能获取
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        //加载失败返回小机器人
-                        .error(R.mipmap.ic_launcher)
-                        .into(img);
-
-
-        * */
     }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override

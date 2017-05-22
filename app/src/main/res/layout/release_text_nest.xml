@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingTop="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:maxLength="15"
+            android:layout_weight="1"
+            android:hint="宝贝标题：填写品牌型号更易被搜到哦"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            />
+
+        　
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15"
+
+            android:id="@+id/textView3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D3D3D3"
+
+
+        ></LinearLayout>
+    <EditText
+        android:hint="宝贝描述：
+        描述一下宝贝的购买渠道，新旧程度，型号/尺码等，可以让宝贝更快被卖出哦。"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@null"
+        android:inputType="textMultiLine"
+        android:gravity="left|top"
+        android:minLines="7"
+        android:maxLength="40"
+        android:id="@+id/editText"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        />
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="end"
+    android:text="40"
+    />
+
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D3D3D3"
+        ></LinearLayout>
+
+
+</LinearLayout>

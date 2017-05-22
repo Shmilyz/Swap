@@ -3,6 +3,7 @@ package com.shmily.tjz.swap;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,7 +17,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jaiky.imagespickers.ImageConfig;
 import com.jaiky.imagespickers.ImageSelector;
 import com.jaiky.imagespickers.ImageSelectorActivity;
+import com.shmily.tjz.swap.Fragment.ReleaseFragment;
 import com.shmily.tjz.swap.Utils.ImageConfigGlideLoader;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.engine.impl.GlideEngine;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -167,7 +172,6 @@ public class SignActivity extends AppCompatActivity {
                         .crop()
                         .build();
                 ImageSelector.open(SignActivity.this, imageConfig);
-
             }
         });
     }

@@ -63,6 +63,9 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'top.zibin:Luban:1.0.9'
     compile 'com.github.ishaan1995:ButtonProgressBar:1.0'
+    compile 'com.github.githubwing:DragPhotoView:1.0.1'
+    compile 'com.github.addappcn:android-pickers:1.0.1'
+
 
 //    代替项目。
     compile 'com.github.martin90s:ImagePicker:v1.3.2'

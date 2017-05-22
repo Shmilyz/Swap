@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                         } else {
 
                         }*/
-                        replaceFragment(new LocationFragment());
+                        replaceFragment(new ReleaseFragment());
                         mDrawerLayout.closeDrawers();
                         //                    在这里编写逻辑性的东西。
                 }

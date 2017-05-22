@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
 import com.jaiky.imagespickers.ImageLoader;
 import com.shmily.tjz.swap.R;
 
@@ -19,7 +20,7 @@ public class ImageConfigGlideLoader implements ImageLoader {
         Glide.with(context)
                 .load(path)
                 .placeholder(R.drawable.global_img_default)
-                .centerCrop()
+                .priority(Priority.HIGH)
                 .into(imageView);
     }
 }

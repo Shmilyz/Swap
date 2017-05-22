@@ -375,7 +375,7 @@ public class MainFragment extends Fragment {
 
             }
         });
-        handler = new Handler() {
+    /*    handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 // 负责接收Handler消息，并执行UI更新
@@ -383,16 +383,16 @@ public class MainFragment extends Fragment {
                 switch (msg.what) {
                     case WHAT_NEWS:
 
-                        GridLayoutManager layoutManger=new GridLayoutManager(getActivity(),2);
+                     *//*   GridLayoutManager layoutManger=new GridLayoutManager(getActivity(),2);
 //        StaggeredGridLayoutManager layoutManger=new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.HORIZONTAL);
 //        瀑布。
                         mRecyclerView.setLayoutManager(layoutManger);
                         mRecyclerView.setArrowImageView(R.mipmap.iconfont_downgrey);
                         mRecyclerView.setRefreshProgressStyle(2);
                         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.Pacman);
+*//*
 
-
-                        /*SqlListResult sqlListResult=new SqlListResult();
+                        *//*SqlListResult sqlListResult=new SqlListResult();
                         sqlListResult.getList(0,5,"select * from shoes");
                          new Thread(new Runnable() {
                             @Override
@@ -409,11 +409,11 @@ public class MainFragment extends Fragment {
 
                                         SharedPreferences prefs = getActivity().getSharedPreferences("SqlListResult", Context.MODE_PRIVATE);
                                         final SharedPreferences.Editor editor = prefs.edit();
-                                        String aa = prefs.getString("sqllistresult", null);
+                                        String Aa = prefs.getString("sqllistresult", null);
                                         editor.commit();
                                         List<Shoes> sql= null;
                                         try {
-                                            JSONObject jsonobject=new JSONObject(aa);
+                                            JSONObject jsonobject=new JSONObject(Aa);
                                             JSONArray shoesArray=jsonobject.getJSONArray("result");
                                             Gson gson=new Gson();
                                             sql = gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<Shoes>>(){}.getType());
@@ -428,17 +428,17 @@ public class MainFragment extends Fragment {
                                     }
                                 });
                             }
-                        }).start();*/
+                        }).start();*//*
 
-                        adapter=new ShoesAdapter(shoesDbList);
+                      *//*  adapter=new ShoesAdapter(shoesDbList);
                         mRecyclerView.setAdapter(adapter);
-
+*//*
                         break;
 
                 }
 
             }
-        } ;
+        } ;*/
        /* shoesDbList.clear();
         for (int i=0;i<50;i++){
 //这个Random表达的是随机数，index等于fruits的数组的长度，这里random从0开始的，
@@ -476,12 +476,24 @@ public class MainFragment extends Fragment {
                         shoesDbList.add(shoes);
 
                     }
-                    Message msg = handler.obtainMessage() ;
+
+
+                    GridLayoutManager layoutManger=new GridLayoutManager(getActivity(),2);
+//        StaggeredGridLayoutManager layoutManger=new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.HORIZONTAL);
+//        瀑布。
+                    mRecyclerView.setLayoutManager(layoutManger);
+                    mRecyclerView.setArrowImageView(R.mipmap.iconfont_downgrey);
+                    mRecyclerView.setRefreshProgressStyle(2);
+                    mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.Pacman);
+                    adapter=new ShoesAdapter(shoesDbList);
+                    mRecyclerView.setAdapter(adapter);
+
+                  /*  Message msg = handler.obtainMessage() ;
                     // 设置消息内容（可选）
                     // 设置消息类型
                     msg.what = WHAT_NEWS;
                     // 发送消息
-                    handler.sendMessage(msg) ;
+                    handler.sendMessage(msg) ;*/
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -512,7 +524,7 @@ public class MainFragment extends Fragment {
 
     private void returnload(int load_returnstart) {
 
-        handler = new Handler() {
+   /*     handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 // 负责接收Handler消息，并执行UI更新
@@ -520,12 +532,12 @@ public class MainFragment extends Fragment {
                 switch (msg.what) {
                     case WHAT_NEWSS:
 
-                        adapter.notifyDataSetChanged();
-                        mRecyclerView.loadMoreComplete();
+                      *//*  adapter.notifyDataSetChanged();
+                        mRecyclerView.loadMoreComplete();*//*
 
                 }
             }
-        };
+        };*/
 
 
 
@@ -552,12 +564,14 @@ public class MainFragment extends Fragment {
                         shoesDbList.add(shoes);
 
                     }
-                    Message msg = handler.obtainMessage() ;
+                      adapter.notifyDataSetChanged();
+                        mRecyclerView.loadMoreComplete();
+                /*    Message msg = handler.obtainMessage() ;
                     // 设置消息内容（可选）
                     // 设置消息类型
                     msg.what = WHAT_NEWSS;
                     // 发送消息
-                    handler.sendMessage(msg) ;
+                    handler.sendMessage(msg) ;*/
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -590,7 +604,7 @@ public class MainFragment extends Fragment {
 
     private void load(int load_start) {
 
-        handler = new Handler() {
+      /*  handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 // 负责接收Handler消息，并执行UI更新
@@ -598,13 +612,13 @@ public class MainFragment extends Fragment {
                 switch (msg.what) {
                     case WHAT_NEWSS:
 
-                            adapter.notifyDataSetChanged();
-                            mRecyclerView.loadMoreComplete();
+                          *//*  adapter.notifyDataSetChanged();
+                            mRecyclerView.loadMoreComplete();*//*
 
                 }
             }
         };
-
+*/
 
         RequestParams params=new RequestParams("http://www.shmilyz.com/ForAndroidHttp/select.action");
         String results= "select * from shoes"+" LIMIT "+load_start+","+"10";
@@ -624,12 +638,14 @@ public class MainFragment extends Fragment {
                         shoesDbList.add(shoes);
 
                     }
-                    Message msg = handler.obtainMessage() ;
+                    adapter.notifyDataSetChanged();
+                    mRecyclerView.loadMoreComplete();
+                 /*   Message msg = handler.obtainMessage() ;
                     // 设置消息内容（可选）
                     // 设置消息类型
                     msg.what = WHAT_NEWSS;
                     // 发送消息
-                    handler.sendMessage(msg) ;
+                    handler.sendMessage(msg) ;*/
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -1,36 +1,34 @@
 package com.shmily.tjz.swap;
 
-import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.imnjh.imagepicker.SImagePicker;
-import com.imnjh.imagepicker.activity.PhotoPickerActivity;
 import com.jaiky.imagespickers.ImageConfig;
-import com.jaiky.imagespickers.ImageLoader;
 import com.jaiky.imagespickers.ImageSelector;
 import com.jaiky.imagespickers.ImageSelectorActivity;
-import com.shmily.tjz.swap.Rubbish.ForSelectGlideImageLoader;
-import com.shmily.tjz.swap.Utils.GlideImageLoader;
 import com.shmily.tjz.swap.Utils.ImageConfigGlideLoader;
-import com.theartofdev.edmodo.cropper.CropImage;
+import com.shmily.tjz.swap.Utils.NumberKeyboardView;
 import com.weavey.loading.lib.LoadingLayout;
-import com.zhihu.matisse.Matisse;
-import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.impl.GlideEngine;
-import com.zhihu.matisse.filter.Filter;
+
 import android.net.Uri;
 
 import org.xutils.common.Callback;
@@ -38,11 +36,9 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
@@ -58,7 +54,9 @@ public class A extends AppCompatActivity {
 
     List<Uri> mSelected;
     private LinearLayout llContainer;
-
+    private View inflate;
+    private Button show;
+    private Dialog dialog;
     private void uploadFile(File file) {
         RequestParams params = new RequestParams("http://www.shmilyz.com/ForAndroidUpload/upload.do") ;
         params.setMultipart(true);    // 文件上传必须有该语句
@@ -89,6 +87,7 @@ public class A extends AppCompatActivity {
         }) ;
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -151,6 +150,14 @@ public class A extends AppCompatActivity {
         setContentView(R.layout.activity_a);
         llContainer= (LinearLayout) findViewById(R.id.llContainer);
         Button button= (Button) findViewById(R.id.select);
+        Button show= (Button) findViewById(R.id.show);
+        show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupWindow();
+            }
+        });
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,7 +170,7 @@ public class A extends AppCompatActivity {
                         .showCamera(true)
                         .pickMode(SImagePicker.MODE_IMAGE)
                         .forResult(REQUEST_CODE_IMAGE);*/
-           /*     Matisse.from(A.this)
+          /*      Matisse.from(A.this)
                         .choose(MimeType.allOf())
                         .countable(true)
                         .maxSelectable(1)
@@ -195,7 +202,6 @@ public class A extends AppCompatActivity {
                 ImageSelector.open(A.this, imageConfig);
             }
         });
-
 
 
         LoadingLayout  loading = (LoadingLayout) findViewById(R.id.load_layout);
@@ -247,9 +253,9 @@ public class A extends AppCompatActivity {
                             public void run() {
                                 SharedPreferences prefs = getSharedPreferences("location", Context.MODE_PRIVATE);
                                 final SharedPreferences.Editor editor = prefs.edit();
-                                String aa = prefs.getString("City", null);
+                                String Aa = prefs.getString("City", null);
                                 editor.commit();
-                                a.setText(aa);
+                                a.setText(Aa);
 //                        告诉它刷新结束，收回进度条。
                             }
                         });
@@ -264,6 +270,37 @@ public class A extends AppCompatActivity {
         url.append("http://www.shmilyz.com/search/").append(i).append(".png");
         String urls = String.valueOf(url);
 //        Glide.with(this).load(urls).into(imageView);
+
+    }
+
+    private void showPopupWindow() {
+
+
+
+        PopupWindow mPopWindow;
+        View contentView = LayoutInflater.from(A.this).inflate(R.layout.activity_keyboard, null);
+        mPopWindow = new PopupWindow(contentView,
+                ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        mPopWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+        mPopWindow.setOutsideTouchable(true);
+        //设置各个控件的点击响应
+        NumberKeyboardView number= (NumberKeyboardView) contentView.findViewById(R.id.numberKeyboardView);
+        number.setOnNumberClickListener(new NumberKeyboardView.OnNumberClickListener() {
+            @Override
+            public void onNumberReturn(String number) {
+                Toast.makeText(A.this, number, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNumberDelete() {
+
+            }
+        });
+
+        //显示PopupWindow
+        View rootview = LayoutInflater.from(A.this).inflate(R.layout.activity_a, null);
+        mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
+
 
     }
 }

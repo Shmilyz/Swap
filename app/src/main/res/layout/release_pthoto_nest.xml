@@ -1,26 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
+    android:paddingTop="5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:src="@mipmap/camera"
-        />
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:layout_marginLeft="5dp"
+    <RelativeLayout
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="#90000000"
+        android:id="@+id/camera"
         >
-        <LinearLayout
-            android:id="@+id/llContainer"
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上传照片"
+            android:layout_below="@id/a"
+            android:textSize="15sp"
+            />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/add"
+            android:id="@+id/a"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/nest_llContainer"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:layout_below="@+id/camera"
+        android:layout_alignParentStart="true">
+
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-        </LinearLayout>
-        </HorizontalScrollView>
-</LinearLayout>
+            android:layout_height="wrap_content"
+            android:id="@+id/show_photo_recy"
+            >
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2.请尽量拍摄照片的细节"
+        android:layout_marginTop="12dp"
+        android:textSize="13dp"
+        android:layout_below="@+id/textView2"
+        android:layout_alignStart="@+id/textView2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1.请确保照片的真实性"
+        android:textSize="13dp"
+        android:id="@+id/textView2"
+        android:layout_marginStart="33dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/camera"
+        android:layout_marginTop="20dp" />
+
+</RelativeLayout>
