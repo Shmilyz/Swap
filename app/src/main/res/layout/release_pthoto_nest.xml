@@ -4,13 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:paddingTop="5dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="#90000000"
         android:id="@+id/camera"
         >
 
@@ -27,7 +28,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/add"
+            android:src="@mipmap/addd"
             android:id="@+id/a"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
@@ -43,32 +44,42 @@
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="130dp"
             android:id="@+id/show_photo_recy"
             >
 
         </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1.请确保照片的真实性"
+        android:textSize="13dp"
+        android:id="@+id/textView1"
+        android:layout_marginStart="33dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/camera"
+        android:layout_marginTop="20dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2.请尽量拍摄照片的细节"
         android:layout_marginTop="12dp"
         android:textSize="13dp"
-        android:layout_below="@+id/textView2"
-        android:layout_alignStart="@+id/textView2" />
-
+        android:id="@+id/textView2"
+        android:layout_below="@id/textView1"
+        android:layout_alignStart="@id/textView1" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1.请确保照片的真实性"
+        android:text="3.为保证质量，请上传不多于三张"
+        android:layout_marginTop="12dp"
         android:textSize="13dp"
-        android:id="@+id/textView2"
-        android:layout_marginStart="33dp"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/camera"
-        android:layout_marginTop="20dp" />
+        android:id="@+id/textView3"
+        android:layout_below="@id/textView2"
+        android:layout_alignStart="@id/textView2" />
+
+
 
 </RelativeLayout>

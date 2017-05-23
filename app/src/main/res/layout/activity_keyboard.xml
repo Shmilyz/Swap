@@ -7,11 +7,22 @@
     android:layout_height="match_parent"
    >
 
-
     <com.shmily.tjz.swap.Utils.NumberKeyboardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/numberKeyboardView" />
+        android:id="@+id/numberKeyboardView"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="192dp"
+        android:gravity="center"
+        android:id="@+id/result"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        />
 
 
 </RelativeLayout>

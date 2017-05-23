@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -160,6 +161,8 @@ public class MainActivity extends AppCompatActivity {
                         }*/
                         replaceFragment(new ReleaseFragment());
                         mDrawerLayout.closeDrawers();
+
+
                         //                    在这里编写逻辑性的东西。
                 }
                 return true;

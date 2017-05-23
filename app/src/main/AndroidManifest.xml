@@ -27,7 +27,11 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.main">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ShoesActivity"
@@ -53,11 +57,7 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".A" >
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity android:name=".Rubbish.SignLoginActivity" />

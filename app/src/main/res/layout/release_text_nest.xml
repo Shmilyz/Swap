@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingTop="10dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:background="@null"
             android:maxLength="15"
             android:layout_weight="1"
             android:hint="宝贝标题：填写品牌型号更易被搜到哦"
             android:textSize="16sp"
             android:textColor="@color/black"
+            android:id="@+id/text_nest_title"
             />
 
         　
@@ -29,8 +32,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="15"
+            android:id="@+id/text_nest_title_limit"
 
-            android:id="@+id/textView3" />
+         />
     </LinearLayout>
 
     <LinearLayout
@@ -41,10 +45,123 @@
 
 
         ></LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/data_nest"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="购买日期"
+            android:layout_centerVertical="true"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择日期"
+            android:textColor="#D3D3D3"
+            android:layout_marginLeft="250dp"
+            android:textSize="15sp"
+            android:layout_centerVertical="true"
+            android:id="@+id/data_type_nest"
+
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/right"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D3D3D3"
+        ></LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/type_nest"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="宝贝类型"
+            android:layout_centerVertical="true"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择类型"
+            android:textColor="#D3D3D3"
+            android:layout_marginLeft="250dp"
+            android:textSize="15sp"
+            android:layout_centerVertical="true"
+            android:id="@+id/text_type_nest"
+            />
+        "
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/right"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D3D3D3"
+        ></LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/size_nest"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="宝贝尺码"
+            android:layout_centerVertical="true"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择尺码"
+            android:textColor="#D3D3D3"
+            android:layout_marginLeft="250dp"
+            android:textSize="15sp"
+            android:id="@+id/text_size_nest"
+            android:layout_centerVertical="true"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/right"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D3D3D3"
+        ></LinearLayout>
     <EditText
         android:hint="宝贝描述：
         描述一下宝贝的购买渠道，新旧程度，型号/尺码等，可以让宝贝更快被卖出哦。"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:background="@null"

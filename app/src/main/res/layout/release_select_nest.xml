@@ -3,128 +3,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingTop="5dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <RelativeLayout
+        android:id="@+id/money_nest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        >
+
+        <EditText
+            android:id="@+id/text_money_nest"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:maxLength="15"
+            android:layout_weight="1"
+            android:hint="宝贝价格：合理的价格是用户选择的前提哦"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:inputType="text"
+            />
+    </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="200dp"
+        android:background="#F1F2F4"
+       >
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="购买日期"
-            android:layout_centerVertical="true"
-            android:textSize="15sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
+            android:background="#FFF"
+            android:layout_alignParentBottom="true"
+            >
+            <github.ishaan.buttonprogressbar.ButtonProgressBar
+                app:text="发      布"
+                app:textColor="@android:color/white"
+                app:type="indeterminate"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="选择日期"
-                android:textColor="#D3D3D3"
-                android:layout_marginLeft="250dp"
-                android:textSize="15sp"
-                android:layout_centerVertical="true"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/right"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            />
+                android:textSize="15dp"
+                android:id="@+id/loginbutton"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                />
+        </LinearLayout>
     </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:id="@+id/type_nest"
-        >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="宝贝类型"
-            android:layout_centerVertical="true"
-            android:textSize="15sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="选择类型"
-            android:textColor="#D3D3D3"
-            android:layout_marginLeft="250dp"
-            android:textSize="15sp"
-            android:layout_centerVertical="true"
-            android:id="@+id/text_type_nest"
-            />
-"
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/right"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:id="@+id/size_nest"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="宝贝尺码"
-            android:layout_centerVertical="true"
-            android:textSize="15sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="选择尺码"
-            android:textColor="#D3D3D3"
-            android:layout_marginLeft="250dp"
-            android:textSize="15sp"
-            android:id="@+id/text_size_nest"
-            android:layout_centerVertical="true"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/right"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="转卖价格"
-            android:layout_centerVertical="true"
-            android:textSize="15sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="填写价格"
-            android:textColor="#D3D3D3"
-            android:layout_marginLeft="250dp"
-            android:textSize="15sp"
-            android:layout_centerVertical="true"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/right"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            />
-    </RelativeLayout>
 </LinearLayout>

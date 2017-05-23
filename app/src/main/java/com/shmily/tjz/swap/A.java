@@ -281,8 +281,8 @@ public class A extends AppCompatActivity {
         View contentView = LayoutInflater.from(A.this).inflate(R.layout.activity_keyboard, null);
         mPopWindow = new PopupWindow(contentView,
                 ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        mPopWindow.setFocusable(true);
         mPopWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
-        mPopWindow.setOutsideTouchable(true);
         //设置各个控件的点击响应
         NumberKeyboardView number= (NumberKeyboardView) contentView.findViewById(R.id.numberKeyboardView);
         number.setOnNumberClickListener(new NumberKeyboardView.OnNumberClickListener() {
@@ -299,6 +299,7 @@ public class A extends AppCompatActivity {
 
         //显示PopupWindow
         View rootview = LayoutInflater.from(A.this).inflate(R.layout.activity_a, null);
+
         mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
 
 
