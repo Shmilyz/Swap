@@ -26,7 +26,7 @@
             android:hint="宝贝价格：合理的价格是用户选择的前提哦"
             android:textSize="16sp"
             android:textColor="@color/black"
-            android:inputType="text"
+            android:inputType="number"
             />
     </RelativeLayout>
 

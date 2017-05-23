@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     String username;
     private ImageLoader mLoader;
     SharedPreferences.Editor editor;
-
+    boolean select=true;
 
     @Override
     public void onBackPressed() {
@@ -108,12 +108,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
     }
+
+
 
     private void init() {
         mDrawerLayout= (DrawerLayout) findViewById(R.id.activity_main);
-        NavigationView navView= (NavigationView)findViewById(R.id.nav_view);
+        final NavigationView navView= (NavigationView)findViewById(R.id.nav_view);
         View headerLayout = navView.inflateHeaderView(R.layout.nav_header);
         TextView name= (TextView) headerLayout.findViewById(R.id.username);
         name.setText(username);
@@ -143,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
                         MainActivity.this.finish();
                         break;
                     case R.id.nav_theme:
+
+
                       /*  List<String> permissionList = new ArrayList<>();
                         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                             permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
@@ -159,12 +162,38 @@ public class MainActivity extends AppCompatActivity {
                         } else {
 
                         }*/
-                        replaceFragment(new ReleaseFragment());
-                        mDrawerLayout.closeDrawers();
 
 
+                            mDrawerLayout.closeDrawers();
+                        navView.setCheckedItem(R.id.nav_theme);
+                            mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+                                @Override
+                                public void onDrawerSlide(View drawerView, float slideOffset) {
+                                    if (slideOffset == 0) {
+                                        replaceFragment(new ReleaseFragment());
+                                        select = false;
+                                    }
+                                }
+
+                                @Override
+                                public void onDrawerOpened(View drawerView) {
+
+                                }
+
+                                @Override
+                                public void onDrawerClosed(View drawerView) {
+
+                                }
+
+                                @Override
+                                public void onDrawerStateChanged(int newState) {
+
+                                }
+                            });
+
+                        }
                         //                    在这里编写逻辑性的东西。
-                }
+
                 return true;
             }
         });
@@ -213,5 +242,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
 
 }

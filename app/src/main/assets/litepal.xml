@@ -6,4 +6,12 @@
    <mapping class="com.shmily.tjz.swap.LitePal.Data"></mapping>
         <mapping class="com.shmily.tjz.swap.LitePal.Hot"></mapping>
     </list>
+    <dbname value="cool_weather"/>
+    <version value="1"/>
+    <list>
+        <mapping class="com.shmily.tjz.swap.LitePal.Province"/>
+        <mapping class="com.shmily.tjz.swap.LitePal.City"/>
+        <mapping class="com.shmily.tjz.swap.LitePal.County"/>
+    </list>
 </litepal>
+

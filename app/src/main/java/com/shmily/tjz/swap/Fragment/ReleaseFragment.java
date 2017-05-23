@@ -1,17 +1,25 @@
 package com.shmily.tjz.swap.Fragment;
 
 import android.app.DatePickerDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,9 +40,12 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import com.shmily.tjz.swap.A;
 import com.shmily.tjz.swap.Adapter.PhotoShowAdapter;
+import com.shmily.tjz.swap.MainActivity;
 import com.shmily.tjz.swap.R;
 import com.shmily.tjz.swap.Utils.ImageConfigGlideLoader;
 import com.shmily.tjz.swap.Utils.NumberKeyboardView;
+import com.shmily.tjz.swap.Utils.Position;
+import com.weavey.loading.lib.LoadingLayout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -57,26 +68,49 @@ import static android.app.Activity.RESULT_OK;
 public class ReleaseFragment extends Fragment {
     private View rootView;
     private RelativeLayout camera;
-    private RelativeLayout re_type,re_size,re_money,re_data;
-    private TextView te_type,te_size,te_data,text_nest_title_limit;
-    private EditText te_money,text_nest_title;
+    private RelativeLayout re_type,re_size,re_money,re_data,position_re;
+    private TextView te_type,te_size,te_data,text_nest_title_limit,text_nest_desc_limit;
+    private EditText te_money,text_nest_title,text_nest_desc;
     private int REQUEST_CODE=66;
     private String str = "";
-    private TextView result;
+    private TextView result,position;
+    private DrawerLayout drawerLayout;
+
+    private IntentFilter intentFilter;
+    private LocalReceiver localReceiver;
+    private LocalBroadcastManager localBroadcastManger;
+    private LoadingLayout loadingLayout;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         rootView = inflater.inflate(R.layout.release_fragment, container, false);
+        position_re= (RelativeLayout) rootView.findViewById(R.id.position_re);
+        drawerLayout= (DrawerLayout) rootView.findViewById(R.id.drawer_layout);
         camera= (RelativeLayout) rootView.findViewById(R.id.camera);
         re_type= (RelativeLayout) rootView.findViewById(R.id.type_nest);
         te_type= (TextView) rootView.findViewById(R.id.text_type_nest);
         re_size= (RelativeLayout) rootView.findViewById(R.id.size_nest);
         te_size= (TextView) rootView.findViewById(R.id.text_size_nest);
-        re_money= (RelativeLayout) rootView.findViewById(R.id.money_nest);
         te_money= (EditText) rootView.findViewById(R.id.text_money_nest);
         re_data= (RelativeLayout) rootView.findViewById(R.id.data_nest);
         te_data= (TextView) rootView.findViewById(R.id.data_type_nest);
         text_nest_title= (EditText) rootView.findViewById(R.id.text_nest_title);
         text_nest_title_limit= (TextView) rootView.findViewById(R.id.text_nest_title_limit);
+        text_nest_desc= (EditText) rootView.findViewById(R.id.text_nest_desc);
+        text_nest_desc_limit= (TextView) rootView.findViewById(R.id.text_nest_desc_limit);
+        position= (TextView) rootView.findViewById(R.id.position);
+
+        localBroadcastManger=LocalBroadcastManager.getInstance(getActivity());
+        intentFilter=new IntentFilter();
+        intentFilter.addAction("com.shmily.tjz.swap.GET_LOCATION");
+        localReceiver=new LocalReceiver();
+        localBroadcastManger.registerReceiver(localReceiver,intentFilter);
+        Position Position = new Position();
+        Position.getLocation(getActivity());
+        autoposition();
+        releaseposition();
+
         releaseselect();
         releaselimit();
         releasepthoto();
@@ -84,8 +118,113 @@ public class ReleaseFragment extends Fragment {
 
     }
 
+    private void autoposition() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                SharedPreferences prefs = getActivity().getSharedPreferences("location", Context.MODE_PRIVATE);
+                final SharedPreferences.Editor editor = prefs.edit();
+                String autoposition = prefs.getString("City", "自动定位失败");
+                editor.clear();
+                editor.commit();
+                position.setText(autoposition);
+
+            }
+        }, 1500);
+
+
+    }
+
+    public void position(){
+        SharedPreferences pref=getActivity().getSharedPreferences("Fragment_get_position",getActivity().MODE_PRIVATE);
+        String city=pref.getString("City","");
+        String county=pref.getString("County","");
+
+        position.setText(city+ " "+county);
+        SharedPreferences.Editor editor=pref.edit();
+        editor.remove("City");
+        editor.remove("County");
+        editor.clear();
+        editor.apply();
+        editor.commit();
+        /*
+        *这里总怕实现不了移除。所以都用上了。
+        * */
+    }
+
+    private void releaseposition() {
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+        drawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                drawerView.setClickable(true);
+
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
+
+        position_re.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.END);
+
+
+                MainActivity main= (MainActivity) getActivity();
+            }
+        });
+    }
+
     private void releaselimit() {
 
+        text_nest_desc.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                return (event.getKeyCode()==KeyEvent.KEYCODE_ENTER);
+            }
+        });
+        text_nest_desc.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                int num=60-s.length();
+                text_nest_desc_limit.setText(String.valueOf(num));
+
+            }
+        });
+
+
+
+        text_nest_title.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                return (event.getKeyCode()==KeyEvent.KEYCODE_ENTER);
+            }
+        });
         text_nest_title.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -101,7 +240,7 @@ public class ReleaseFragment extends Fragment {
             public void afterTextChanged(Editable s) {
 
                int num=15-s.length();
-                text_nest_title_limit.setText(num);
+                text_nest_title_limit.setText(String.valueOf(num));
 
             }
         });
@@ -322,5 +461,13 @@ public class ReleaseFragment extends Fragment {
 
     public void setTextContent(String textContent) {
         result.setText(textContent);
+    }
+
+    class LocalReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            drawerLayout.closeDrawers();
+            position();
+        }
     }
 }

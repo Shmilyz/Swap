@@ -64,7 +64,7 @@ public class MainFragment extends Fragment {
     private XRecyclerView mRecyclerView;
     private DrawerLayout mDrawerLayout;
     FloatingToolbar mFloatingToolbar;
-    private List<Shoes> shoesDbList =new ArrayList<>();
+    private List<Shoes> shoesList =new ArrayList<>();
     private List<Shoes> ceshi =new ArrayList<>();
     public ShoesAdapter adapter;
     private Handler handler;
@@ -447,7 +447,7 @@ public class MainFragment extends Fragment {
             int index=random.nextInt(fruits.length);
             shoesDbList.add(fruits[index]);
         }*/
-        shoesDbList.clear();
+        shoesList.clear();
         RequestParams params=new RequestParams("http://www.shmilyz.com/ForAndroidHttp/select.action");
         String results= "select * from shoes"+" LIMIT "+0+","+10;
         params.addBodyParameter("uname",results);
@@ -470,12 +470,7 @@ public class MainFragment extends Fragment {
                     JSONArray shoesArray=jsonobject.getJSONArray("result");
                     Gson gson=new Gson();
                     List<Shoes> shoesList=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<Shoes>>(){}.getType());
-                    for(Shoes shoes : shoesList)
-                    {
 
-                        shoesDbList.add(shoes);
-
-                    }
 
 
                     GridLayoutManager layoutManger=new GridLayoutManager(getActivity(),2);
@@ -485,7 +480,7 @@ public class MainFragment extends Fragment {
                     mRecyclerView.setArrowImageView(R.mipmap.iconfont_downgrey);
                     mRecyclerView.setRefreshProgressStyle(2);
                     mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.Pacman);
-                    adapter=new ShoesAdapter(shoesDbList);
+                    adapter=new ShoesAdapter(shoesList);
                     mRecyclerView.setAdapter(adapter);
 
                   /*  Message msg = handler.obtainMessage() ;
@@ -558,12 +553,7 @@ public class MainFragment extends Fragment {
                     JSONArray shoesArray=jsonobject.getJSONArray("result");
                     Gson gson=new Gson();
                     List<Shoes> shoesList=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<Shoes>>(){}.getType());
-                    for(Shoes shoes : shoesList)
-                    {
 
-                        shoesDbList.add(shoes);
-
-                    }
                       adapter.notifyDataSetChanged();
                         mRecyclerView.loadMoreComplete();
                 /*    Message msg = handler.obtainMessage() ;
@@ -635,7 +625,7 @@ public class MainFragment extends Fragment {
                     for(Shoes shoes : shoesList)
                     {
 
-                        shoesDbList.add(shoes);
+                        shoesList.add(shoes);
 
                     }
                     adapter.notifyDataSetChanged();

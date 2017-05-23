@@ -168,8 +168,8 @@
         android:inputType="textMultiLine"
         android:gravity="left|top"
         android:minLines="7"
-        android:maxLength="40"
-        android:id="@+id/editText"
+        android:maxLength="60"
+        android:id="@+id/text_nest_desc"
         android:textSize="16sp"
         android:textColor="@color/black"
         />
@@ -177,7 +177,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="end"
-    android:text="40"
+    android:id="@+id/text_nest_desc_limit"
+
+    android:text="60"
     />
 
 
@@ -188,5 +190,31 @@
         android:background="#D3D3D3"
         ></LinearLayout>
 
+    <RelativeLayout
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginTop="8dp"
+        android:id="@+id/position_re"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/dingwei"
+        android:id="@+id/dinwgei"
+        />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="正在自动定位"
+            android:paddingLeft="3dp"
+            android:gravity="center_vertical"
+            android:id="@+id/position"
+            android:textColor="#42DEB7"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/dinwgei" />
+    </RelativeLayout>
 
 </LinearLayout>

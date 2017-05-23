@@ -37,8 +37,9 @@ public class Position {
                         SharedPreferences prefs=context.getSharedPreferences("location", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor=prefs.edit();
                         editor.remove("City");
+                        editor.clear();
                         editor.putString("City", String.valueOf(currentPosition));
-//
+                        editor.apply();
                         editor.commit();
 
                         break;
