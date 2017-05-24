@@ -121,9 +121,9 @@ public class MainActivity extends AppCompatActivity {
 
         CircleImageView headimage= (CircleImageView) headerLayout.findViewById(R.id.icon_image);
 
-       String url="http://www.shmilyz.com/headimage/"+username+".jpg";
+        String url="http://www.shmilyz.com/headimage/"+username+".jpg";
 
-            Glide.with(MainActivity.this)
+        Glide.with(MainActivity.this)
                 .load(url)
                 .diskCacheStrategy( DiskCacheStrategy.NONE )
                 .into(headimage);
@@ -134,6 +134,37 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected( MenuItem item) {
                 switch (item.getItemId()){
+                    case R.id.nav_me:
+                        mDrawerLayout.closeDrawers();
+                        navView.setCheckedItem(R.id.nav_theme);
+                        mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+                            @Override
+                            public void onDrawerSlide(View drawerView, float slideOffset) {
+                                if (slideOffset == 0) {
+                                    Intent intent1=new Intent(MainActivity.this,MainActivity.class);
+                                    startActivity(intent1);
+                                    MainActivity.this.finish();
+                                }
+                            }
+
+                            @Override
+                            public void onDrawerOpened(View drawerView) {
+
+                            }
+
+                            @Override
+                            public void onDrawerClosed(View drawerView) {
+
+                            }
+
+                            @Override
+                            public void onDrawerStateChanged(int newState) {
+
+                            }
+                        });
+
+
+                        break;
                     case R.id.nav_setting:
                         editor.apply();
                         editor.remove("username");
@@ -160,39 +191,38 @@ public class MainActivity extends AppCompatActivity {
                             String [] permissions = permissionList.toArray(new String[permissionList.size()]);
                             ActivityCompat.requestPermissions(MainActivity.this, permissions, 1);
                         } else {
-
                         }*/
 
 
-                            mDrawerLayout.closeDrawers();
+                        mDrawerLayout.closeDrawers();
                         navView.setCheckedItem(R.id.nav_theme);
-                            mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
-                                @Override
-                                public void onDrawerSlide(View drawerView, float slideOffset) {
-                                    if (slideOffset == 0) {
-                                        replaceFragment(new ReleaseFragment());
-                                        select = false;
-                                    }
+                        mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+                            @Override
+                            public void onDrawerSlide(View drawerView, float slideOffset) {
+                                if (slideOffset == 0) {
+                                    replaceFragment(new ReleaseFragment());
+                                    select = false;
                                 }
+                            }
 
-                                @Override
-                                public void onDrawerOpened(View drawerView) {
+                            @Override
+                            public void onDrawerOpened(View drawerView) {
 
-                                }
+                            }
 
-                                @Override
-                                public void onDrawerClosed(View drawerView) {
+                            @Override
+                            public void onDrawerClosed(View drawerView) {
 
-                                }
+                            }
 
-                                @Override
-                                public void onDrawerStateChanged(int newState) {
+                            @Override
+                            public void onDrawerStateChanged(int newState) {
 
-                                }
-                            });
+                            }
+                        });
 
-                        }
-                        //                    在这里编写逻辑性的东西。
+                }
+                //                    在这里编写逻辑性的东西。
 
                 return true;
             }

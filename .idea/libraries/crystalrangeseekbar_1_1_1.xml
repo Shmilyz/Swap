@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="crystalrangeseekbar-1.1.1">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.crystal/crystalrangeseekbar/1.1.1/res" />
-      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.crystal/crystalrangeseekbar/1.1.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/c56236f5acdb2ca3171a34897febe72a4b994015/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/c56236f5acdb2ca3171a34897febe72a4b994015/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

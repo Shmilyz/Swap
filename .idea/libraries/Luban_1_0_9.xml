@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Luban-1.0.9">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/top.zibin/Luban/1.0.9/res" />
-      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/top.zibin/Luban/1.0.9/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/abcead227062897c427fa6278d774870f2d6161f/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/abcead227062897c427fa6278d774870f2d6161f/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

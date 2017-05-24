@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="utils-v13-1.6.1">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.ogaclejapan.smarttablayout/utils-v13/1.6.1/res" />
-      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.ogaclejapan.smarttablayout/utils-v13/1.6.1/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/742c25cc3c02c698955fdcdcca157b2ee61251e4/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/742c25cc3c02c698955fdcdcca157b2ee61251e4/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -1,11 +1,8 @@
 <component name="libraryTable">
   <library name="discrete-scrollview-1.1.4">
-    <ANNOTATIONS>
-      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.yarolegovich/discrete-scrollview/1.1.4/annotations.zip!/" />
-    </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.yarolegovich/discrete-scrollview/1.1.4/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.yarolegovich/discrete-scrollview/1.1.4/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/498dcbd649aa8abb19c7dca1e03366df0b07c0cb/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/498dcbd649aa8abb19c7dca1e03366df0b07c0cb/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

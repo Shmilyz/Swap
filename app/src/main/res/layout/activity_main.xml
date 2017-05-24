@@ -11,27 +11,27 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       >
-  <android.support.design.widget.AppBarLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-    <android.support.v7.widget.Toolbar
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:id="@+id/toolbar"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:layout_scrollFlags="scroll|enterAlways|snap"
-        />
-  </android.support.design.widget.AppBarLayout>
+        android:layout_height="wrap_content">
+      <android.support.v7.widget.Toolbar
+          android:layout_width="match_parent"
+          android:layout_height="45dp"
+          android:id="@+id/toolbar"
+          android:background="?attr/colorPrimary"
+          android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+          app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+          app:layout_scrollFlags="scroll|enterAlways|snap"
+          />
+    </android.support.design.widget.AppBarLayout>
 
-  <android.support.design.widget.CoordinatorLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:id="@+id/main_fragment"
-      android:orientation="vertical"
-      app:layout_behavior="com.shmily.tjz.swap.Utils.FixScrollingFooterBehavior"
-      />
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/main_fragment"
+        android:orientation="vertical"
+        app:layout_behavior="com.shmily.tjz.swap.Utils.FixScrollingFooterBehavior"
+        />
   </android.support.design.widget.CoordinatorLayout>
   <android.support.design.widget.NavigationView
       android:layout_width="match_parent"

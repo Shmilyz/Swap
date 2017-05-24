@@ -55,11 +55,7 @@
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
-        <activity android:name=".A" >
-
-
-
-        </activity>
+        <activity android:name=".A" />
         <activity android:name=".Rubbish.SignLoginActivity" />
         <activity
             android:name=".SearchActivity"
@@ -78,6 +74,7 @@
         <activity
             android:name=".ShowPhotoResultActivity"
             android:theme="@style/ShowPhotoResult" />
+        <activity android:name=".ShowFragmentActivity"></activity>
     </application>
 
 </manifest><!--

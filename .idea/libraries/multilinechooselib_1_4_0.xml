@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="multilinechooselib-1.4.0">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/liji.library.dev/multilinechooselib/1.4.0/res" />
-      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/liji.library.dev/multilinechooselib/1.4.0/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/5cd2d018dbe2f9c6fccb9e924c769a405dc054e4/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/5cd2d018dbe2f9c6fccb9e924c769a405dc054e4/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

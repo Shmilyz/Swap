@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="none">
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_me"
-            android:title="我"
-            android:icon="@mipmap/sousuo"/>
+            android:title="首页"
+            />
         <item
             android:id="@+id/nav_friend"
             android:title="好友"
-            android:icon="@mipmap/sousuo"/>
+            />
         <item
             android:id="@+id/nav_notification"
             android:title="通知"
-            android:icon="@mipmap/sousuo"/>
+            />
         <item
             android:id="@+id/nav_message"
             android:title="私信"
-            android:icon="@mipmap/sousuo"
             />
     </group>
-    <group android:checkableBehavior="none"
+    <group android:checkableBehavior="single"
         android:id="@+id/group_manage">
         <item
             android:id="@+id/nav_manage"
             android:title="应用管理"
-            android:icon="@mipmap/sousuo"/>
+            />
     </group>
     <group
-        android:checkableBehavior="none"
+        android:checkableBehavior="single"
         android:id="@+id/group_settings">
         <item android:id="@+id/nav_theme"
             android:title="城市天气"/>

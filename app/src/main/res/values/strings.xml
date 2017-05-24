@@ -2,5 +2,6 @@
     <string name="app_name">Swap</string>
     <string name="a">首页</string>
     <string name="b">专题</string>
+    <string name="title_activity_main2">Main2Activity</string>
 
 </resources>

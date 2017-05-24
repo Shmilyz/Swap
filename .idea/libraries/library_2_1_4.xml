@@ -1,11 +1,8 @@
 <component name="libraryTable">
   <library name="library-2.1.4">
-    <ANNOTATIONS>
-      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.rengwuxian.materialedittext/library/2.1.4/annotations.zip!/" />
-    </ANNOTATIONS>
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.rengwuxian.materialedittext/library/2.1.4/res" />
-      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.rengwuxian.materialedittext/library/2.1.4/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/bc006f1b9fd994c1cef6b82ef44a911bddf6e90f/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/bc006f1b9fd994c1cef6b82ef44a911bddf6e90f/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

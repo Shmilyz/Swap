@@ -3,18 +3,19 @@
     <style name="ShowPhotoResult" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:windowBackground" >@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="colorPrimaryDark">#384A56</item>
 
     </style>
 
     <style name="login" parent="Theme.AppCompat.Light.NoActionBar">
-    <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorAccent">#000</item>
-    <item name="colorPrimaryDark">#90000000</item>
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">#000</item>
+        <item name="colorPrimaryDark">#90000000</item>
     </style>
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -22,6 +23,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 
     </style>
+
     <style name="AppTheme.main" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -31,6 +33,7 @@
 
 
     </style>
+
     <style name="FruitActivityTheme" parent="AppTheme">
         <item name="android:windowIsTranslucent">true</item><!--设置这个手势滑动的时候就不会变黑 ，具体查看git-->
         <item name="android:windowAnimationStyle">@style/SlideRightAnimation</item>
@@ -43,6 +46,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="AppTheme.search" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -50,6 +54,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 
     </style>
+
     <style name="FlowLayout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -70,6 +75,7 @@
         <item name="item_maxEms">5</item>
         <item name="item_multiChooseable">true</item>
     </style>
+
     <style name="FlowLayout1">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

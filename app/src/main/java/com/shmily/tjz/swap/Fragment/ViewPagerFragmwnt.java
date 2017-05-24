@@ -37,8 +37,8 @@ public class ViewPagerFragmwnt extends Fragment{
 
         ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
         viewPager.setAdapter(adapter);
-
         SmartTabLayout viewPagerTab = (SmartTabLayout) rootView.findViewById(R.id.viewpagertab);
         viewPagerTab.setViewPager(viewPager);
+
     }
 }
