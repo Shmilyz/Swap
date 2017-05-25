@@ -32,6 +32,7 @@ import com.shmily.tjz.swap.Fragment.ViewPagerFragmwnt;
 import com.shmily.tjz.swap.Srevice.SearchService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -41,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
     String username;
     private ImageLoader mLoader;
     SharedPreferences.Editor editor;
-    boolean select=true;
-
+    boolean release=true;
+    int a = 0;
     @Override
     public void onBackPressed() {
         mLoader = new ImageLoader(MainActivity.this);
@@ -89,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         replaceFragment(new ViewPagerFragmwnt());
-
         List<String> permissionList = new ArrayList<>();
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
         View headerLayout = navView.inflateHeaderView(R.layout.nav_header);
         TextView name= (TextView) headerLayout.findViewById(R.id.username);
         name.setText(username);
+        navView.setCheckedItem(R.id.nav_me);
 
         CircleImageView headimage= (CircleImageView) headerLayout.findViewById(R.id.icon_image);
 
@@ -128,19 +129,23 @@ public class MainActivity extends AppCompatActivity {
                 .diskCacheStrategy( DiskCacheStrategy.NONE )
                 .into(headimage);
 
-        navView.setCheckedItem(R.id.nav_me);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
 
             @Override
-            public boolean onNavigationItemSelected( MenuItem item) {
+            public boolean onNavigationItemSelected(final MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.nav_me:
+                        item.setChecked(true);
+
                         mDrawerLayout.closeDrawers();
                         navView.setCheckedItem(R.id.nav_theme);
+                        Intent stopservice=new Intent(MainActivity.this,SearchService.class);
+                        stopService(stopservice);
                         mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
                             @Override
                             public void onDrawerSlide(View drawerView, float slideOffset) {
                                 if (slideOffset == 0) {
+
                                     Intent intent1=new Intent(MainActivity.this,MainActivity.class);
                                     startActivity(intent1);
                                     MainActivity.this.finish();
@@ -195,13 +200,21 @@ public class MainActivity extends AppCompatActivity {
 
 
                         mDrawerLayout.closeDrawers();
-                        navView.setCheckedItem(R.id.nav_theme);
+
+
+
+
                         mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+
                             @Override
                             public void onDrawerSlide(View drawerView, float slideOffset) {
                                 if (slideOffset == 0) {
-                                    replaceFragment(new ReleaseFragment());
-                                    select = false;
+                                    if (release) {
+                                        item.setChecked(true);
+                                        replaceFragment(new ReleaseFragment());
+                                        release=false;
+
+                                    }
                                 }
                             }
 
@@ -220,8 +233,9 @@ public class MainActivity extends AppCompatActivity {
 
                             }
                         });
+                    }
 
-                }
+
                 //                    在这里编写逻辑性的东西。
 
                 return true;

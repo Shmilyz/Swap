@@ -103,7 +103,7 @@ public class ReleaseFragment extends Fragment {
         intentFilter=new IntentFilter();
         intentFilter.addAction("com.shmily.tjz.swap.GET_LOCATION");
         localReceiver=new LocalReceiver();
-        localBroadcastManger.registerReceiver(localReceiver,intentFilter);
+
         Position Position = new Position();
         Position.getLocation(getActivity());
         autoposition();
@@ -127,6 +127,7 @@ public class ReleaseFragment extends Fragment {
                 editor.commit();
                 position.setText(autoposition);
 
+
             }
         }, 1500);
 
@@ -145,6 +146,8 @@ public class ReleaseFragment extends Fragment {
         editor.clear();
         editor.apply();
         editor.commit();
+        localBroadcastManger.unregisterReceiver(localReceiver);
+
         /*
         *这里总怕实现不了移除。所以都用上了。
         * */
@@ -180,9 +183,7 @@ public class ReleaseFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(GravityCompat.END);
-
-
-                MainActivity main= (MainActivity) getActivity();
+                localBroadcastManger.registerReceiver(localReceiver,intentFilter);
             }
         });
     }
@@ -468,4 +469,6 @@ public class ReleaseFragment extends Fragment {
             position();
         }
     }
+
+
 }

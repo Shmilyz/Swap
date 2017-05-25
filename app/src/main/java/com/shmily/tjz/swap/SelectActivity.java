@@ -20,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListener;
@@ -182,6 +183,7 @@ public class SelectActivity extends AppCompatActivity {
                     case WHAT_NEWS:
 
                         SharedPreferences.Editor editor =getSharedPreferences("select_result",MODE_PRIVATE).edit();
+                        editor.clear();
                         editor.putString("result",select_result );
                         editor.putBoolean("can",true);
                         editor.putString("sql_result",results);
@@ -393,6 +395,7 @@ public class SelectActivity extends AppCompatActivity {
         RequestParams params=new RequestParams("http://www.shmilyz.com/ForAndroidHttp/select.action");
          results= String.valueOf(builder);
         String last_results=results+" LIMIT 0,10";
+        Toast.makeText(this, last_results, Toast.LENGTH_SHORT).show();
         params.addBodyParameter("uname",last_results);
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
