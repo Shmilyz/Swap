@@ -18,22 +18,20 @@ public class ShowPhotoResultActivity extends AppCompatActivity {
         Intent intent=getIntent();
         String url=intent.getStringExtra("url");
         Glide.with(ShowPhotoResultActivity.this).load(url)
-                .centerCrop()
-                .placeholder(R.drawable.black)
-                .into(dragPhotoView);
+                .centerCrop()                .into(dragPhotoView);
         dragPhotoView.setOnExitListener(new DragPhotoView.OnExitListener() {
             @Override
             public void onExit(DragPhotoView dragPhotoView, float v, float v1, float v2, float v3) {
                 ShowPhotoResultActivity.this.finish();
             }
         });
-        dragPhotoView.setOnTapListener(new DragPhotoView.OnTapListener() {
+        /*dragPhotoView.setOnTapListener(new DragPhotoView.OnTapListener() {
             @Override
             public void onTap(DragPhotoView dragPhotoView) {
                 ShowPhotoResultActivity.this.finish();
 
             }
-        });
+        });*/
 
     }
 }

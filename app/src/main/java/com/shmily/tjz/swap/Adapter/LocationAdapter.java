@@ -34,7 +34,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         Glide.with(holder.itemView.getContext())
                 .load(data.get(position).getImageId())
-                .diskCacheStrategy( DiskCacheStrategy.NONE )
                 .into(holder.image);
     }
 

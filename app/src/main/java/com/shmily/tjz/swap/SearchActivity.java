@@ -63,15 +63,14 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                Toast.makeText(SearchActivity.this, "c", Toast.LENGTH_SHORT).show();
-
                 if (!TextUtils.isEmpty(s.toString().trim())){
                     ResultFragment resultFragment=new ResultFragment();
                     Bundle bundle=new Bundle();
-                    String result=s.toString().replace("","");
+                    String result=s.toString().replace(" ","");
                     bundle.putString("results",result);
                     resultFragment.setArguments(bundle);
                     replaceFragment(resultFragment);
+
 
                 }
                 else {

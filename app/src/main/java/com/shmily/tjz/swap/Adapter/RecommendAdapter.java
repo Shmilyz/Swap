@@ -51,7 +51,6 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
     public void onBindViewHolder(RecommendAdapter.ViewHolder holder, int position) {
         Shoes shoes = mShoesList.get(position);
         Glide.with(mContext).load(shoes.getPicture())
-                .diskCacheStrategy( DiskCacheStrategy.NONE )
         .into(holder.ShoesImage);
 
     }

@@ -9,6 +9,9 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
@@ -18,11 +21,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,11 +45,21 @@ import com.shmily.tjz.swap.A;
 import com.shmily.tjz.swap.Adapter.PhotoShowAdapter;
 import com.shmily.tjz.swap.MainActivity;
 import com.shmily.tjz.swap.R;
+import com.shmily.tjz.swap.ShoesActivity;
+import com.shmily.tjz.swap.Utils.DateUtil;
 import com.shmily.tjz.swap.Utils.ImageConfigGlideLoader;
 import com.shmily.tjz.swap.Utils.NumberKeyboardView;
 import com.shmily.tjz.swap.Utils.Position;
 import com.weavey.loading.lib.LoadingLayout;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -55,6 +70,9 @@ import cn.addapp.pickers.listeners.OnItemPickListener;
 import cn.addapp.pickers.listeners.OnMoreItemPickListener;
 import cn.addapp.pickers.picker.LinkagePicker;
 import cn.addapp.pickers.picker.SinglePicker;
+import github.ishaan.buttonprogressbar.ButtonProgressBar;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -77,7 +95,17 @@ public class ReleaseFragment extends Fragment {
     private IntentFilter intentFilter;
     private LocalReceiver localReceiver;
     private LocalBroadcastManager localBroadcastManger;
-    private LoadingLayout loadingLayout;
+
+    private ButtonProgressBar release_button;
+    private  List<String> pathList=new ArrayList<>();
+    private  List<String> pathList_luban=new ArrayList<>();
+
+    private int path_amount;
+    String picture_name;
+    String results;
+    private Handler handler;
+    final int WHAT_NEWS = 1 ;
+    FloatingActionButton fab;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -98,7 +126,7 @@ public class ReleaseFragment extends Fragment {
         text_nest_desc= (EditText) rootView.findViewById(R.id.text_nest_desc);
         text_nest_desc_limit= (TextView) rootView.findViewById(R.id.text_nest_desc_limit);
         position= (TextView) rootView.findViewById(R.id.position);
-
+        release_button= (ButtonProgressBar) rootView.findViewById(R.id.releasebutton);
         localBroadcastManger=LocalBroadcastManager.getInstance(getActivity());
         intentFilter=new IntentFilter();
         intentFilter.addAction("com.shmily.tjz.swap.GET_LOCATION");
@@ -106,16 +134,198 @@ public class ReleaseFragment extends Fragment {
 
         Position Position = new Position();
         Position.getLocation(getActivity());
+
         autoposition();
         releaseposition();
 
         releaseselect();
         releaselimit();
         releasepthoto();
+        release();
         return rootView;
 
     }
 
+    private void release() {
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                // 负责接收Handler消息，并执行UI更新
+                // 判断消息的来源：通过消息的类型 what
+                switch (msg.what) {
+                    case WHAT_NEWS:
+                            uploadFile();
+                        break;
+
+                }
+
+            }
+        } ;
+
+        release_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                String text_nest_title_result="'"+text_nest_title.getText().toString().trim()+"'";
+                String te_data_result="'"+te_data.getText().toString().trim()+"'";
+                String te_type_result="'"+te_type.getText().toString().trim()+"'";
+                String te_size_result="'"+te_size.getText().toString().trim()+"'";
+                String text_nest_desc_result="'"+text_nest_desc.getText().toString().trim()+"'";
+                String position_result="'"+position.getText().toString().replace(" ","")+"'";
+                String te_money_result=te_money.getText().toString().trim();
+                int te_money_int=Integer.parseInt(te_money_result);
+                SharedPreferences prefs=getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+                String usernames=prefs.getString("username",null);
+                String username="'"+prefs.getString("username",null)+"'";
+//                path_amount
+                DateUtil data=new DateUtil();
+                picture_name=usernames+data.getCurrentTime(DateUtil.DateFormat.YYYYMMDDHHMMSS);
+                String picture_url="'"+"http://www.shmilyz.com/picture/"+picture_name+"_1.jpg"+"'";
+                StringBuilder builder=new StringBuilder();
+                builder.append("insert into shoes(sex,style,brand,no,price,picture,iid,location,miaoshu,biaoti,date,size,username,position,picturename,pictureamount) \n" +
+                        "VALUES(").append("'男士'").append(",").append(te_type_result).append(",").append("'品牌'").append(",").append("'二手'").append(",")
+                        .append(te_money_int).append(",").append(picture_url).append(",").append("'1'").append(",")
+                        .append(position_result).append(",").append(text_nest_desc_result).append(",")
+                        .append(text_nest_title_result).append(",").append(te_data_result).append(",")
+                .append(te_size_result).append(",").append(username).append(",").append(position_result).append(",").append(picture_name).append(",").append(path_amount)
+                .append(")");
+
+
+
+                RequestParams params=new RequestParams("http://www.shmilyz.com/ForAndroidHttp/update.action");
+                results= String.valueOf(builder);
+                Log.d("AAAAAAAAAAAA",results);
+                params.addBodyParameter("uname",results);
+
+                x.http().post(params, new Callback.CacheCallback<String>() {
+                    @Override
+                    public void onSuccess( String result) {
+
+                        try {
+                            Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
+                            JSONObject json = new JSONObject(result);
+                            String return_result = json.getString("result");
+
+
+
+
+
+
+                            if (return_result.equals("1")){
+//                                release_button.startLoader();
+                                Message msg = handler.obtainMessage();
+                                // 设置消息内容（可选）
+                                // 设置消息类型
+                                msg.what = WHAT_NEWS;
+                                // 发送消息
+                                handler.sendMessage(msg);
+
+
+
+                            }else{
+
+                                Snackbar.make(view,"很抱歉，上传失败。",Snackbar.LENGTH_LONG)
+                                        .show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+
+                    @Override
+                    public boolean onCache(String result) {
+                        return false;
+                    }
+                });
+
+
+            }
+        });
+
+    }
+    private void uploadFile() {
+
+        for (int a=1;a<=pathList_luban.size();a++){
+            String num=String.valueOf(a);
+                String name=picture_name+"_"+num;
+                File file=new File(pathList_luban.get(a-1));
+
+
+            RequestParams params = new RequestParams("http://www.shmilyz.com/ForAndroidUpload/upload.do") ;
+            params.setMultipart(true);    // 文件上传必须有该语句
+            params.addBodyParameter("file" , "userupload");
+            params.addBodyParameter("username" , name);
+            params.addBodyParameter("userphoto" , file);
+            x.http().post(params, new Callback.CommonCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+
+                    try {
+                        JSONObject json = new JSONObject(result);
+                        String results = json.getString("result");
+
+                        if (results.equals("1")) {
+                            release_button.startLoader();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+
+
+
+                                    release_button.stopLoader();
+                                }
+                            }, 1200);
+
+
+                        } else {
+                            Toast.makeText(getActivity(), "失败！！！", Toast.LENGTH_SHORT).show();
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+
+                }
+
+                @Override
+                public void onCancelled(CancelledException cex) {
+
+                }
+
+                @Override
+                public void onFinished() {
+
+                }
+            }) ;
+
+
+        }
+
+    }
     private void autoposition() {
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -129,7 +339,7 @@ public class ReleaseFragment extends Fragment {
 
 
             }
-        }, 1500);
+        }, 1300);
 
 
     }
@@ -189,7 +399,6 @@ public class ReleaseFragment extends Fragment {
     }
 
     private void releaselimit() {
-
         text_nest_desc.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -416,16 +625,44 @@ public class ReleaseFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             // 获取选中的图片路径列表 Get Images Path List
-            List<String> pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT);
-            Toast.makeText(getActivity(), pathList.get(0), Toast.LENGTH_SHORT).show();
-            RecyclerView recyclerView= (RecyclerView) rootView.findViewById(R.id.show_photo_recy);
-            LinearLayoutManager layoutManger =new LinearLayoutManager(getActivity());
+            pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT);
+            RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.show_photo_recy);
+            LinearLayoutManager layoutManger = new LinearLayoutManager(getActivity());
             layoutManger.setOrientation(LinearLayoutManager.HORIZONTAL);
             recyclerView.setLayoutManager(layoutManger);
-            PhotoShowAdapter adapter=new PhotoShowAdapter(pathList);
+            PhotoShowAdapter adapter = new PhotoShowAdapter(pathList);
             recyclerView.setAdapter(adapter);
+            path_amount = pathList.size();
+
+            for (int i=0;i<path_amount;i++) {
+                File file1=new File(pathList.get(i).toString());
+                Luban.get(getActivity())
+                        .load(file1)                     //传人要压缩的图片
+                        .putGear(Luban.THIRD_GEAR)      //设定压缩档次，默认三挡
+                        .setCompressListener(new OnCompressListener() { //设置回调
+
+                            @Override
+                            public void onStart() {
+                                // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                            }
+
+                            @Override
+                            public void onSuccess(File file) {
+                                String image_path = file.getPath();
+                                pathList_luban.add(image_path);
+                                //Toast.makeText(SignActivity.this, file.getPath(), Toast.LENGTH_SHORT).show();
+
+                                // TODO 压缩成功后调用，返回压缩后的图片文件
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                // TODO 当压缩过去出现问题时调用
+                            }
+                        }).launch();    //启动压缩
 
 
+            }
         }
     }
     private void releasepthoto() {

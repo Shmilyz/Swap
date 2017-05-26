@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Handler;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     boolean release=true;
     int a = 0;
+    Toolbar toolbar;
     @Override
     public void onBackPressed() {
         mLoader = new ImageLoader(MainActivity.this);
@@ -79,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
+         toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
 
@@ -113,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void init() {
+
         mDrawerLayout= (DrawerLayout) findViewById(R.id.activity_main);
         final NavigationView navView= (NavigationView)findViewById(R.id.nav_view);
         View headerLayout = navView.inflateHeaderView(R.layout.nav_header);
@@ -179,6 +183,34 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         MainActivity.this.finish();
                         break;
+                    case R.id.nav_manage:
+                        mDrawerLayout.closeDrawers();
+                        navView.setCheckedItem(R.id.nav_theme);
+                        mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+                            @Override
+                            public void onDrawerSlide(View drawerView, float slideOffset) {
+                                if (slideOffset == 0) {
+                                    replaceFragment(new LocationFragment());
+                                    release=true;
+                                }
+                            }
+
+                            @Override
+                            public void onDrawerOpened(View drawerView) {
+
+                            }
+
+                            @Override
+                            public void onDrawerClosed(View drawerView) {
+
+                            }
+
+                            @Override
+                            public void onDrawerStateChanged(int newState) {
+
+                            }
+                        });
+                        break;
                     case R.id.nav_theme:
 
 
@@ -211,6 +243,7 @@ public class MainActivity extends AppCompatActivity {
                                 if (slideOffset == 0) {
                                     if (release) {
                                         item.setChecked(true);
+
                                         replaceFragment(new ReleaseFragment());
                                         release=false;
 

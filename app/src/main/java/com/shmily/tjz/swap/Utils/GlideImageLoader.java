@@ -24,7 +24,6 @@ public class GlideImageLoader extends ImageLoader implements ImageLoaderInterfac
     public void DisplayImage(String url, ImageView imageView) {
         super.DisplayImage(url, imageView);
         Glide.with(mContext).load(url)
-                .diskCacheStrategy( DiskCacheStrategy.NONE )
                 .into(imageView);
 
     }
@@ -32,7 +31,6 @@ public class GlideImageLoader extends ImageLoader implements ImageLoaderInterfac
     @Override
     public void displayImage(Context context, Object path, View imageView) {
         Glide.with(context).load(path)
-                .diskCacheStrategy( DiskCacheStrategy.NONE )
                 .into((ImageView) imageView);
 
     }

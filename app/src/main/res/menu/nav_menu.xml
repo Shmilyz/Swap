@@ -8,29 +8,30 @@
             />
         <item
             android:id="@+id/nav_friend"
-            android:title="好友"
+            android:title="我的收藏"
             />
         <item
             android:id="@+id/nav_notification"
-            android:title="通知"
+            android:title="我的购买"
             />
         <item
             android:id="@+id/nav_message"
-            android:title="私信"
+            android:title="我的发布"
             />
     </group>
     <group android:checkableBehavior="single"
         android:id="@+id/group_manage">
-        <item
-            android:id="@+id/nav_manage"
-            android:title="应用管理"
-            />
+
+        <item android:id="@+id/nav_theme"
+            android:title="我要发布"/>
     </group>
     <group
         android:checkableBehavior="single"
         android:id="@+id/group_settings">
-        <item android:id="@+id/nav_theme"
-            android:title="城市天气"/>
+        <item
+            android:id="@+id/nav_manage"
+            android:title="同城发布"
+            />
         <item android:id="@+id/nav_night"
             android:title="夜间模式"/>
         <item android:id="@+id/nav_setting"

@@ -56,7 +56,7 @@ public class ShoesAdapter extends RecyclerView.Adapter<ShoesAdapter.ViewHolder>{
     public void onBindViewHolder(ViewHolder holder, int position) {
         Shoes shoes = mShoesList.get(position);
         holder.fruitName.setText(shoes.getMiaoshu());
-        Glide.with(mContext).load(shoes.getPicture()).diskCacheStrategy( DiskCacheStrategy.NONE ).into(holder.fruitImage);
+        Glide.with(mContext).load(shoes.getPicture()).into(holder.fruitImage);
 //. skipMemoryCache( true ).diskCacheStrategy(DiskCacheStrategy.NONE)
 
         /*

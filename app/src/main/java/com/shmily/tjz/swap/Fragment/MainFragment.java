@@ -58,6 +58,14 @@ import static android.content.Context.CONNECTIVITY_SERVICE;
  * Created by Shmily_Z on 2017/5/2.
  */
 
+/*
+*
+*
+*
+*
+*
+*
+* */
 public class MainFragment extends Fragment {
     private LoadingLayout loadingLayout;
     private View rootView;

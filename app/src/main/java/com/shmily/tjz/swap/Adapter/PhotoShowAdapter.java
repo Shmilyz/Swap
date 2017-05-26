@@ -56,7 +56,6 @@ public class PhotoShowAdapter extends RecyclerView.Adapter<PhotoShowAdapter.View
     public void onBindViewHolder(PhotoShowAdapter.ViewHolder holder, int position) {
         String photo = mShoesList.get(position);
         Glide.with(mContext).load(photo)
-                .centerCrop()
                 .into(holder.ShoesImage);
 
     }
@@ -86,8 +85,6 @@ public class PhotoShowAdapter extends RecyclerView.Adapter<PhotoShowAdapter.View
                 Intent intent=new Intent(MyApplication.getContext(), ShowPhotoResultActivity.class);
                 intent.putExtra("url",mShoesList.get(position));
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-
                 MyApplication.getContext().startActivity(intent);
 
             }

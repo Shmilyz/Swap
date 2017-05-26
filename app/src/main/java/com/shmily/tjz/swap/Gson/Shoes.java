@@ -5,33 +5,51 @@ package com.shmily.tjz.swap.Gson;
  */
 
 public class Shoes {
-
-
     /**
-     * no : 全新
+     * date : 2017.05
+     * no : 二手
      * iid : 1
-     * price : 660
      * sex : 男士
-     * miaoshu : Jordan官方 JORDAN CP3.X XDR AE 男子篮球运动休闲鞋 922655
-     * style : basketball
-     * location : 北辰区
-     * biaoti : JORDAN男子篮球运动休闲鞋 922655
-     * id : 1
-     * brand : aj
-     * picture : http://www.shmilyz.com/picture/1.jpg
+     * miaoshu : 你是不是你手机十几万
+     * picture : http://www.shmilyz.com/picture/20170526161415_1.jpg
+     * pictureamount : 1
+     * size : 43
+     * price : 1200
+     * picturename : 20170526161415
+     * style : 篮球/足球
+     * location : 天津市西青区
+     * biaoti : 我爱你
+     * id : 85
+     * position : 天津市西青区
+     * brand : 品牌
+     * username : 田俊哲
      */
 
+    private String date;
     private String no;
     private String iid;
-    private int price;
     private String sex;
     private String miaoshu;
+    private String picture;
+    private int pictureamount;
+    private String size;
+    private int price;
+    private String picturename;
     private String style;
     private String location;
     private String biaoti;
     private int id;
+    private String position;
     private String brand;
-    private String picture;
+    private String username;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getNo() {
         return no;
@@ -49,14 +67,6 @@ public class Shoes {
         this.iid = iid;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
     public String getSex() {
         return sex;
     }
@@ -71,6 +81,46 @@ public class Shoes {
 
     public void setMiaoshu(String miaoshu) {
         this.miaoshu = miaoshu;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public int getPictureamount() {
+        return pictureamount;
+    }
+
+    public void setPictureamount(int pictureamount) {
+        this.pictureamount = pictureamount;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getPicturename() {
+        return picturename;
+    }
+
+    public void setPicturename(String picturename) {
+        this.picturename = picturename;
     }
 
     public String getStyle() {
@@ -105,6 +155,14 @@ public class Shoes {
         this.id = id;
     }
 
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
     public String getBrand() {
         return brand;
     }
@@ -113,11 +171,16 @@ public class Shoes {
         this.brand = brand;
     }
 
-    public String getPicture() {
-        return picture;
+    public String getUsername() {
+        return username;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setUsername(String username) {
+        this.username = username;
     }
+
+
+
+
+
 }

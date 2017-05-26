@@ -5,7 +5,6 @@
     android:id="@+id/activity_show_photo_result"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context="com.shmily.tjz.swap.ShowPhotoResultActivity">
 <com.wingsofts.dragphotoview.DragPhotoView
     android:layout_width="match_parent"

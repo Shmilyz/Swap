@@ -395,7 +395,6 @@ public class SelectActivity extends AppCompatActivity {
         RequestParams params=new RequestParams("http://www.shmilyz.com/ForAndroidHttp/select.action");
          results= String.valueOf(builder);
         String last_results=results+" LIMIT 0,10";
-        Toast.makeText(this, last_results, Toast.LENGTH_SHORT).show();
         params.addBodyParameter("uname",last_results);
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
