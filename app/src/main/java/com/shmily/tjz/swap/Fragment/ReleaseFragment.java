@@ -101,7 +101,7 @@ public class ReleaseFragment extends Fragment {
     private  List<String> pathList_luban=new ArrayList<>();
 
     private int path_amount;
-    String picture_name;
+    String picture_name,picture_name_title;
     String results;
     private Handler handler;
     final int WHAT_NEWS = 1 ;
@@ -179,6 +179,7 @@ public class ReleaseFragment extends Fragment {
 //                path_amount
                 DateUtil data=new DateUtil();
                 picture_name=usernames+data.getCurrentTime(DateUtil.DateFormat.YYYYMMDDHHMMSS);
+                picture_name_title="'"+usernames+data.getCurrentTime(DateUtil.DateFormat.YYYYMMDDHHMMSS)+"'";
                 String picture_url="'"+"http://www.shmilyz.com/picture/"+picture_name+"_1.jpg"+"'";
                 StringBuilder builder=new StringBuilder();
                 builder.append("insert into shoes(sex,style,brand,no,price,picture,iid,location,miaoshu,biaoti,date,size,username,position,picturename,pictureamount) \n" +
@@ -186,14 +187,14 @@ public class ReleaseFragment extends Fragment {
                         .append(te_money_int).append(",").append(picture_url).append(",").append("'1'").append(",")
                         .append(position_result).append(",").append(text_nest_desc_result).append(",")
                         .append(text_nest_title_result).append(",").append(te_data_result).append(",")
-                .append(te_size_result).append(",").append(username).append(",").append(position_result).append(",").append(picture_name).append(",").append(path_amount)
+                .append(te_size_result).append(",").append(username).append(",").append(position_result).append(",").append(picture_name_title).append(",").append(path_amount)
                 .append(")");
 
 
 
                 RequestParams params=new RequestParams("http://www.shmilyz.com/ForAndroidHttp/update.action");
                 results= String.valueOf(builder);
-                Log.d("AAAAAAAAAAAA",results);
+
                 params.addBodyParameter("uname",results);
 
                 x.http().post(params, new Callback.CacheCallback<String>() {
@@ -266,7 +267,9 @@ public class ReleaseFragment extends Fragment {
         for (int a=1;a<=pathList_luban.size();a++){
             String num=String.valueOf(a);
                 String name=picture_name+"_"+num;
+
                 File file=new File(pathList_luban.get(a-1));
+            Log.d("EEE",pathList_luban.get(a-1));
 
 
             RequestParams params = new RequestParams("http://www.shmilyz.com/ForAndroidUpload/upload.do") ;
@@ -274,6 +277,8 @@ public class ReleaseFragment extends Fragment {
             params.addBodyParameter("file" , "userupload");
             params.addBodyParameter("username" , name);
             params.addBodyParameter("userphoto" , file);
+
+            final int finalA = a;
             x.http().post(params, new Callback.CommonCallback<String>() {
                 @Override
                 public void onSuccess(String result) {
@@ -283,16 +288,21 @@ public class ReleaseFragment extends Fragment {
                         String results = json.getString("result");
 
                         if (results.equals("1")) {
-                            release_button.startLoader();
+
+                            if (finalA == pathList_luban.size()){
+                                release_button.startLoader();
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
 
 
+                                        release_button.stopLoader();
 
-                                    release_button.stopLoader();
+
                                 }
                             }, 1200);
+
+                            }
 
 
                         } else {
@@ -636,6 +646,8 @@ public class ReleaseFragment extends Fragment {
 
             for (int i=0;i<path_amount;i++) {
                 File file1=new File(pathList.get(i).toString());
+                Log.d("FFF",pathList.get(i).toString());
+
                 Luban.get(getActivity())
                         .load(file1)                     //传人要压缩的图片
                         .putGear(Luban.THIRD_GEAR)      //设定压缩档次，默认三挡
@@ -651,7 +663,7 @@ public class ReleaseFragment extends Fragment {
                                 String image_path = file.getPath();
                                 pathList_luban.add(image_path);
                                 //Toast.makeText(SignActivity.this, file.getPath(), Toast.LENGTH_SHORT).show();
-
+                                Log.d("WWW",image_path);
                                 // TODO 压缩成功后调用，返回压缩后的图片文件
                             }
 
