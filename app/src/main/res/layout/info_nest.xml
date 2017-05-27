@@ -67,6 +67,7 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:text="AJ大魔王"
+            android:id="@+id/info_name"
             />
 
         <TextView
@@ -75,6 +76,8 @@
             android:layout_marginTop="10dp"
             android:textSize="12sp"
             android:text="42.5"
+            android:id="@+id/info_size"
+
             />
         <TextView
             android:layout_width="wrap_content"
@@ -82,6 +85,8 @@
             android:layout_marginTop="10dp"
             android:textSize="12sp"
             android:text="2016/06"
+            android:id="@+id/info_date"
+
             />
         <TextView
             android:layout_width="wrap_content"
@@ -89,6 +94,8 @@
             android:layout_marginTop="10dp"
             android:textSize="12sp"
             android:text="天津 北辰区"
+            android:id="@+id/info_position"
+
             />
 
 
@@ -114,6 +121,8 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:text="购买后穿过几次，保真，由于鞋太大，穿着不舒服，所以只能卖掉，邮费我自己出，原价1500，放着可惜，只能卖掉。可以面交。走顺丰。"
+            android:id="@+id/info_desc"
+
             />
     </LinearLayout>
 </RelativeLayout>

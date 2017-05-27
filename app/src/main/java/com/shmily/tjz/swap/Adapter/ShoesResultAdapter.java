@@ -54,7 +54,7 @@ public class ShoesResultAdapter extends RecyclerView.Adapter<ShoesResultAdapter.
     @Override
     public void onBindViewHolder(ShoesResultAdapter.ViewHolder holder, int position) {
         Shoes shoes = mShoesList.get(position);
-        holder.fruitName.setText(shoes.getMiaoshu());
+        holder.fruitName.setText(shoes.getBiaoti());
         Glide.with(mContext).load(shoes.getPicture()).into(holder.fruitImage);
 //. skipMemoryCache( true ).diskCacheStrategy(DiskCacheStrategy.NONE)
 
@@ -88,8 +88,8 @@ public class ShoesResultAdapter extends RecyclerView.Adapter<ShoesResultAdapter.
                 int position = holder.getAdapterPosition();
                 Shoes shoes = mShoesList.get(position);
                 Intent intent = new Intent(mContext, ShoesActivity.class);
-                intent.putExtra(ShoesActivity.SHOES_NAME, shoes.getMiaoshu());
-                intent.putExtra(ShoesActivity.SHOES_IMAGE_ID, shoes.getPicture());
+                intent.putExtra(ShoesActivity.SHOES_ID, String.valueOf(shoes.getId()));
+                intent.putExtra(ShoesActivity.SHOES_IMAGE_URL, shoes.getPicture());
 
                 mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) mContext).toBundle());
 

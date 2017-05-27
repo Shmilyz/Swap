@@ -107,6 +107,11 @@ public class ReleaseFragment extends Fragment {
     final int WHAT_NEWS = 1 ;
     FloatingActionButton fab;
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -176,18 +181,19 @@ public class ReleaseFragment extends Fragment {
                 SharedPreferences prefs=getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
                 String usernames=prefs.getString("username",null);
                 String username="'"+prefs.getString("username",null)+"'";
+                String file="'userupload'";
 //                path_amount
                 DateUtil data=new DateUtil();
                 picture_name=usernames+data.getCurrentTime(DateUtil.DateFormat.YYYYMMDDHHMMSS);
                 picture_name_title="'"+usernames+data.getCurrentTime(DateUtil.DateFormat.YYYYMMDDHHMMSS)+"'";
-                String picture_url="'"+"http://www.shmilyz.com/picture/"+picture_name+"_1.jpg"+"'";
+                String picture_url="'"+"http://www.shmilyz.com/userupload/"+picture_name+"_1.jpg"+"'";
                 StringBuilder builder=new StringBuilder();
-                builder.append("insert into shoes(sex,style,brand,no,price,picture,iid,location,miaoshu,biaoti,date,size,username,position,picturename,pictureamount) \n" +
+                builder.append("insert into shoes(sex,style,brand,no,price,picture,iid,location,miaoshu,biaoti,date,size,username,position,picturename,pictureamount,file) \n" +
                         "VALUES(").append("'男士'").append(",").append(te_type_result).append(",").append("'品牌'").append(",").append("'二手'").append(",")
                         .append(te_money_int).append(",").append(picture_url).append(",").append("'1'").append(",")
                         .append(position_result).append(",").append(text_nest_desc_result).append(",")
                         .append(text_nest_title_result).append(",").append(te_data_result).append(",")
-                .append(te_size_result).append(",").append(username).append(",").append(position_result).append(",").append(picture_name_title).append(",").append(path_amount)
+                .append(te_size_result).append(",").append(username).append(",").append(position_result).append(",").append(picture_name_title).append(",").append(path_amount).append(",").append(file)
                 .append(")");
 
 
@@ -269,7 +275,6 @@ public class ReleaseFragment extends Fragment {
                 String name=picture_name+"_"+num;
 
                 File file=new File(pathList_luban.get(a-1));
-            Log.d("EEE",pathList_luban.get(a-1));
 
 
             RequestParams params = new RequestParams("http://www.shmilyz.com/ForAndroidUpload/upload.do") ;
@@ -295,7 +300,8 @@ public class ReleaseFragment extends Fragment {
                                 @Override
                                 public void run() {
 
-
+                                        MainActivity mainactivity= (MainActivity) getActivity();
+                                    mainactivity.replaceFragment(new LocationFragment(),R.id.nav_manage);
                                         release_button.stopLoader();
 
 
@@ -366,12 +372,15 @@ public class ReleaseFragment extends Fragment {
         editor.clear();
         editor.apply();
         editor.commit();
-        localBroadcastManger.unregisterReceiver(localReceiver);
 
         /*
         *这里总怕实现不了移除。所以都用上了。
         * */
     }
+
+
+
+
 
     private void releaseposition() {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
@@ -390,6 +399,8 @@ public class ReleaseFragment extends Fragment {
 
             @Override
             public void onDrawerClosed(View drawerView) {
+                localBroadcastManger.unregisterReceiver(localReceiver);
+
 
             }
 
@@ -406,6 +417,7 @@ public class ReleaseFragment extends Fragment {
                 localBroadcastManger.registerReceiver(localReceiver,intentFilter);
             }
         });
+
     }
 
     private void releaselimit() {
@@ -646,7 +658,6 @@ public class ReleaseFragment extends Fragment {
 
             for (int i=0;i<path_amount;i++) {
                 File file1=new File(pathList.get(i).toString());
-                Log.d("FFF",pathList.get(i).toString());
 
                 Luban.get(getActivity())
                         .load(file1)                     //传人要压缩的图片

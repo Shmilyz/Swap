@@ -12,11 +12,13 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -55,7 +57,7 @@ public class ShoesAdapter extends RecyclerView.Adapter<ShoesAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Shoes shoes = mShoesList.get(position);
-        holder.fruitName.setText(shoes.getMiaoshu());
+        holder.fruitName.setText(shoes.getBiaoti());
         Glide.with(mContext).load(shoes.getPicture()).into(holder.fruitImage);
 //. skipMemoryCache( true ).diskCacheStrategy(DiskCacheStrategy.NONE)
 
@@ -89,8 +91,10 @@ public class ShoesAdapter extends RecyclerView.Adapter<ShoesAdapter.ViewHolder>{
                 int position = holder.getAdapterPosition();
                 Shoes shoes = mShoesList.get(position-1);
                 Intent intent = new Intent(mContext, ShoesActivity.class);
-                intent.putExtra(ShoesActivity.SHOES_NAME, shoes.getMiaoshu());
-               intent.putExtra(ShoesActivity.SHOES_IMAGE_ID, shoes.getPicture());
+
+                intent.putExtra(ShoesActivity.SHOES_ID, String.valueOf(shoes.getId()));
+
+               intent.putExtra(ShoesActivity.SHOES_IMAGE_URL, shoes.getPicture());
 
                 mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) mContext).toBundle());
 

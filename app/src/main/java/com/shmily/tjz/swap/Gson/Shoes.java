@@ -42,6 +42,7 @@ public class Shoes {
     private String position;
     private String brand;
     private String username;
+    private String file;
 
     public String getDate() {
         return date;
@@ -179,7 +180,13 @@ public class Shoes {
         this.username = username;
     }
 
+    public String getFile() {
+        return file;
+    }
 
+    public void setFile(String file) {
+        this.file = file;
+    }
 
 
 

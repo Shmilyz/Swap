@@ -69,8 +69,6 @@ dependencies {
     compile 'com.github.ikidou:FragmentBackHandler:2.1'
     //    代替项目。
     compile 'com.github.martin90s:ImagePicker:v1.3.2'
-
-
 }
 allprojects {
     repositories {

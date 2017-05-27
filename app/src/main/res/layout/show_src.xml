@@ -133,7 +133,7 @@
         android:background="#FFFFFF"
         android:id="@+id/show_sec_list"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="500dp"
         pla:plaColumnNumber="2"
         pla:plaLandscapeColumnNumber="2">
     </com.huewu.pla.lib.MultiColumnListView>

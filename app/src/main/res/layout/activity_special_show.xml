@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.shmily.tjz.swap.SpecialShowActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:scrollbars="none"
+    >
+
+
+<LinearLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+  >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:text="BOOST"
+        android:textColor="#FFF"
+        android:background="@color/colorPrimary"
+        android:id="@+id/specoal_show_title"
+        />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/zanshi"
+        android:scaleType="fitXY"
+        android:id="@+id/specoal_show_image"
+
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="center"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:textSize="11dp"
+        android:layout_marginTop="10dp"
+        android:text="Boost technology is everywhere—but we’re not complaining. What began as a simple technology for runners quickly became a brand staple for Adidas. Add to your collection and see the latest line of sneakers with Boost technology."
+        android:id="@+id/specoal_show_detail"
+
+        />
+    <android.support.v7.widget.RecyclerView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/specoal_show_recy"
+
+        >
+
+
+</android.support.v7.widget.RecyclerView>
+
+
+</LinearLayout>
+</ScrollView>

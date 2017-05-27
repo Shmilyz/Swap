@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     boolean release=true;
     int a = 0;
     Toolbar toolbar;
+    NavigationView navView;
     @Override
     public void onBackPressed() {
         mLoader = new ImageLoader(MainActivity.this);
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             MainActivity.this.finish();
         }
 
-
+        navView= (NavigationView)findViewById(R.id.nav_view);
          toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
@@ -118,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
 
         mDrawerLayout= (DrawerLayout) findViewById(R.id.activity_main);
-        final NavigationView navView= (NavigationView)findViewById(R.id.nav_view);
+
         View headerLayout = navView.inflateHeaderView(R.layout.nav_header);
         TextView name= (TextView) headerLayout.findViewById(R.id.username);
         name.setText(username);
@@ -276,8 +277,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void replaceFragment(Fragment fragement) {
+    public void replaceFragment(Fragment fragement) {
 
+        FragmentManager fragmentManager=getSupportFragmentManager();
+        FragmentTransaction transaction=fragmentManager.beginTransaction();
+        transaction.replace(R.id.main_fragment,fragement);
+        transaction.commit();
+    }
+    public void replaceFragment(Fragment fragement,int id) {
+        navView.setCheckedItem(id);
+        release=true;
         FragmentManager fragmentManager=getSupportFragmentManager();
         FragmentTransaction transaction=fragmentManager.beginTransaction();
         transaction.replace(R.id.main_fragment,fragement);

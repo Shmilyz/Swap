@@ -26,9 +26,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.main"
-
-                  >
+            android:theme="@style/AppTheme.main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -76,6 +74,7 @@
         <activity
             android:name=".ShowPhotoResultActivity"
             android:theme="@style/ShowPhotoResult" />
+        <activity android:name=".SpecialShowActivity"></activity>
     </application>
 
 </manifest><!--

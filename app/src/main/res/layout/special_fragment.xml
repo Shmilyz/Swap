@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.weavey.loading.lib.LoadingLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.weavey.loading.lib.LoadingLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:pla="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/special_fragment_load_layout"
     app:isFirstVisible="true">
 <ScrollView

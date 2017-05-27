@@ -71,8 +71,8 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
                 int position = holder.getAdapterPosition();
                 Shoes shoes = mShoesList.get(position);
                 Intent intent = new Intent(mContext, ShoesActivity.class);
-                intent.putExtra(ShoesActivity.SHOES_NAME, shoes.getMiaoshu());
-                intent.putExtra(ShoesActivity.SHOES_IMAGE_ID, shoes.getPicture());
+                intent.putExtra(ShoesActivity.SHOES_ID, String.valueOf(shoes.getId()));
+                intent.putExtra(ShoesActivity.SHOES_IMAGE_URL, shoes.getPicture());
                 mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) mContext).toBundle());
                 ((Activity) mContext).finish();
             }
