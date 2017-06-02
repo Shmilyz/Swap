@@ -13,5 +13,10 @@
         <mapping class="com.shmily.tjz.swap.LitePal.City"/>
         <mapping class="com.shmily.tjz.swap.LitePal.County"/>
     </list>
+    <dbname value="discuss_love"/>
+    <version value="1"/>
+    <list>
+        <mapping class="com.shmily.tjz.swap.LitePal.DiscussLite"/>
+    </list>
 </litepal>
 

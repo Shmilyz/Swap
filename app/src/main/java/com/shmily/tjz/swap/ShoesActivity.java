@@ -1,5 +1,6 @@
 package com.shmily.tjz.swap;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -15,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.transition.Fade;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,20 +31,27 @@ import com.jude.swipbackhelper.SwipeBackHelper;
 import com.shmily.tjz.swap.Adapter.RecommendAdapter;
 import com.shmily.tjz.swap.Adapter.SpecialAdapter;
 import com.shmily.tjz.swap.Db.ShoesSpecial;
+import com.shmily.tjz.swap.Gson.DiscussLove;
 import com.shmily.tjz.swap.Gson.Shoes;
+import com.shmily.tjz.swap.LitePal.DiscussLite;
+import com.shmily.tjz.swap.Rubbish.Xutils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.litepal.crud.DataSupport;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import ezy.ui.view.RoundButton;
 
 public class ShoesActivity extends AppCompatActivity {
     public static final String SHOES_IMAGE_URL ="shoes_url";
@@ -55,21 +64,32 @@ public class ShoesActivity extends AppCompatActivity {
     private List<ShoesSpecial> shoessearchList = new ArrayList<>();
     private List<Shoes> recommendList = new ArrayList<>();
     private List<Shoes> shoesList = new ArrayList<>();
-private int shoesid_int;
+    private  List<DiscussLove> discussloveList = new ArrayList<>();
+
+    private int shoesid_int;
     private String shoesid;
     private TextView shoesContentText,model,type;
     private TextView username,position;
     private CircleImageView  headimage;
     private CollapsingToolbarLayout collapsingToolbar;
     private TextView info_name,info_size,info_position,info_date,info_desc;
+    private RoundButton discuss;
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        lovelite();
+
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoes);
-       /* Explode explode = new Explode();
-        explode.setDuration(700L);
-        getWindow().setEnterTransition(explode);*/
+
 
         SwipeBackHelper.onCreate(this);
         Intent intent=getIntent();
@@ -79,7 +99,7 @@ private int shoesid_int;
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
         collapsingToolbar= (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         ImageView ShoesImageView= (ImageView) findViewById(R.id.fruit_image_view);
-
+        discuss= (RoundButton) findViewById(R.id.discuss);
 
         shoesContentText= (TextView) findViewById(R.id.shoes_content_text);
         model= (TextView) findViewById(R.id.model);
@@ -125,6 +145,7 @@ private int shoesid_int;
                 // 判断消息的来源：通过消息的类型 what
                 switch (msg.what) {
                     case WHAT_NEWSS:
+
                         collapsingToolbar.setTitle(shoesList.get(0).getBiaoti());
                         shoesContentText.setText(shoesList.get(0).getBiaoti());
                         model.setText(shoesList.get(0).getBrand());
@@ -140,10 +161,20 @@ private int shoesid_int;
                         info_date.setText(shoesList.get(0).getDate());
                         info_position.setText(shoesList.get(0).getPosition());
                         info_desc.setText(shoesList.get(0).getMiaoshu());
+                        discuss.setOnClickListener(new View.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                            @Override
+                            public void onClick(View view) {
 
+                                Intent intent=new Intent(ShoesActivity.this,DiscussActivity.class);
+                                intent.putExtra("discuss_shoes_id",String.valueOf(shoesList.get(0).getId()));
+                                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(ShoesActivity.this).toBundle());
+
+                            }
+                        });
                         initview();
                         recyview();
-
+                        lovelite();
 
                         break;
 
@@ -217,6 +248,37 @@ private int shoesid_int;
 
 
 
+    }
+
+    private void lovelite() {
+
+        DataSupport.deleteAll(DiscussLite.class);
+
+        String url="http://www.shmilyz.com/ForAndroidHttp/select.action";
+
+        Map<String, String> map=new HashMap<String, String>();
+        map.put("uname","select * from discuss_love where shoesid="+shoesid+" and username="+"'张梦'");
+        Xutils xutils=Xutils.getInstance();
+        xutils.post(url, map, new Xutils.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                try {
+
+                    JSONObject jsonobject = new JSONObject(result);
+                    JSONArray shoesArray=jsonobject.getJSONArray("result");
+                    Gson gson=new Gson();
+                    discussloveList=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<DiscussLove>>(){}.getType());
+                    for (DiscussLove discusslove:discussloveList){
+                        DiscussLite dis=new DiscussLite();
+                        dis.setDiscussid(discusslove.getDiscussid());
+                        dis.save();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void recyview() {

@@ -82,7 +82,7 @@
                 android:layout_height="25dp"
                 app:btnStrokeWidth="0.5dp"
                 android:text="查看全部评价"
-                android:id="@+id/weather"
+                android:id="@+id/discuss"
                 app:btnCornerRadius="10dp"
                 app:btnStrokeColor="#42DEB7"
                 android:textSize="12sp"
