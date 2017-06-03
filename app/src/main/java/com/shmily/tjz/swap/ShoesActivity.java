@@ -1,6 +1,7 @@
 package com.shmily.tjz.swap;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -17,6 +18,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.transition.Fade;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -74,8 +76,7 @@ public class ShoesActivity extends AppCompatActivity {
     private CollapsingToolbarLayout collapsingToolbar;
     private TextView info_name,info_size,info_position,info_date,info_desc;
     private RoundButton discuss;
-
-
+    private String username_get;
 
     @Override
     protected void onResume() {
@@ -100,6 +101,9 @@ public class ShoesActivity extends AppCompatActivity {
         collapsingToolbar= (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         ImageView ShoesImageView= (ImageView) findViewById(R.id.fruit_image_view);
         discuss= (RoundButton) findViewById(R.id.discuss);
+
+        SharedPreferences prefs=getSharedPreferences("user", Context.MODE_PRIVATE);
+        username_get=prefs.getString("username",null);
 
         shoesContentText= (TextView) findViewById(R.id.shoes_content_text);
         model= (TextView) findViewById(R.id.model);
@@ -174,7 +178,6 @@ public class ShoesActivity extends AppCompatActivity {
                         });
                         initview();
                         recyview();
-                        lovelite();
 
                         break;
 
@@ -257,7 +260,8 @@ public class ShoesActivity extends AppCompatActivity {
         String url="http://www.shmilyz.com/ForAndroidHttp/select.action";
 
         Map<String, String> map=new HashMap<String, String>();
-        map.put("uname","select * from discuss_love where shoesid="+shoesid+" and username="+"'张梦'");
+        map.put("uname","select * from discuss_love where shoesid="+shoesid+" and username="+"'"+username_get+"'");
+        Log.i("CSS","select * from discuss_love where shoesid="+shoesid+" and username="+"'"+username_get+"'");
         Xutils xutils=Xutils.getInstance();
         xutils.post(url, map, new Xutils.XCallBack() {
             @Override
@@ -268,6 +272,7 @@ public class ShoesActivity extends AppCompatActivity {
                     JSONArray shoesArray=jsonobject.getJSONArray("result");
                     Gson gson=new Gson();
                     discussloveList=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<DiscussLove>>(){}.getType());
+
                     for (DiscussLove discusslove:discussloveList){
                         DiscussLite dis=new DiscussLite();
                         dis.setDiscussid(discusslove.getDiscussid());

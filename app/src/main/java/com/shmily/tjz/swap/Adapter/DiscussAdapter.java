@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +26,15 @@ import com.shmily.tjz.swap.Gson.DiscussLove;
 import com.shmily.tjz.swap.Gson.Shoes;
 import com.shmily.tjz.swap.LitePal.DiscussLite;
 import com.shmily.tjz.swap.R;
+import com.shmily.tjz.swap.Rubbish.Xutils;
 import com.shmily.tjz.swap.ShoesActivity;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -44,7 +49,9 @@ public class DiscussAdapter extends RecyclerView.Adapter<DiscussAdapter.ViewHold
     private Context mContext;
 
     private List<Discuss> mShoesList=new ArrayList<>();
-
+String username;
+        private String loveurl="http://www.shmilyz.com/ForAndroidHttp/love.action";
+            private  Xutils xutils;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         CircleImageView headview;
@@ -69,7 +76,7 @@ public class DiscussAdapter extends RecyclerView.Adapter<DiscussAdapter.ViewHold
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
-        Discuss discuss = mShoesList.get(position);
+        final Discuss discuss = mShoesList.get(position);
         holder.like.setText(String.valueOf(discuss.getLove()));
         List<DiscussLite> discussLites= DataSupport.where("discussid = ?",String.valueOf(discuss.getId())).find(DiscussLite.class);
         if (discussLites.size()>0){
@@ -77,11 +84,14 @@ public class DiscussAdapter extends RecyclerView.Adapter<DiscussAdapter.ViewHold
             holder.like.setTextColor(Color.parseColor("#e2302e"));
 
         }
+        SharedPreferences prefs=mContext.getSharedPreferences("user", Context.MODE_PRIVATE);
+        username=prefs.getString("username",null);
         holder.username.setText(discuss.getUsername());
         holder.date.setText(discuss.getDate());
         holder.content.setText(discuss.getContent());
         String url="http://www.shmilyz.com/headimage/"+discuss.getUsername()+".jpg";
         Glide.with(mContext).load(url).into(holder.headview);
+        xutils=Xutils.getInstance();
 
 
         holder.likeButton.setOnLikeListener(new OnLikeListener() {
@@ -91,12 +101,24 @@ public class DiscussAdapter extends RecyclerView.Adapter<DiscussAdapter.ViewHold
                 int like =Integer.parseInt(holder.like.getText().toString());
                 holder.like.setText(String.valueOf(like+1));
                 holder.like.setTextColor(Color.parseColor("#e2302e"));
+                Map<String, String> maps=new HashMap<String, String>();
+                maps.put("uname","UPDATE discuss SET love=love + 1 WHERE id ="+String.valueOf(discuss.getId()));
+                Log.i("CS","UPDATE discuss SET love=love + 1 WHERE id ="+String.valueOf(discuss.getId()));
+                maps.put("upass","INSERT INTO discuss_love(shoesid,username,discussid) VALUES("+String.valueOf(discuss.getShoesid())+","+"'"+username+"'"+","+String.valueOf(discuss.getId())+")");
+                Log.i("CS","INSERT INTO discuss_love(shoesid,username,discussid) VALUES("+String.valueOf(discuss.getShoesid())+","+"'"+username+"'"+","+String.valueOf(discuss.getId())+")");
 
+                xutils.post(loveurl, maps, new Xutils.XCallBack() {
+                    @Override
+                    public void onResponse(String result) {
+
+                    }
+                });
             }
 
             @Override
             public void unLiked(LikeButton likeButton) {
                 int like =Integer.parseInt(holder.like.getText().toString());
+
                 holder.like.setText(String.valueOf(like-1));
                 holder.like.setTextColor(Color.parseColor("#000000"));
 
