@@ -103,9 +103,9 @@ String username;
                 holder.like.setTextColor(Color.parseColor("#e2302e"));
                 Map<String, String> maps=new HashMap<String, String>();
                 maps.put("uname","UPDATE discuss SET love=love + 1 WHERE id ="+String.valueOf(discuss.getId()));
-                Log.i("CS","UPDATE discuss SET love=love + 1 WHERE id ="+String.valueOf(discuss.getId()));
+                Log.i("liked","UPDATE discuss SET love=love + 1 WHERE id ="+String.valueOf(discuss.getId()));
                 maps.put("upass","INSERT INTO discuss_love(shoesid,username,discussid) VALUES("+String.valueOf(discuss.getShoesid())+","+"'"+username+"'"+","+String.valueOf(discuss.getId())+")");
-                Log.i("CS","INSERT INTO discuss_love(shoesid,username,discussid) VALUES("+String.valueOf(discuss.getShoesid())+","+"'"+username+"'"+","+String.valueOf(discuss.getId())+")");
+                Log.i("liked","INSERT INTO discuss_love(shoesid,username,discussid) VALUES("+String.valueOf(discuss.getShoesid())+","+"'"+username+"'"+","+String.valueOf(discuss.getId())+")");
 
                 xutils.post(loveurl, maps, new Xutils.XCallBack() {
                     @Override
@@ -118,9 +118,23 @@ String username;
             @Override
             public void unLiked(LikeButton likeButton) {
                 int like =Integer.parseInt(holder.like.getText().toString());
-
                 holder.like.setText(String.valueOf(like-1));
                 holder.like.setTextColor(Color.parseColor("#000000"));
+
+                Map<String, String> maps=new HashMap<String, String>();
+                maps.put("uname","UPDATE discuss SET love=love - 1 WHERE id ="+String.valueOf(discuss.getId()));
+                Log.i("unliked","UPDATE discuss SET love=love - 1 WHERE id ="+String.valueOf(discuss.getId()));
+                maps.put("upass","DELETE FROM discuss_love WHERE shoesid="+String.valueOf(discuss.getShoesid())+" and username='"+username+"'"+" and discussid="+discuss.getId());
+                Log.i("unliked","DELETE FROM discuss_love WHERE shoesid="+String.valueOf(discuss.getShoesid())+" and username='"+username+"'"+" and discussid="+discuss.getId());
+
+                xutils.post(loveurl, maps, new Xutils.XCallBack() {
+                    @Override
+                    public void onResponse(String result) {
+
+                    }
+                });
+
+
 
             }
         });

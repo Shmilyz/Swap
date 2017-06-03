@@ -56,33 +56,6 @@ private String shoes_id;
         String url="http://www.shmilyz.com/ForAndroidHttp/select.action";
         Map<String, String> maps=new HashMap<String, String>();
         maps.put("uname","select * from discuss where shoesid="+shoes_id );
-
-
-      /*  Map<String, String> map=new HashMap<String, String>();
-        map.put("uname","select * from discuss_love where shoesid="+shoes_id+" and username="+"'张梦'");
-
-        xutils.post(url, map, new Xutils.XCallBack() {
-            @Override
-            public void onResponse(String result) {
-                try {
-                    Toast.makeText(DiscussActivity.this, result, Toast.LENGTH_SHORT).show();
-                    JSONObject jsonobject = new JSONObject(result);
-                    JSONArray shoesArray=jsonobject.getJSONArray("result");
-                    Gson gson=new Gson();
-                    discussloveList=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<DiscussLove>>(){}.getType());
-                    for (DiscussLove discusslove:discussloveList){
-                        DiscussLite dis=new DiscussLite();
-                        dis.setDiscussid(discusslove.getDiscussid());
-                        dis.save();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });*/
-
-
         xutils.post(url, maps, new Xutils.XCallBack() {
             @Override
             public void onResponse(String result) {

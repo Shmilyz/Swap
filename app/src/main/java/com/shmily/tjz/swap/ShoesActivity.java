@@ -33,6 +33,7 @@ import com.jude.swipbackhelper.SwipeBackHelper;
 import com.shmily.tjz.swap.Adapter.RecommendAdapter;
 import com.shmily.tjz.swap.Adapter.SpecialAdapter;
 import com.shmily.tjz.swap.Db.ShoesSpecial;
+import com.shmily.tjz.swap.Gson.Discuss;
 import com.shmily.tjz.swap.Gson.DiscussLove;
 import com.shmily.tjz.swap.Gson.Shoes;
 import com.shmily.tjz.swap.LitePal.DiscussLite;
@@ -77,6 +78,7 @@ public class ShoesActivity extends AppCompatActivity {
     private TextView info_name,info_size,info_position,info_date,info_desc;
     private RoundButton discuss;
     private String username_get;
+    private List<Discuss> discussList = new ArrayList<>();
 
     @Override
     protected void onResume() {
@@ -176,6 +178,7 @@ public class ShoesActivity extends AppCompatActivity {
 
                             }
                         });
+                        onediscuss();
                         initview();
                         recyview();
 
@@ -250,6 +253,31 @@ public class ShoesActivity extends AppCompatActivity {
         });
 
 
+
+    }
+
+    private void onediscuss() {
+        Xutils xutils=Xutils.getInstance();
+        String url="http://www.shmilyz.com/ForAndroidHttp/select.action";
+        Map<String, String> maps=new HashMap<String, String>();
+        maps.put("uname","select * from discuss where shoesid="+shoesid );
+        xutils.post(url, maps, new Xutils.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                try {
+                    JSONObject jsonobject = new JSONObject(result);
+                    JSONArray shoesArray=jsonobject.getJSONArray("result");
+                    Gson gson=new Gson();
+                    discussList=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<Discuss>>(){}.getType());
+                    if (discussList.size()>0){
+                        
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
 
     }
 
