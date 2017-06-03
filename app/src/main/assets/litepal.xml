@@ -18,5 +18,10 @@
     <list>
         <mapping class="com.shmily.tjz.swap.LitePal.DiscussLite"/>
     </list>
+    <dbname value="discuss"/>
+    <version value="2"/>
+    <list>
+        <mapping class="com.shmily.tjz.swap.LitePal.DiscussAllLite"/>
+    </list>
 </litepal>
 

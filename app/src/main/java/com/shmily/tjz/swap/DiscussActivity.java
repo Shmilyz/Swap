@@ -18,12 +18,14 @@ import com.shmily.tjz.swap.Adapter.DiscussAdapter;
 import com.shmily.tjz.swap.Gson.Discuss;
 import com.shmily.tjz.swap.Gson.DiscussLove;
 import com.shmily.tjz.swap.Gson.Shoes;
+import com.shmily.tjz.swap.LitePal.DiscussAllLite;
 import com.shmily.tjz.swap.LitePal.DiscussLite;
 import com.shmily.tjz.swap.Rubbish.Xutils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.litepal.crud.DataSupport;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 
@@ -35,7 +37,7 @@ import org.xutils.x;
 
 public class DiscussActivity extends AppCompatActivity {
 private String shoes_id;
-    private List<Discuss> discussList = new ArrayList<>();
+    private List<DiscussAllLite> discussList = new ArrayList<>();
     private List<DiscussLove> discussloveList = new ArrayList<>();
 
     private  String username;
@@ -52,7 +54,7 @@ private String shoes_id;
       shoes_id=intent.getStringExtra("discuss_shoes_id");
 /*        SharedPreferences prefs=getSharedPreferences("user", Context.MODE_PRIVATE);
         username=prefs.getString("username",null);*/
-        Xutils xutils=Xutils.getInstance();
+     /*   Xutils xutils=Xutils.getInstance();
         String url="http://www.shmilyz.com/ForAndroidHttp/select.action";
         Map<String, String> maps=new HashMap<String, String>();
         maps.put("uname","select * from discuss where shoesid="+shoes_id );
@@ -77,7 +79,16 @@ private String shoes_id;
 
 
             }
-        });
+        });*/
+
+
+        discussList= DataSupport.findAll(DiscussAllLite.class);
+        RecyclerView recyclerView= (RecyclerView) findViewById(R.id.discuss_recy);
+        LinearLayoutManager layoutManager=new LinearLayoutManager(DiscussActivity.this);
+        recyclerView.setLayoutManager(layoutManager);
+        DiscussAdapter adapter=new DiscussAdapter(discussList);
+        recyclerView.setAdapter(adapter);
+
 
     }
 }

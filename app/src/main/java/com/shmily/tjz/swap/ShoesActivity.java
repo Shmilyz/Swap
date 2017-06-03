@@ -36,6 +36,7 @@ import com.shmily.tjz.swap.Db.ShoesSpecial;
 import com.shmily.tjz.swap.Gson.Discuss;
 import com.shmily.tjz.swap.Gson.DiscussLove;
 import com.shmily.tjz.swap.Gson.Shoes;
+import com.shmily.tjz.swap.LitePal.DiscussAllLite;
 import com.shmily.tjz.swap.LitePal.DiscussLite;
 import com.shmily.tjz.swap.Rubbish.Xutils;
 
@@ -73,9 +74,9 @@ public class ShoesActivity extends AppCompatActivity {
     private String shoesid;
     private TextView shoesContentText,model,type;
     private TextView username,position;
-    private CircleImageView  headimage;
+    private CircleImageView  headimage,discuss_headimage;
     private CollapsingToolbarLayout collapsingToolbar;
-    private TextView info_name,info_size,info_position,info_date,info_desc;
+    private TextView info_name,info_size,info_position,info_date,info_desc,discuss_username,discuss_discuss;
     private RoundButton discuss;
     private String username_get;
     private List<Discuss> discussList = new ArrayList<>();
@@ -84,7 +85,7 @@ public class ShoesActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         lovelite();
-
+        Alldiscuss();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -106,6 +107,11 @@ public class ShoesActivity extends AppCompatActivity {
 
         SharedPreferences prefs=getSharedPreferences("user", Context.MODE_PRIVATE);
         username_get=prefs.getString("username",null);
+
+
+        discuss_headimage= (CircleImageView) findViewById(R.id.discuss_headimage);
+        discuss_username= (TextView) findViewById(R.id.discuss_username);
+        discuss_discuss= (TextView) findViewById(R.id.discuss_discuss);
 
         shoesContentText= (TextView) findViewById(R.id.shoes_content_text);
         model= (TextView) findViewById(R.id.model);
@@ -178,7 +184,6 @@ public class ShoesActivity extends AppCompatActivity {
 
                             }
                         });
-                        onediscuss();
                         initview();
                         recyview();
 
@@ -256,7 +261,9 @@ public class ShoesActivity extends AppCompatActivity {
 
     }
 
-    private void onediscuss() {
+    private void Alldiscuss() {
+        DataSupport.deleteAll(DiscussAllLite.class);
+
         Xutils xutils=Xutils.getInstance();
         String url="http://www.shmilyz.com/ForAndroidHttp/select.action";
         Map<String, String> maps=new HashMap<String, String>();
@@ -267,11 +274,29 @@ public class ShoesActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonobject = new JSONObject(result);
                     JSONArray shoesArray=jsonobject.getJSONArray("result");
+
                     Gson gson=new Gson();
                     discussList=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<Discuss>>(){}.getType());
-                    if (discussList.size()>0){
-                        
-                    }
+                        for (Discuss discuss:discussList){
+                            DiscussAllLite dis=new DiscussAllLite();
+                            dis.setContent(discuss.getContent());
+                            dis.setDate(discuss.getDate());
+                            dis.setDiscussid(discuss.getId());
+                            dis.setShoesid(discuss.getShoesid());
+                            dis.setLove(discuss.getLove());
+                            dis.setUsername(discuss.getUsername());
+                            dis.save();
+                        }
+                        String dis_user=discussList.get(0).getUsername();
+                    String url="http://www.shmilyz.com/headimage/"+dis_user+".jpg";
+                    Glide.with(ShoesActivity.this).load(url).centerCrop().into(discuss_headimage);
+                    discuss_username.setText(dis_user);
+                    discuss_discuss.setText(discussList.get(0).getContent());
+
+
+
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

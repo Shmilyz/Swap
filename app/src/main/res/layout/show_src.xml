@@ -44,15 +44,13 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:id="@+id/icon_image"
-                    android:src="@mipmap/aa"
+                    android:id="@+id/discuss_headimage"
                     android:layout_marginLeft="16dp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="成了。"
-                    android:id="@+id/textView"
+                    android:id="@+id/discuss_username"
                     android:textSize="13sp"
                     android:textColor="#333333"
                     android:layout_marginTop="10dp"
@@ -65,11 +63,11 @@
               android:layout_marginLeft="16dp"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:id="@+id/dicuss"
+              android:id="@+id/discuss_discuss"
               android:textSize="13sp"
               android:layout_marginTop="17dp"
             android:layout_below="@+id/dicuss_user"
-              android:text="这双鞋我很想买。您可以联系我嘛，我教田俊哲，我的电话15522902120."
+              android:text="为该商品添加第一条留言吧！"
               />
 
         </RelativeLayout>
@@ -77,11 +75,11 @@
 
             <ezy.ui.view.RoundButton
                 android:layout_marginTop="13dp"
-                android:layout_below="@id/dicuss"
+                android:layout_below="@id/discuss_discuss"
                 android:layout_width="90dp"
                 android:layout_height="25dp"
                 app:btnStrokeWidth="0.5dp"
-                android:text="查看全部评价"
+                android:text="查看全部留言"
                 android:id="@+id/discuss"
                 app:btnCornerRadius="10dp"
                 app:btnStrokeColor="#42DEB7"
