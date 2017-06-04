@@ -17,7 +17,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -38,7 +37,7 @@ import com.shmily.tjz.swap.Gson.DiscussLove;
 import com.shmily.tjz.swap.Gson.Shoes;
 import com.shmily.tjz.swap.LitePal.DiscussAllLite;
 import com.shmily.tjz.swap.LitePal.DiscussLite;
-import com.shmily.tjz.swap.Rubbish.Xutils;
+import com.shmily.tjz.swap.Utils.Xutils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -80,7 +79,7 @@ public class ShoesActivity extends AppCompatActivity {
     private RoundButton discuss;
     private String username_get;
     private List<Discuss> discussList = new ArrayList<>();
-
+private String shoesimageurl;
     @Override
     protected void onResume() {
         super.onResume();
@@ -98,7 +97,7 @@ public class ShoesActivity extends AppCompatActivity {
         SwipeBackHelper.onCreate(this);
         Intent intent=getIntent();
         shoesid=intent.getStringExtra(SHOES_ID);
-        String shoesimageurl=intent.getStringExtra(SHOES_IMAGE_URL);
+        shoesimageurl=intent.getStringExtra(SHOES_IMAGE_URL);
 
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
         collapsingToolbar= (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
@@ -127,7 +126,7 @@ public class ShoesActivity extends AppCompatActivity {
 
         fab= (FloatingActionButton) findViewById(R.id.fab);
         setSupportActionBar(toolbar);
-        Glide.with(this).load(shoesimageurl).centerCrop().into(ShoesImageView);
+        Glide.with(this).load(shoesimageurl).into(ShoesImageView);
         finid();
 
 //        fruitContentText.setText(fruitName);
@@ -180,6 +179,7 @@ public class ShoesActivity extends AppCompatActivity {
 
                                 Intent intent=new Intent(ShoesActivity.this,DiscussActivity.class);
                                 intent.putExtra("discuss_shoes_id",String.valueOf(shoesList.get(0).getId()));
+                                intent.putExtra("discuss_showimage",shoesimageurl);
                                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(ShoesActivity.this).toBundle());
 
                             }
@@ -261,8 +261,8 @@ public class ShoesActivity extends AppCompatActivity {
 
     }
 
-    private void Alldiscuss() {
-        DataSupport.deleteAll(DiscussAllLite.class);
+    public void Alldiscuss() {
+//        DataSupport.deleteAll(DiscussAllLite.class);
 
         Xutils xutils=Xutils.getInstance();
         String url="http://www.shmilyz.com/ForAndroidHttp/select.action";
@@ -277,7 +277,7 @@ public class ShoesActivity extends AppCompatActivity {
 
                     Gson gson=new Gson();
                     discussList=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<Discuss>>(){}.getType());
-                        for (Discuss discuss:discussList){
+                     /*   for (Discuss discuss:discussList){
                             DiscussAllLite dis=new DiscussAllLite();
                             dis.setContent(discuss.getContent());
                             dis.setDate(discuss.getDate());
@@ -286,10 +286,10 @@ public class ShoesActivity extends AppCompatActivity {
                             dis.setLove(discuss.getLove());
                             dis.setUsername(discuss.getUsername());
                             dis.save();
-                        }
+                        }*/
                         String dis_user=discussList.get(0).getUsername();
                     String url="http://www.shmilyz.com/headimage/"+dis_user+".jpg";
-                    Glide.with(ShoesActivity.this).load(url).centerCrop().into(discuss_headimage);
+                    Glide.with(ShoesActivity.this).load(url).into(discuss_headimage);
                     discuss_username.setText(dis_user);
                     discuss_discuss.setText(discussList.get(0).getContent());
 

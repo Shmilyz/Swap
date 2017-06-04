@@ -180,8 +180,8 @@ public class SignActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                name=uname.getText().toString().trim();
-                pass=upass.getText().toString().trim();
+                name=uname.getText().toString().trim().replace(" ","");
+                pass=upass.getText().toString().trim().replace(" ","");
                 RequestParams params=new RequestParams("http://120.25.96.231/ForAndroidHttp/login.action");
                 params.addBodyParameter("uname",name);
                 params.addBodyParameter("upass",pass);

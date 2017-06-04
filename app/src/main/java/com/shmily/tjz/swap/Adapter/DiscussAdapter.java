@@ -1,34 +1,23 @@
 package com.shmily.tjz.swap.Adapter;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.shmily.tjz.swap.Gson.Discuss;
-import com.shmily.tjz.swap.Gson.DiscussLove;
-import com.shmily.tjz.swap.Gson.Shoes;
 import com.shmily.tjz.swap.LitePal.DiscussAllLite;
 import com.shmily.tjz.swap.LitePal.DiscussLite;
 import com.shmily.tjz.swap.R;
-import com.shmily.tjz.swap.Rubbish.Xutils;
-import com.shmily.tjz.swap.ShoesActivity;
+import com.shmily.tjz.swap.Utils.Xutils;
 
 import org.litepal.crud.DataSupport;
 
@@ -49,7 +38,7 @@ public class DiscussAdapter extends RecyclerView.Adapter<DiscussAdapter.ViewHold
 
     private Context mContext;
 
-    private List<DiscussAllLite> mShoesList=new ArrayList<>();
+    private List<Discuss> mShoesList=new ArrayList<>();
 String username;
         private String loveurl="http://www.shmilyz.com/ForAndroidHttp/love.action";
             private  Xutils xutils;
@@ -71,15 +60,15 @@ String username;
         }
     }
 
-    public DiscussAdapter(List<DiscussAllLite> shoesList) {
+    public DiscussAdapter(List<Discuss> shoesList) {
         mShoesList = shoesList;
     }
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
-        final DiscussAllLite discuss = mShoesList.get(position);
+        final Discuss discuss = mShoesList.get(position);
         holder.like.setText(String.valueOf(discuss.getLove()));
-        List<DiscussLite> discussLites= DataSupport.where("discussid = ?",String.valueOf(discuss.getDiscussid())).find(DiscussLite.class);
+        List<DiscussLite> discussLites= DataSupport.where("discussid = ?",String.valueOf(discuss.getId())).find(DiscussLite.class);
         if (discussLites.size()>0){
             holder.likeButton.setLiked(true);
             holder.like.setTextColor(Color.parseColor("#e2302e"));
@@ -103,10 +92,10 @@ String username;
                 holder.like.setText(String.valueOf(like+1));
                 holder.like.setTextColor(Color.parseColor("#e2302e"));
                 Map<String, String> maps=new HashMap<String, String>();
-                maps.put("uname","UPDATE discuss SET love=love + 1 WHERE id ="+String.valueOf(discuss.getDiscussid()));
-                Log.i("liked","UPDATE discuss SET love=love + 1 WHERE id ="+String.valueOf(discuss.getDiscussid()));
-                maps.put("upass","INSERT INTO discuss_love(shoesid,username,discussid) VALUES("+String.valueOf(discuss.getShoesid())+","+"'"+username+"'"+","+String.valueOf(discuss.getDiscussid())+")");
-                Log.i("liked","INSERT INTO discuss_love(shoesid,username,discussid) VALUES("+String.valueOf(discuss.getShoesid())+","+"'"+username+"'"+","+String.valueOf(discuss.getDiscussid())+")");
+                maps.put("uname","UPDATE discuss SET love=love + 1 WHERE id ="+String.valueOf(discuss.getId()));
+                Log.i("liked","UPDATE discuss SET love=love + 1 WHERE id ="+String.valueOf(discuss.getId()));
+                maps.put("upass","INSERT INTO discuss_love(shoesid,username,discussid) VALUES("+String.valueOf(discuss.getShoesid())+","+"'"+username+"'"+","+String.valueOf(discuss.getId())+")");
+                Log.i("liked","INSERT INTO discuss_love(shoesid,username,discussid) VALUES("+String.valueOf(discuss.getShoesid())+","+"'"+username+"'"+","+String.valueOf(discuss.getId())+")");
 
                 xutils.post(loveurl, maps, new Xutils.XCallBack() {
                     @Override
@@ -123,10 +112,10 @@ String username;
                 holder.like.setTextColor(Color.parseColor("#000000"));
 
                 Map<String, String> maps=new HashMap<String, String>();
-                maps.put("uname","UPDATE discuss SET love=love - 1 WHERE id ="+String.valueOf(discuss.getDiscussid()));
-                Log.i("unliked","UPDATE discuss SET love=love - 1 WHERE id ="+String.valueOf(discuss.getDiscussid()));
-                maps.put("upass","DELETE FROM discuss_love WHERE shoesid="+String.valueOf(discuss.getShoesid())+" and username='"+username+"'"+" and discussid="+discuss.getDiscussid());
-                Log.i("unliked","DELETE FROM discuss_love WHERE shoesid="+String.valueOf(discuss.getShoesid())+" and username='"+username+"'"+" and discussid="+discuss.getDiscussid());
+                maps.put("uname","UPDATE discuss SET love=love - 1 WHERE id ="+String.valueOf(discuss.getId()));
+                Log.i("unliked","UPDATE discuss SET love=love - 1 WHERE id ="+String.valueOf(discuss.getId()));
+                maps.put("upass","DELETE FROM discuss_love WHERE shoesid="+String.valueOf(discuss.getShoesid())+" and username='"+username+"'"+" and discussid="+discuss.getId());
+                Log.i("unliked","DELETE FROM discuss_love WHERE shoesid="+String.valueOf(discuss.getShoesid())+" and username='"+username+"'"+" and discussid="+discuss.getId());
 
                 xutils.post(loveurl, maps, new Xutils.XCallBack() {
                     @Override

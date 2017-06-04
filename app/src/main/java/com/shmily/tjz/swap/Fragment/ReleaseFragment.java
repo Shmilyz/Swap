@@ -208,7 +208,6 @@ public class ReleaseFragment extends Fragment {
                     public void onSuccess( String result) {
 
                         try {
-                            Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
                             JSONObject json = new JSONObject(result);
                             String return_result = json.getString("result");
 

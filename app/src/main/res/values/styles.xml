@@ -24,6 +24,15 @@
 
     </style>
 
+    <style name="Discuss" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">#FF4081</item>
+        <item name="colorPrimaryDark">#D3D3D3</item>
+
+    </style>
+
+
     <style name="AppTheme.main" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>

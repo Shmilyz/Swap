@@ -4,15 +4,81 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="#FFF"
-    android:paddingTop="10dp"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.shmily.tjz.swap.DiscussActivity">
+  <RelativeLayout
+      android:background="@color/colorPrimary"
+android:id="@+id/discuss_lin"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      >
+
+  <ImageView
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+android:layout_centerInParent="true"
+      android:id="@+id/discuss_showimage"
+      />
+
+  </RelativeLayout>
+
   <android.support.v7.widget.RecyclerView
+      android:layout_below="@id/discuss_lin"
       android:id="@+id/discuss_recy"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="match_parent"
+      android:layout_above="@+id/linearLayout2">
 
   </android.support.v7.widget.RecyclerView>
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="48dp"
+      android:layout_alignParentBottom="true"
+    android:paddingTop="6dp"
+      android:paddingBottom="6dp"
+      android:id="@+id/linearLayout2">
+
+<de.hdodenhof.circleimageview.CircleImageView
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+android:layout_centerVertical="true"
+    android:layout_marginLeft="10dp"
+      android:id="@+id/discuss_write_head"
+      />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@+id/discuss_write_head"
+        android:orientation="horizontal"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"
+        >
+      <EditText
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="6"
+          android:id="@+id/discuss_write_edit"
+          android:background="@drawable/bg_edittext_normal"
+          android:hint=" 有想法就说,看对眼就上"
+          android:paddingLeft="10dp"
+          android:imeOptions="actionDone"
+          android:inputType="text"
+          android:cursorVisible="false"
+
+      />
+      <Button
+          android:layout_width="0dp"
+          android:layout_weight="2"
+          android:layout_height="match_parent"
+android:id="@+id/discuss_write_button"
+          android:background="#FD5845"
+          android:text="留言"
+          android:gravity="center"
+          android:textColor="#FFF"
+          />
+
+    </LinearLayout>
+
+  </RelativeLayout>
 </RelativeLayout>

@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus) {
 
-                    String focus=uname.getText().toString().trim();
+                    String focus=uname.getText().toString().trim().replace(" ","");
                     if (!TextUtils.isEmpty(focus)){
 
                         String url="http://www.shmilyz.com/headimage/"+focus+".jpg";
@@ -73,8 +73,8 @@ public class LoginActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View a) {
-                name=uname.getText().toString().trim();
-                pass=upass.getText().toString().trim();
+                name=uname.getText().toString().trim().replace(" ","");
+                pass=upass.getText().toString().trim().replace(" ","");
                 RequestParams params=new RequestParams("http://120.25.96.231/ForAndroidHttp/sign.action");
                 params.addBodyParameter("uname",name);
                 params.addBodyParameter("upass",pass);

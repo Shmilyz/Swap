@@ -75,7 +75,9 @@
             android:name=".ShowPhotoResultActivity"
             android:theme="@style/ShowPhotoResult" />
         <activity android:name=".SpecialShowActivity" />
-        <activity android:name=".DiscussActivity">
+        <activity
+            android:name=".DiscussActivity"
+            >
 
 
         </activity>
