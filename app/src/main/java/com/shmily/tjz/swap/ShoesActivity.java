@@ -403,7 +403,6 @@ private String shoesimageurl;
             StringBuilder url = new StringBuilder();
             url.append("http://www.shmilyz.com/").append( shoesList.get(0).getFile()).append("/").append(shoesList.get(0).getPicturename()).append("_").append(String.valueOf(i)).append(".jpg");
             String urls = String.valueOf(url);
-            Toast.makeText(this, urls, Toast.LENGTH_SHORT).show();
 
             ShoesSpecial shoessearch = new ShoesSpecial(urls);
             shoessearchList.add(shoessearch);
