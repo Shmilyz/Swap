@@ -37,6 +37,9 @@ public class SpecialAdapter extends BaseAdapter {
 
     }
 
+    public SpecialAdapter(List<ShoesSpecial> shoessearchList) {
+    }
+
     public int getCount() {
         return mImageList.size();
     }

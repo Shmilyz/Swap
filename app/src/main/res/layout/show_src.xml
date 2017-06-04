@@ -128,14 +128,23 @@
 
 
     </LinearLayout>
-    <com.huewu.pla.lib.MultiColumnListView
+  <!--  <com.huewu.pla.lib.MultiColumnListView
         android:background="#FFFFFF"
         android:id="@+id/show_sec_list"
         android:layout_width="match_parent"
         android:layout_height="500dp"
         pla:plaColumnNumber="2"
         pla:plaLandscapeColumnNumber="2">
-    </com.huewu.pla.lib.MultiColumnListView>
+    </com.huewu.pla.lib.MultiColumnListView>-->
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:id="@+id/show_sec_list"
+        android:background="#FFFFFF"
+
+        >
+
+    </android.support.v7.widget.RecyclerView>
 
     <LinearLayout
         android:layout_marginTop="8dp"

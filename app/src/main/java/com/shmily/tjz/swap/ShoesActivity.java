@@ -30,6 +30,7 @@ import com.huewu.pla.lib.MultiColumnListView;
 import com.huewu.pla.lib.internal.PLA_AdapterView;
 import com.jude.swipbackhelper.SwipeBackHelper;
 import com.shmily.tjz.swap.Adapter.RecommendAdapter;
+import com.shmily.tjz.swap.Adapter.ShoesShowAdapter;
 import com.shmily.tjz.swap.Adapter.SpecialAdapter;
 import com.shmily.tjz.swap.Db.ShoesSpecial;
 import com.shmily.tjz.swap.Gson.Discuss;
@@ -63,7 +64,7 @@ public class ShoesActivity extends AppCompatActivity {
     private Handler handler;
     final int WHAT_NEWS = 1 ;
     final int WHAT_NEWSS = 2;
-    private SpecialAdapter adapter;
+    private ShoesShowAdapter adapter;
     private List<ShoesSpecial> shoessearchList = new ArrayList<>();
     private List<Shoes> recommendList = new ArrayList<>();
     private List<Shoes> shoesList = new ArrayList<>();
@@ -408,7 +409,7 @@ private String shoesimageurl;
             shoessearchList.add(shoessearch);
 
         }
-        MultiColumnListView multicolumn = (MultiColumnListView) findViewById(R.id.show_sec_list);
+   /*     MultiColumnListView multicolumn = (MultiColumnListView) findViewById(R.id.show_sec_list);
         adapter = new SpecialAdapter(ShoesActivity.this, shoessearchList);
         multicolumn.setAdapter(adapter);
         multicolumn.setOnItemClickListener(new PLA_AdapterView.OnItemClickListener() {
@@ -417,7 +418,13 @@ private String shoesimageurl;
                 String pos= String.valueOf(position);
                 Toast.makeText(ShoesActivity.this, pos, Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
+        RecyclerView recyclerView= (RecyclerView) findViewById(R.id.show_sec_list);
+        LinearLayoutManager layoutManager=new LinearLayoutManager(ShoesActivity.this);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter= new ShoesShowAdapter(shoessearchList);
+        recyclerView.setAdapter(adapter);
+
     }
 
     @Override
