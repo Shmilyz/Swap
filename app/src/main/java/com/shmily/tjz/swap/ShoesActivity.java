@@ -81,6 +81,7 @@ public class ShoesActivity extends AppCompatActivity {
     private String username_get;
     private List<Discuss> discussList = new ArrayList<>();
 private String shoesimageurl;
+    private TextView activty_shoes_price;
     @Override
     protected void onResume() {
         super.onResume();
@@ -124,7 +125,7 @@ private String shoesimageurl;
         info_position= (TextView) findViewById(R.id.info_position);
         info_date= (TextView) findViewById(R.id.info_date);
         info_desc= (TextView) findViewById(R.id.info_desc);
-
+        activty_shoes_price= (TextView) findViewById(R.id.activty_shoes_price);
         fab= (FloatingActionButton) findViewById(R.id.fab);
         setSupportActionBar(toolbar);
         Glide.with(this).load(shoesimageurl).into(ShoesImageView);
@@ -173,6 +174,7 @@ private String shoesimageurl;
                         info_date.setText(shoesList.get(0).getDate());
                         info_position.setText(shoesList.get(0).getPosition());
                         info_desc.setText(shoesList.get(0).getMiaoshu());
+                        activty_shoes_price.setText("¥"+shoesList.get(0).getPrice());
                         discuss.setOnClickListener(new View.OnClickListener() {
                             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                             @Override

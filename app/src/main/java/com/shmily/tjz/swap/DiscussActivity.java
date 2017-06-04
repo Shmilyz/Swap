@@ -100,15 +100,21 @@ public class DiscussActivity extends AppCompatActivity {
                     JSONArray shoesArray=jsonobject.getJSONArray("result");
                     Gson gson=new Gson();
                     discussList=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<Discuss>>(){}.getType());
-                     recyclerView= (RecyclerView) findViewById(R.id.discuss_recy);
-                    LinearLayoutManager layoutManager=new LinearLayoutManager(DiscussActivity.this);
-                    recyclerView.setLayoutManager(layoutManager);
-                     adapter=new DiscussAdapter(discussList);
-                    recyclerView.setAdapter(adapter);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
+                    Discuss discuss=new Discuss();
+                    discuss.setContent("为该商品发表第一条留言吧!");
+                    discuss.setUsername("S小助手");
+                    discuss.setDate(dateUtil.getCurrentTime(DateUtil.DateFormat.YYYY_MM_DD));
+                    discussList.add(discuss);
 
+                }
+                recyclerView= (RecyclerView) findViewById(R.id.discuss_recy);
+                LinearLayoutManager layoutManager=new LinearLayoutManager(DiscussActivity.this);
+                recyclerView.setLayoutManager(layoutManager);
+                adapter=new DiscussAdapter(discussList);
+                recyclerView.setAdapter(adapter);
 
             }
         });

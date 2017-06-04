@@ -184,7 +184,7 @@
                 android:gravity="center"
                 android:textColor="#42DEB7"
                 android:textSize="15sp"
-                android:text="¥200"
+                android:id="@+id/activty_shoes_price"
                 />
         </LinearLayout>
 

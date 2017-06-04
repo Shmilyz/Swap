@@ -18,6 +18,7 @@ public class ShowPhotoResultActivity extends AppCompatActivity {
         Intent intent=getIntent();
         String url=intent.getStringExtra("url");
         Glide.with(ShowPhotoResultActivity.this).load(url)
+                .placeholder(R.drawable.black)
                 .centerCrop()                .into(dragPhotoView);
         dragPhotoView.setOnExitListener(new DragPhotoView.OnExitListener() {
             @Override

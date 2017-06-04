@@ -19,6 +19,8 @@ import com.shmily.tjz.swap.Db.ShoesSpecial;
 import com.shmily.tjz.swap.Gson.Shoes;
 import com.shmily.tjz.swap.R;
 import com.shmily.tjz.swap.ShoesActivity;
+import com.shmily.tjz.swap.ShowPhotoResultActivity;
+import com.shmily.tjz.swap.Utils.MyApplication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,22 +78,18 @@ public class ShoesShowAdapter extends RecyclerView.Adapter<ShoesShowAdapter.View
 
 
         final ViewHolder holder = new ViewHolder(view);
-      /*  holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+        holder.show_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
-                ShoesSpecial shoes = mShoesList.get(position);
-                Intent intent = new Intent(mContext, ShoesActivity.class);
 
-                intent.putExtra(ShoesActivity.SHOES_ID, String.valueOf(shoes.getId()));
-
-                intent.putExtra(ShoesActivity.SHOES_IMAGE_URL, shoes.getPicture());
-
-                mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) mContext).toBundle());
+                Intent intent=new Intent(MyApplication.getContext(), ShowPhotoResultActivity.class);
+                intent.putExtra("url",mShoesList.get(position).getImageUrl());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                MyApplication.getContext().startActivity(intent);
 
             }
-        });*/
+        });
         return holder;
     }
 
