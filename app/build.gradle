@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId "com.shmily.tjz.swap"
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -60,13 +60,14 @@ dependencies {
     compile 'com.zhihu.android:matisse:0.4.3'
     compile 'com.theartofdev.edmodo:android-image-cropper:2.4.+'
     compile 'com.jaikydota.imagespickers:imagespickers:1.0.6'
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.1.6'
+
     compile 'top.zibin:Luban:1.0.9'
     compile 'com.github.ishaan1995:ButtonProgressBar:1.0'
     compile 'com.github.githubwing:DragPhotoView:1.0.1'
     compile 'com.github.addappcn:android-pickers:1.0.1'
     compile 'com.github.ikidou:FragmentBackHandler:2.1'
+    compile 'com.github.LuckSiege.PictureSelector:picture_library:v1.5.7'
+
     //    代替项目。
     compile 'com.github.martin90s:ImagePicker:v1.3.2'
 }

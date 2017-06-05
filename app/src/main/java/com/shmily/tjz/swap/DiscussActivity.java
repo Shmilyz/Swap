@@ -107,6 +107,7 @@ public class DiscussActivity extends AppCompatActivity {
                     discuss.setContent("为该商品发表第一条留言吧!");
                     discuss.setUsername("S小助手");
                     discuss.setDate(dateUtil.getCurrentTime(DateUtil.DateFormat.YYYY_MM_DD));
+                    discuss.setLove(999);
                     discussList.add(discuss);
 
                 }

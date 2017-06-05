@@ -55,7 +55,7 @@ public class PhotoShowAdapter extends RecyclerView.Adapter<PhotoShowAdapter.View
     @Override
     public void onBindViewHolder(PhotoShowAdapter.ViewHolder holder, int position) {
         String photo = mShoesList.get(position);
-        Glide.with(mContext).load(photo)
+        Glide.with(mContext).load(photo).centerCrop()
                 .into(holder.ShoesImage);
 
     }

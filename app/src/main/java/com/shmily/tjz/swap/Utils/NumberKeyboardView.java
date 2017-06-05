@@ -17,7 +17,12 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.shmily.tjz.swap.R;
-
+/*
+*
+* 自制的数字键盘，用于支付密码等。
+*
+*
+* */
 public class NumberKeyboardView extends View {
 
     private Paint mPaint;

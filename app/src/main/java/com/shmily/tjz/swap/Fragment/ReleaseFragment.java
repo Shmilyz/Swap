@@ -37,20 +37,26 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jaiky.imagespickers.ImageConfig;
 import com.jaiky.imagespickers.ImageSelector;
 import com.jaiky.imagespickers.ImageSelectorActivity;
 
+import com.luck.picture.lib.model.FunctionConfig;
+import com.luck.picture.lib.model.FunctionOptions;
+import com.luck.picture.lib.model.PictureConfig;
 import com.shmily.tjz.swap.A;
 import com.shmily.tjz.swap.Adapter.PhotoShowAdapter;
 import com.shmily.tjz.swap.MainActivity;
 import com.shmily.tjz.swap.R;
 import com.shmily.tjz.swap.ShoesActivity;
+import com.shmily.tjz.swap.SignActivity;
 import com.shmily.tjz.swap.Utils.DateUtil;
 import com.shmily.tjz.swap.Utils.ImageConfigGlideLoader;
-import com.shmily.tjz.swap.Utils.NumberKeyboardView;
 import com.shmily.tjz.swap.Utils.Position;
 import com.weavey.loading.lib.LoadingLayout;
+import com.yalantis.ucrop.entity.LocalMedia;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -111,6 +117,38 @@ public class ReleaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
     }
+
+
+    private  PictureConfig.OnSelectResultCallback resultCallback=new PictureConfig.OnSelectResultCallback() {
+        @Override
+        public void onSelectSuccess(List<LocalMedia> list) {
+
+
+            // 获取选中的图片路径列表 Get Images Path List
+            pathList_luban.clear();
+            for (int i=0;i<list.size();i++){
+                pathList_luban.add(list.get(i).getCompressPath());
+            }
+            RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.show_photo_recy);
+            LinearLayoutManager layoutManger = new LinearLayoutManager(getActivity());
+            layoutManger.setOrientation(LinearLayoutManager.HORIZONTAL);
+            recyclerView.setLayoutManager(layoutManger);
+            PhotoShowAdapter adapter = new PhotoShowAdapter(pathList_luban);
+            recyclerView.setAdapter(adapter);
+            path_amount = pathList_luban.size();
+
+
+
+
+
+        }
+
+        @Override
+        public void onSelectSuccess(LocalMedia localMedia) {
+
+
+        }
+    };
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -210,11 +248,6 @@ public class ReleaseFragment extends Fragment {
                         try {
                             JSONObject json = new JSONObject(result);
                             String return_result = json.getString("result");
-
-
-
-
-
 
                             if (return_result.equals("1")){
 //                                release_button.startLoader();
@@ -641,12 +674,15 @@ public class ReleaseFragment extends Fragment {
         });
     }
 
-    @Override
+  /*  @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             // 获取选中的图片路径列表 Get Images Path List
+            pathList.clear();
+            pathList_luban.clear();
             pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT);
+            Log.i("pathlist",String.valueOf(pathList.size()));
             RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.show_photo_recy);
             LinearLayoutManager layoutManger = new LinearLayoutManager(getActivity());
             layoutManger.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -671,9 +707,11 @@ public class ReleaseFragment extends Fragment {
                             @Override
                             public void onSuccess(File file) {
                                 String image_path = file.getPath();
+
                                 pathList_luban.add(image_path);
                                 //Toast.makeText(SignActivity.this, file.getPath(), Toast.LENGTH_SHORT).show();
-                                Log.d("WWW",image_path);
+                                Log.i("pathlist","1");
+
                                 // TODO 压缩成功后调用，返回压缩后的图片文件
                             }
 
@@ -685,33 +723,31 @@ public class ReleaseFragment extends Fragment {
 
 
             }
+            Log.i("pathlist",String.valueOf(pathList_luban.size()));
+
         }
-    }
+    }*/
     private void releasepthoto() {
 
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                ImageConfig imageConfig
-                        = new ImageConfig.Builder(new ImageConfigGlideLoader())
-                        // 修改状态栏颜色
-                        .steepToolBarColor(getResources().getColor(R.color.colorPrimary))
-                        // 标题的背景颜色
-                        .titleBgColor(getResources().getColor(R.color.colorPrimary))
-                        // 提交按钮字体的颜色
-                        .titleSubmitTextColor(getResources().getColor(R.color.white))
-                        // 标题颜色
-                        .titleTextColor(getResources().getColor(R.color.white))
-                        .showCamera()
-                        .mutiSelect()
-                        .mutiSelectMaxSize(3)
-                        .requestCode(REQUEST_CODE)
+                FunctionOptions options = new FunctionOptions.Builder()
+                        .setType(FunctionConfig.TYPE_IMAGE) // 图片or视频 FunctionConfig.TYPE_IMAGE  TYPE_VIDEO
+                        .setCompress(true) //是否压缩
+                        .setMaxSelectNum(3) // 可选择图片的数量
+                        .setShowCamera(false) //是否显示拍照选项 这里自动根据type 启动拍照或录视频
+                        .setVideoS(0)// 查询多少秒内的视频 单位:秒
+                        .setEnablePreview(true) // 是否打开预览选项
+                        .setCompressFlag(Luban.THIRD_GEAR)
+                        .setPreviewVideo(false) // 是否预览视频(播放) mode or 多选有效
+                        .setSelectMode(FunctionConfig.MODE_MULTIPLE) // 单选 or 多选 FunctionConfig.MODE_SINGLE FunctionConfig.MODE_MULTIPLE
+                        .setNumComplete(true) // 0/9 完成  样式
+//                        .setCheckNumMode(true) //QQ选择风格
+                        .create();
 
-//                        .setContainer(llContainer, 3, true)
-                        .build();
-                ReleaseFragment fragment=new ReleaseFragment();
-                ImageSelector.open(ReleaseFragment.this, imageConfig);
+                PictureConfig.getInstance().init(options).openPhoto(getActivity(), resultCallback);
             }
         });
     }
