@@ -30,6 +30,7 @@ import com.weavey.loading.lib.LoadingLayout;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -99,6 +100,14 @@ public class SpecialFragment extends Fragment {
 
     private void initroll() {
         final Banner banner = (Banner) rootView.findViewById(R.id.banner);
+
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Toast.makeText(getActivity(),String.valueOf(position), Toast.LENGTH_SHORT).show();
+            }
+        });
+
        /* for (int i = 1; i <= 4; i++) {
             StringBuilder url = new StringBuilder();
             url.append("http://www.shmilyz.com/search/").append(i).append(".png");
@@ -185,6 +194,8 @@ public class SpecialFragment extends Fragment {
 
                         //banner设置方法全部调用完毕时最后调用
                         banner.start();
+
+
                         break;
 
                 }

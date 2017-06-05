@@ -85,6 +85,7 @@ public class MainFragment extends Fragment {
     boolean return_load=false;
     private ProgressDialog pDialog ;
     String username;
+    private boolean show=true;
 
     @Override
     public void onResume() {
@@ -122,17 +123,20 @@ public class MainFragment extends Fragment {
         getActivity().getWindow().setEnterTransition(fade);
         setHasOptionsMenu(true);
         initView();
-        new CookieBar.Builder(getActivity())
-                .setTitle("欢迎您")
-                .setMessage(username)
-                .setBackgroundColor(R.color.colorPrimary)
-                .setAction("确认", new OnActionClickListener() {
-                    @Override
-                    public void onClick() {
+        if (show) {
+            new CookieBar.Builder(getActivity())
+                    .setTitle("欢迎您")
+                    .setMessage(username)
+                    .setBackgroundColor(R.color.colorPrimary)
+                    .setAction("确认", new OnActionClickListener() {
+                        @Override
+                        public void onClick() {
 
-                    }
-                })
-                .show();
+                        }
+                    })
+                    .show();
+        }
+
         loadnet();
 
         return rootView;

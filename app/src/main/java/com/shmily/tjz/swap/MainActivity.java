@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageLoader mLoader;
     SharedPreferences.Editor editor;
     boolean release=true;
+    boolean main=false;
     int a = 0;
     Toolbar toolbar;
     NavigationView navView;
@@ -104,6 +105,9 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.CAMERA);
+        }
         if (!permissionList.isEmpty()) {
             String [] permissions = permissionList.toArray(new String[permissionList.size()]);
             ActivityCompat.requestPermissions(MainActivity.this, permissions, 1);
@@ -140,20 +144,23 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(final MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.nav_me:
-                        item.setChecked(true);
 
+
+                        item.setChecked(true);
                         mDrawerLayout.closeDrawers();
                         navView.setCheckedItem(R.id.nav_theme);
-                        Intent stopservice=new Intent(MainActivity.this,SearchService.class);
-                        stopService(stopservice);
+
                         mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
                             @Override
                             public void onDrawerSlide(View drawerView, float slideOffset) {
                                 if (slideOffset == 0) {
-
-                                    Intent intent1=new Intent(MainActivity.this,MainActivity.class);
-                                    startActivity(intent1);
-                                    MainActivity.this.finish();
+                                    if (main) {
+                                        Intent stopservice = new Intent(MainActivity.this, SearchService.class);
+                                        stopService(stopservice);
+                                        Intent intent1 = new Intent(MainActivity.this, MainActivity.class);
+                                        startActivity(intent1);
+                                        MainActivity.this.finish();
+                                    }
                                 }
                             }
 
@@ -193,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
                                 if (slideOffset == 0) {
                                     replaceFragment(new LocationFragment());
                                     release=true;
+                                    main=true;
                                 }
                             }
 
@@ -247,6 +255,7 @@ public class MainActivity extends AppCompatActivity {
 
                                         replaceFragment(new ReleaseFragment());
                                         release=false;
+                                        main=true;
 
                                     }
                                 }
