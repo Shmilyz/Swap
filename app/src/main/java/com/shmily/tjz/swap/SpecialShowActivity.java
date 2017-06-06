@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SpecialShowActivity extends AppCompatActivity {
-private String special_Name,special_Specialcontent,special_Specialname,special_Url;
+    private String special_Name,special_Specialcontent,special_Specialname,special_Url;
     private TextView specoal_show_title,specoal_show_detail;
     private RecyclerView specoal_show_recy;
     private ImageView specoal_show_image;
@@ -51,7 +51,6 @@ private String special_Name,special_Specialcontent,special_Specialname,special_U
         special_Specialname=intent.getStringExtra("special_Specialname");
         special_Url=intent.getStringExtra("special_Url");
         Glide.with(this).load(special_Url).placeholder(R.mipmap.blackback)
-                .skipMemoryCache( true )
                 .diskCacheStrategy( DiskCacheStrategy.NONE )
                 .crossFade().into(specoal_show_image);
         specoal_show_title.setText(special_Name);
