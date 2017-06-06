@@ -27,10 +27,8 @@
         android:id="@+id/specoal_show_title"
         />
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/zanshi"
-        android:scaleType="fitXY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/specoal_show_image"
 
         />
@@ -46,17 +44,20 @@
         android:id="@+id/specoal_show_detail"
 
         />
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <android.support.v7.widget.RecyclerView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:id="@+id/specoal_show_recy"
 
         >
 
-
 </android.support.v7.widget.RecyclerView>
-
+    </RelativeLayout>
 
 </LinearLayout>
 </ScrollView>

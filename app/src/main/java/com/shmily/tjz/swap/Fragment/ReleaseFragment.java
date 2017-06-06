@@ -226,7 +226,7 @@ public class ReleaseFragment extends Fragment {
                 picture_name_title="'"+usernames+data.getCurrentTime(DateUtil.DateFormat.YYYYMMDDHHMMSS)+"'";
                 String picture_url="'"+"http://www.shmilyz.com/userupload/"+picture_name+"_1.jpg"+"'";
                 StringBuilder builder=new StringBuilder();
-                builder.append("insert into shoes(sex,style,brand,no,price,picture,iid,location,miaoshu,biaoti,date,size,username,position,picturename,pictureamount,file) \n" +
+                builder.append("insert into shoes(sex,style,brand,no,price,picture,iid,special,miaoshu,biaoti,date,size,username,position,picturename,pictureamount,file) \n" +
                         "VALUES(").append("'男士'").append(",").append(te_type_result).append(",").append("'品牌'").append(",").append("'二手'").append(",")
                         .append(te_money_int).append(",").append(picture_url).append(",").append("'1'").append(",")
                         .append(position_result).append(",").append(text_nest_desc_result).append(",")

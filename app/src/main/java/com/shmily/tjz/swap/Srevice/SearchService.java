@@ -57,7 +57,10 @@ public class SearchService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
     private void updates() {
-
+/*
+* 为shoes展示页下面的推荐json。
+*
+* */
         RequestParams params=new RequestParams("http://www.shmilyz.com/ForAndroidHttp/select.action");
         String results= "select * from shoes";
         params.addBodyParameter("uname",results);

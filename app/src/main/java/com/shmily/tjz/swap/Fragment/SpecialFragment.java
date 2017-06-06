@@ -25,6 +25,7 @@ import com.shmily.tjz.swap.Db.ShoesSpecial;
 import com.shmily.tjz.swap.Gson.Special;
 import com.shmily.tjz.swap.R;
 import com.shmily.tjz.swap.Adapter.SpecialAdapter;
+import com.shmily.tjz.swap.SpecialShowActivity;
 import com.shmily.tjz.swap.Utils.GlideImageLoader;
 import com.weavey.loading.lib.LoadingLayout;
 import com.youth.banner.Banner;
@@ -62,7 +63,7 @@ public class SpecialFragment extends Fragment {
     private LocalReceiver localReceiver;
     private LocalBroadcastManager localBroadcastManger;
     private LoadingLayout loadingLayout;
-
+    private List<Special> shoesList;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.special_fragment, container, false);
@@ -105,6 +106,13 @@ public class SpecialFragment extends Fragment {
             @Override
             public void OnBannerClick(int position) {
                 Toast.makeText(getActivity(),String.valueOf(position), Toast.LENGTH_SHORT).show();
+                Special special=shoesList.get(position);
+                Intent intent=new Intent(getActivity(), SpecialShowActivity.class);
+                intent.putExtra("special_Name",special.getName());
+                intent.putExtra("special_Specialcontent",special.getSpecialcontent());
+                intent.putExtra("special_Specialname",special.getSpecialname());
+                intent.putExtra("special_Url",special.getUrl());
+                getActivity().startActivity(intent);
             }
         });
 
@@ -128,7 +136,7 @@ public class SpecialFragment extends Fragment {
                     JSONObject jsonobject=new JSONObject(result);
                     JSONArray shoesArray=jsonobject.getJSONArray("result");
                     Gson gson=new Gson();
-                    List<Special> shoesList=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<Special>>(){}.getType());
+                    shoesList=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<Special>>(){}.getType());
                     for(Special special : shoesList)
                     {
                             list.add(special.getName());

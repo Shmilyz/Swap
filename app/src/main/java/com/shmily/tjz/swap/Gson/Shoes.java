@@ -36,7 +36,7 @@ public class Shoes {
     private int price;
     private String picturename;
     private String style;
-    private String location;
+    private String special;
     private String biaoti;
     private int id;
     private String position;
@@ -132,12 +132,12 @@ public class Shoes {
         this.style = style;
     }
 
-    public String getLocation() {
-        return location;
+    public String getSpecial() {
+        return special;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setSpecial(String special) {
+        this.special = special;
     }
 
     public String getBiaoti() {
