@@ -83,6 +83,18 @@
 
 
         </activity>
+
+            <!--为6.0以上用户调用相机并显示所提供的provider-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.cameraalbumtest.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
     </application>
 
 </manifest><!--

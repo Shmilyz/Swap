@@ -98,12 +98,28 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             ((LoveHolder)holder).friends_love_username.setText(mShoesList.get(position).getUsername());
             ((LoveHolder)holder).friends_love_shoesname.setText(mShoesList.get(position).getShoesname());
             ((LoveHolder)holder).friends_love_date.setText(mShoesList.get(position).getUserdate());
+            String url="http://www.shmilyz.com/picture/"+String.valueOf(mShoesList.get(position).getShoesid())+".jpg";
+            Log.i("pictureurl",url);
+            Glide.with(mContext).load(url).into(((LoveHolder)holder).friends_love_image);
 
         }
         else if (holder instanceof DiscussHolder){
 
             ((DiscussHolder)holder).firends_discuss_username.setText(mShoesList.get(position).getUsername());
-            ((DiscussHolder)holder).firends_discuss_discuss.setText(mShoesList.get(position).getShoesname());
+            ((DiscussHolder)holder).firends_discuss_discuss.setText(mShoesList.get(position).getDiscuss());
+            ((DiscussHolder)holder).firends_discuss_date.setText(mShoesList.get(position).getUserdate());
+            String url="http://www.shmilyz.com/picture/"+String.valueOf(mShoesList.get(position).getShoesid())+".jpg";
+            Glide.with(mContext).load(url).into(((DiscussHolder)holder).friends_discuss_headview);
+
+
+        }
+        else if (holder instanceof ReleaseHolder){
+            ((ReleaseHolder)holder).friends_release_username.setText(mShoesList.get(position).getUsername());
+            ((ReleaseHolder)holder).friends_release_name.setText(mShoesList.get(position).getShoesname());
+            ((ReleaseHolder)holder).friends_release_date.setText(mShoesList.get(position).getUserdate());
+
+            String url="http://www.shmilyz.com/picture/"+String.valueOf(mShoesList.get(position).getShoesid())+".jpg";
+            Glide.with(mContext).load(url).into(((ReleaseHolder)holder).friends_release_headview);
 
         }
 

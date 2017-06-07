@@ -8,13 +8,14 @@ public class Friends {
 
 
     /**
-     * shoesid : 4
-     * shoesurl : http://www.shmilyz.com/picture/4.jpg
-     * id : 2
-     * type : FRIENDS_DISCUSS
-     * userdate : 2017-06-08 11:01:25
-     * shoesname : Jordan男子训练运动鞋88
-     * username : 我爱你哦
+     * shoesid : 25
+     * shoesurl : http://www.shmilyz.com/picture/25.jpg
+     * id : 3
+     * type : 3
+     * userdate : 2017-06-08 11:00:25
+     * shoesname : Jordan男子训练运动鞋8888
+     * username : 张梦
+     * discuss : 我很喜欢这款鞋，我很想要。
      */
 
     private int shoesid;
@@ -24,6 +25,7 @@ public class Friends {
     private String userdate;
     private String shoesname;
     private String username;
+    private String discuss;
 
     public int getShoesid() {
         return shoesid;
@@ -79,5 +81,13 @@ public class Friends {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getDiscuss() {
+        return discuss;
+    }
+
+    public void setDiscuss(String discuss) {
+        this.discuss = discuss;
     }
 }
