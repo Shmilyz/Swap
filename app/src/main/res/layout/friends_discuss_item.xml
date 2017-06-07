@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<RelativeLayout
+    android:paddingBottom="5dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="5dp"
+    android:paddingTop="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="5dp"
+        android:src="@mipmap/aa"
+android:id="@+id/friends_discuss_headview"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textColor="#5B6A92"
+        android:textSize="18sp"
+        android:text="你微笑时很美 "
+        android:id="@+id/firends_discuss_username"
+        />
+    <TextView
+        android:layout_marginLeft="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/firends_discuss_username"
+        android:textSize="18sp"
+android:text=" 评论:"
+
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/friends_discuss_headview"
+        android:layout_below="@id/firends_discuss_username"
+        android:layout_alignParentLeft="true"
+        android:textSize="15sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+android:text="穿着很舒适，跑起步来步伐轻盈，透气性很好，各种运动都可以，很实用"
+android:id="@+id/firends_discuss_discuss"
+        />
+</RelativeLayout>
+
+    <TextView
+        android:id="@+id/firends_discuss_date"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+
+        android:text="2017-06-07 11:00:25" />
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:background="#EEECF9"
+        android:layout_width="match_parent"
+        android:layout_height="1dp">
+
+    </LinearLayout>
+
+</LinearLayout>

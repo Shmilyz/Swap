@@ -33,10 +33,14 @@ public class ViewPagerFragmwnt extends Fragment{
                 getActivity().getSupportFragmentManager(), FragmentPagerItems.with(getActivity())
                 .add(R.string.a, MainFragment.class)
                 .add(R.string.b, SpecialFragment.class)
+                .add(R.string.c, FriendsFragment.class)
+
                 .create());
 
         ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
+        viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(adapter);
+
         SmartTabLayout viewPagerTab = (SmartTabLayout) rootView.findViewById(R.id.viewpagertab);
         viewPagerTab.setViewPager(viewPager);
 

@@ -123,7 +123,7 @@ public class MainFragment extends Fragment {
         getActivity().getWindow().setEnterTransition(fade);
         setHasOptionsMenu(true);
         initView();
-        if (show) {
+
             new CookieBar.Builder(getActivity())
                     .setTitle("欢迎您")
                     .setMessage(username)
@@ -135,12 +135,14 @@ public class MainFragment extends Fragment {
                         }
                     })
                     .show();
-        }
+
 
         loadnet();
 
         return rootView;
     }
+
+
 
     private void loadnet() {
         loadingLayout=(LoadingLayout)rootView.findViewById(R.id.main_fragment_load_layout);

@@ -101,14 +101,14 @@ public class ResultFragment extends Fragment {
         if (searchresultsList.size()>1){
 
 
-            builder.append("SELECT * FROM shoes WHERE miaoshu LIKE '%").append(searchresultsList.get(0)).append("%' ");
+            builder.append("SELECT * FROM shoes WHERE biaoti LIKE '%").append(searchresultsList.get(0)).append("%' ");
             for (int i=1;i<searchresultsList.size();i++){
-                builder.append("and miaoshu like '%").append(searchresultsList.get(i)).append("%'");
+                builder.append("and biaoti like '%").append(searchresultsList.get(i)).append("%'");
             }
             results= String.valueOf(builder);
         }
         else{
-            results= "select * from shoes where miaoshu like '%"+result+"%'" + "";
+            results= "select * from shoes where biaoti like '%"+result+"%'" + "";
         }
 
 

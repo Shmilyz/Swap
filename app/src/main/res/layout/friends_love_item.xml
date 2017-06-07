@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:id="@+id/friends_love_username"
+            android:text="田俊哲"
+            android:textColor="#5B6A92"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_toRightOf="@id/friends_love_username"
+            android:id="@+id/friends_love_wei"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:text="为商品"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_toRightOf="@id/friends_love_wei"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:id="@+id/friends_love_shoesname"
+            android:text="AirJordan 限量出售"
+            android:textSize="18sp" />
+
+
+
+        <ImageView
+            android:layout_toRightOf="@id/friends_love_shoesname"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:src="@mipmap/like" />
+
+        <ImageView
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/aa"
+            android:id="@+id/friends_love_image"
+
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/friends_love_date"
+    android:paddingLeft="8dp"
+    android:gravity="center_vertical"
+    android:layout_width="match_parent"
+        android:layout_height="20dp"
+    android:text="2017-06-07 11:00:25"
+    />
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:background="#EEECF9"
+        android:layout_width="match_parent"
+        android:layout_height="1dp">
+
+    </LinearLayout>
+
+</LinearLayout>
