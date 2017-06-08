@@ -8,9 +8,7 @@ import android.app.Application;
 import android.content.Context;
 
 
-import com.imnjh.imagepicker.ImageLoader;
-import com.imnjh.imagepicker.PickerConfig;
-import com.imnjh.imagepicker.SImagePicker;
+
 import com.shmily.tjz.swap.R;
 import com.weavey.loading.lib.LoadingLayout;
 
@@ -44,12 +42,6 @@ public class MyApplication extends Application {
                 .setReloadButtonTextSize(14)
                 .setReloadButtonTextColor(R.color.black)
                 .setReloadButtonWidthAndHeight(150,40);
-        LoadingLayout.getConfig().setLoadingPageLayout(R.layout.define_loading_page);
-
-      /*  SImagePicker.init(new PickerConfig.Builder().setAppContext(this)
-                .setImageLoader(new ForSelectGlideImageLoader())
-                .setToolbaseColor(R.color.colorPrimary)
-                .build());*/
 
     }
     /*

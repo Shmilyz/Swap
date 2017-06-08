@@ -64,6 +64,7 @@ public class SpecialFragment extends Fragment {
     private LocalBroadcastManager localBroadcastManger;
     private LoadingLayout loadingLayout;
     private List<Special> shoesList;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.special_fragment, container, false);
@@ -79,6 +80,8 @@ public class SpecialFragment extends Fragment {
     }
     private void loadnet() {
         loadingLayout=(LoadingLayout)rootView.findViewById(R.id.special_fragment_load_layout);
+        loadingLayout.setLoadingPage(R.layout.define_loading_page);
+
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(CONNECTIVITY_SERVICE);
         //获取系统的连接服务。
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
