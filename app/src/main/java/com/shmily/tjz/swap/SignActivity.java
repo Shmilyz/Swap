@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ import com.luck.picture.lib.model.FunctionOptions;
 import com.luck.picture.lib.model.PictureConfig;
 import com.shmily.tjz.swap.Fragment.ReleaseFragment;
 import com.shmily.tjz.swap.Utils.ImageConfigGlideLoader;
+import com.shmily.tjz.swap.Utils.Xutils;
 import com.yalantis.ucrop.entity.LocalMedia;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -34,7 +37,9 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import github.ishaan.buttonprogressbar.ButtonProgressBar;
@@ -47,7 +52,8 @@ public class SignActivity extends AppCompatActivity {
     private ButtonProgressBar button;
     String name,pass;
     String image_path;
-
+    String phone;
+    View views;
 
 
     private  PictureConfig.OnSelectResultCallback resultCallback=new PictureConfig.OnSelectResultCallback() {
@@ -118,6 +124,8 @@ public class SignActivity extends AppCompatActivity {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
+                                Snackbar.make(getWindow().getDecorView(),"注册成功",Snackbar.LENGTH_SHORT)
+                                        .show();
                                 SharedPreferences prefs=getSharedPreferences("user", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor=prefs.edit();
                                 editor.putString("username",name);
@@ -167,6 +175,9 @@ public class SignActivity extends AppCompatActivity {
         upass= (EditText) findViewById(R.id.editText4);
         button= (ButtonProgressBar) findViewById(R.id.registerbutton);
         imageView= (CircleImageView) findViewById(R.id.sign_image);
+
+        Intent intent=getIntent();
+        phone=intent.getStringExtra("phone");
         signimage();
         init();
     }
@@ -205,34 +216,31 @@ public class SignActivity extends AppCompatActivity {
     private void init() {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick( View vs) {
+                views=vs;
                 name=uname.getText().toString().trim().replace(" ","");
                 pass=upass.getText().toString().trim().replace(" ","");
-                RequestParams params=new RequestParams("http://120.25.96.231/ForAndroidHttp/login.action");
-                params.addBodyParameter("uname",name);
-                params.addBodyParameter("upass",pass);
+
                 if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(pass)) {
+                    String sql="INSERT INTO login(username,password,phone) VALUES ('"+name+"',"+"'"+pass+"',"+"'"+phone+"')";
+                    Log.i("sql",sql);
+                    Xutils xutils=Xutils.getInstance();
+                    String url="http://www.shmilyz.com/ForAndroidHttp/update.action";
+                    Map<String, String> maps=new HashMap<String, String>();
+                    maps.put("uname",sql);
+                    xutils.post(url, maps, new Xutils.XCallBack() {
+                        @Override
+                        public void onResponse(String result) {
 
-                    x.http().post(params, new Callback.CacheCallback<String>() {
-    @Override
-    public void onSuccess(String result) {
-        try {
-            JSONObject json = new JSONObject(result);
-            String results = json.getString("result");
+                            try {
+                                JSONObject json = new JSONObject(result);
+                                String results = json.getString("result");
 
-            if (results.equals("1")) {
-                button.startLoader();
+                                if (results.equals("1")) {
+                                    button.startLoader();
+                                    uploadFile(new File(image_path));
 
-                uploadFile(new File(image_path));
-               /* Toast.makeText(SignActivity.this, "注册成功！", Toast.LENGTH_SHORT).show();
-                SharedPreferences prefs=getSharedPreferences("user", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor=prefs.edit();
-                editor.putString("username",name);
-                editor.putBoolean("denglu",true);
-                editor.commit();
-                Intent intent=new Intent(SignActivity.this,MainActivity.class);
-                startActivity(intent);
-                SignActivity.this.finish();*/
+
             } else {
                 Toast.makeText(SignActivity.this, "失败！！！", Toast.LENGTH_SHORT).show();
             }
@@ -242,30 +250,11 @@ public class SignActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-    }
+                        }
+                    });
 
-
-    @Override
-    public void onError(Throwable ex, boolean isOnCallback) {
-
-    }
-
-    @Override
-    public void onCancelled(CancelledException cex) {
-
-    }
-
-    @Override
-    public void onFinished() {
-
-    }
-
-    @Override
-    public boolean onCache(String result) {
-        return false;
-    }
-});
-                }else{
+                }
+                else{
                     Toast.makeText(SignActivity.this, "请输入正确的账号或密码！", Toast.LENGTH_SHORT).show();
                 }
             }

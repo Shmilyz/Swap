@@ -29,7 +29,11 @@ dependencies {
     compile project(':library')
     //最新版本
     
-    //    代替项目。
+    //    短信验证SDK。
+    compile name:'SMSSDK-2.1.4',ext:'aar'
+    compile name:'SMSSDKGUI-2.1.4',ext:'aar'
+
+
 compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'de.hdodenhof:circleimageview:2.1.0'
@@ -76,5 +80,8 @@ allprojects {
     repositories {
         jcenter()
         maven { url "https://jitpack.io" }
+        flatDir{
+            dirs 'libs' //就是你放aar的目录地址
+        }
     }
 }
