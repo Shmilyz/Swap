@@ -220,8 +220,8 @@ public class ReleaseFragment extends Fragment {
                 String te_money_result=te_money.getText().toString().trim();
                 int te_money_int=Integer.parseInt(te_money_result);
                 SharedPreferences prefs=getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
-                final String usernames=prefs.getString("username",null);
-                final String username="'"+prefs.getString("username",null)+"'";
+                String usernames=prefs.getString("username",null);
+                 final String username="'"+prefs.getString("username",null)+"'";
                 String file="'userupload'";
 //                path_amount
                 DateUtil data=new DateUtil();
@@ -255,8 +255,7 @@ public class ReleaseFragment extends Fragment {
 //                                release_button.startLoader();
 
                                 StringBuilder builders=new StringBuilder();
-                                String friend_url="http://www.shmilyz.com/userupload/"+picture_name+"_1.jpg";
-                                builders.append("insert into friends(shoesid,shoesname,shoesurl,username,userdate,type) value(").append(return_result).append(",'").append(text_nest_title.getText().toString().trim()).append("','").append(friend_url).append("','").append(usernames).append("',").append("NOW()").append(",").append("3").append(")");
+                                builders.append("insert into friends(shoesid,shoesname,shoesurl,username,userdate,type) value('").append(return_result).append("'").append(text_nest_title_result).append("','").append(picture_url).append("','").append(username).append("',").append("NOW()").append(",").append("3");
                                 addresult=String.valueOf(builders);
                                 Log.i("addresult",addresult);
                                 Map<String, String> maps=new HashMap<String, String>();

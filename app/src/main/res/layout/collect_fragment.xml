@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.weavey.loading.lib.LoadingLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EFEEEC"
+    android:id="@+id/collect_fragment_load_layout"
+    app:isFirstVisible="true">
+
+
+
+
+
+
+
+            <LinearLayout
+                android:background="#FFF"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <RelativeLayout
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:background="?attr/colorPrimary"
+                    android:layout_height="180dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/username"
+                        android:text="阿田"
+                        android:textColor="#FFF"
+                        android:textSize="20sp"
+                        android:layout_marginBottom="14dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:id="@+id/friends_headview"
+                        android:src="@mipmap/one"
+                        android:layout_marginBottom="24dp"
+                        android:layout_above="@+id/username"
+                        android:layout_centerHorizontal="true" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+                        android:id="@+id/menu_recy_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+
+
+
+</com.weavey.loading.lib.LoadingLayout>

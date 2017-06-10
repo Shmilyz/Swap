@@ -10,5 +10,8 @@
 <color name="black">#000000</color>
     <color name="translucent">#90000000</color>
 
+    <color name="red_normal">#FF0000</color>
+    <color name="red_pressed">#FF6666</color>
+
 
 </resources>

@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jcodecraeer.imageloader.ImageLoader;
+import com.shmily.tjz.swap.Fragment.CollectFragment;
 import com.shmily.tjz.swap.Fragment.LocationFragment;
 import com.shmily.tjz.swap.Fragment.ReleaseFragment;
 import com.shmily.tjz.swap.Fragment.ViewPagerFragmwnt;
@@ -202,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onDrawerSlide(View drawerView, float slideOffset) {
                                 if (slideOffset == 0) {
-                                    replaceFragment(new LocationFragment());
+                                    replaceFragment(new CollectFragment());
                                     release=true;
                                     main=true;
                                 }
