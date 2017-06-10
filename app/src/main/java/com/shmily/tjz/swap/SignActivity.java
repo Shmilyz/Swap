@@ -131,7 +131,7 @@ public class SignActivity extends AppCompatActivity {
                                 editor.putString("username",name);
                                 editor.putBoolean("denglu",true);
                                 editor.commit();
-                                Intent intent=new Intent(SignActivity.this,MainActivity.class);
+                                Intent intent=new Intent(SignActivity.this,ContactsActivity.class);
                                 button.stopLoader();
                                 startActivity(intent);
                                 SignActivity.this.finish();

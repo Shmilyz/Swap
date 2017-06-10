@@ -115,18 +115,26 @@ private View v;
                             intent.putExtra("phone",phoneNums);
                             startActivity(intent);
                             VerifyMobActivity.this.finish();
-                        } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
+                        }
+                        else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                             Snackbar.make(getWindow().getDecorView(),"验证码发送成功",Snackbar.LENGTH_SHORT)
                                     .setAction("确认", new View.OnClickListener() {
-
                                         @Override
                                         public void onClick(View v) {
                                         }
                                     })
                                     .show();
-                        } else {
-                            ((Throwable) data).printStackTrace();
                         }
+
+                        else {
+
+
+
+                        }
+                    }
+                    else{
+                        Snackbar.make(getWindow().getDecorView(),"验证码错误",Snackbar.LENGTH_SHORT)
+                                .show();
                     }
                 }
             }

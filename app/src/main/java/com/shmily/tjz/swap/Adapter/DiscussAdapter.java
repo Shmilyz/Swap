@@ -100,6 +100,15 @@ String username;
                 xutils.post(loveurl, maps, new Xutils.XCallBack() {
                     @Override
                     public void onResponse(String result) {
+                        String update="http://www.shmilyz.com/ForAndroidHttp/update.action";
+                        Map<String, String> map=new HashMap<String, String>();
+//                        map.put("uname","insert into friends(shoesid,shoesname,shoesurl,username,userdate,type) value("+discuss.getShoesid()+","+"select biaoti from shoes where id="+discuss.getShoesid()+",'"+"select picture from shoes where id="+discuss.getShoesid()+"','"+"阿梦"+"',"+"NOW(),"+"1"+")");
+                        xutils.post(update, map, new Xutils.XCallBack() {
+                            @Override
+                            public void onResponse(String result) {
+
+                            }
+                        });
 
                     }
                 });

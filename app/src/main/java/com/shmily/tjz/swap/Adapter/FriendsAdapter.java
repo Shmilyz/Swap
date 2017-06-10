@@ -98,7 +98,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             ((LoveHolder)holder).friends_love_username.setText(mShoesList.get(position).getUsername());
             ((LoveHolder)holder).friends_love_shoesname.setText(mShoesList.get(position).getShoesname());
             ((LoveHolder)holder).friends_love_date.setText(mShoesList.get(position).getUserdate());
-            String url="http://www.shmilyz.com/picture/"+String.valueOf(mShoesList.get(position).getShoesid())+".jpg";
+            String url=mShoesList.get(position).getShoesurl();
             Log.i("pictureurl",url);
             Glide.with(mContext).load(url).into(((LoveHolder)holder).friends_love_image);
 
@@ -108,7 +108,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             ((DiscussHolder)holder).firends_discuss_username.setText(mShoesList.get(position).getUsername());
             ((DiscussHolder)holder).firends_discuss_discuss.setText(mShoesList.get(position).getDiscuss());
             ((DiscussHolder)holder).firends_discuss_date.setText(mShoesList.get(position).getUserdate());
-            String url="http://www.shmilyz.com/picture/"+String.valueOf(mShoesList.get(position).getShoesid())+".jpg";
+            String url=mShoesList.get(position).getShoesurl();
             Glide.with(mContext).load(url).into(((DiscussHolder)holder).friends_discuss_headview);
 
 
@@ -118,7 +118,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             ((ReleaseHolder)holder).friends_release_name.setText(mShoesList.get(position).getShoesname());
             ((ReleaseHolder)holder).friends_release_date.setText(mShoesList.get(position).getUserdate());
 
-            String url="http://www.shmilyz.com/picture/"+String.valueOf(mShoesList.get(position).getShoesid())+".jpg";
+            String url=mShoesList.get(position).getShoesurl();
             Glide.with(mContext).load(url).into(((ReleaseHolder)holder).friends_release_headview);
 
         }

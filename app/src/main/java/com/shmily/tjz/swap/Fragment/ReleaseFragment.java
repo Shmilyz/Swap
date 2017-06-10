@@ -55,6 +55,7 @@ import com.shmily.tjz.swap.SignActivity;
 import com.shmily.tjz.swap.Utils.DateUtil;
 import com.shmily.tjz.swap.Utils.ImageConfigGlideLoader;
 import com.shmily.tjz.swap.Utils.Position;
+import com.shmily.tjz.swap.Utils.Xutils;
 import com.weavey.loading.lib.LoadingLayout;
 import com.yalantis.ucrop.entity.LocalMedia;
 
@@ -68,8 +69,10 @@ import org.xutils.x;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import cn.addapp.pickers.common.LineConfig;
 import cn.addapp.pickers.listeners.OnItemPickListener;
@@ -108,7 +111,7 @@ public class ReleaseFragment extends Fragment {
 
     private int path_amount;
     String picture_name,picture_name_title;
-    String results;
+    String results,addresult;
     private Handler handler;
     final int WHAT_NEWS = 1 ;
     FloatingActionButton fab;
@@ -208,7 +211,7 @@ public class ReleaseFragment extends Fragment {
         release_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                String text_nest_title_result="'"+text_nest_title.getText().toString().trim()+"'";
+                final String text_nest_title_result="'"+text_nest_title.getText().toString().trim()+"'";
                 String te_data_result="'"+te_data.getText().toString().trim()+"'";
                 String te_type_result="'"+te_type.getText().toString().trim()+"'";
                 String te_size_result="'"+te_size.getText().toString().trim()+"'";
@@ -217,14 +220,14 @@ public class ReleaseFragment extends Fragment {
                 String te_money_result=te_money.getText().toString().trim();
                 int te_money_int=Integer.parseInt(te_money_result);
                 SharedPreferences prefs=getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
-                String usernames=prefs.getString("username",null);
-                String username="'"+prefs.getString("username",null)+"'";
+                final String usernames=prefs.getString("username",null);
+                final String username="'"+prefs.getString("username",null)+"'";
                 String file="'userupload'";
 //                path_amount
                 DateUtil data=new DateUtil();
                 picture_name=usernames+data.getCurrentTime(DateUtil.DateFormat.YYYYMMDDHHMMSS);
                 picture_name_title="'"+usernames+data.getCurrentTime(DateUtil.DateFormat.YYYYMMDDHHMMSS)+"'";
-                String picture_url="'"+"http://www.shmilyz.com/userupload/"+picture_name+"_1.jpg"+"'";
+                final String picture_url="'"+"http://www.shmilyz.com/userupload/"+picture_name+"_1.jpg"+"'";
                 StringBuilder builder=new StringBuilder();
                 builder.append("insert into shoes(sex,style,brand,no,price,picture,iid,special,miaoshu,biaoti,date,size,username,position,picturename,pictureamount,file) \n" +
                         "VALUES(").append("'男士'").append(",").append(te_type_result).append(",").append("'品牌'").append(",").append("'二手'").append(",")
@@ -235,34 +238,70 @@ public class ReleaseFragment extends Fragment {
                 .append(")");
 
 
-
-                RequestParams params=new RequestParams("http://www.shmilyz.com/ForAndroidHttp/update.action");
+                RequestParams params=new RequestParams("http://www.shmilyz.com/ForAndroidHttp/insert.action");
                 results= String.valueOf(builder);
 
                 params.addBodyParameter("uname",results);
-
                 x.http().post(params, new Callback.CacheCallback<String>() {
                     @Override
                     public void onSuccess( String result) {
 
                         try {
                             JSONObject json = new JSONObject(result);
-                            String return_result = json.getString("result");
-
-                            if (return_result.equals("1")){
+                            int return_result = json.getInt("result");
+                            Log.i("return_result",String.valueOf(return_result));
+                            Log.i("int",String.valueOf(return_result));
+                            if (return_result!=0){
 //                                release_button.startLoader();
-                                Message msg = handler.obtainMessage();
-                                // 设置消息内容（可选）
-                                // 设置消息类型
-                                msg.what = WHAT_NEWS;
-                                // 发送消息
-                                handler.sendMessage(msg);
+
+                                StringBuilder builders=new StringBuilder();
+                                String friend_url="http://www.shmilyz.com/userupload/"+picture_name+"_1.jpg";
+                                builders.append("insert into friends(shoesid,shoesname,shoesurl,username,userdate,type) value(").append(return_result).append(",'").append(text_nest_title.getText().toString().trim()).append("','").append(friend_url).append("','").append(usernames).append("',").append("NOW()").append(",").append("3").append(")");
+                                addresult=String.valueOf(builders);
+                                Log.i("addresult",addresult);
+                                Map<String, String> maps=new HashMap<String, String>();
+                                String url="http://www.shmilyz.com/ForAndroidHttp/update.action";
+                                maps.put("uname",addresult);
+                                Xutils xutils=Xutils.getInstance();
+                                xutils.post(url, maps, new Xutils.XCallBack() {
+                                    @Override
+                                    public void onResponse(String result) {
+                                        try {
+                                            Log.i("result",result);
+
+                                            JSONObject json = new JSONObject(result);
+                                            String  get=json.getString("result");
+                                            if (get.equals("1")){
+
+
+                                                Message msg = handler.obtainMessage();
+                                                // 设置消息内容（可选）
+                                                // 设置消息类型
+                                                msg.what = WHAT_NEWS;
+                                                // 发送消息
+                                                handler.sendMessage(msg);
+                                            }
+                                            else {
+
+                                                Snackbar.make(view,"很抱歉，上传失败!",Snackbar.LENGTH_LONG)
+                                                        .show();
+                                            }
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+
+                                            Snackbar.make(view,"很抱歉，上传失败1。",Snackbar.LENGTH_LONG)
+                                                    .show();
+                                        }
+                                    }
+                                });
+
 
 
 
                             }else{
 
-                                Snackbar.make(view,"很抱歉，上传失败。",Snackbar.LENGTH_LONG)
+                                Snackbar.make(view,"很抱歉，上传失败2。",Snackbar.LENGTH_LONG)
                                         .show();
                             }
                         } catch (JSONException e) {

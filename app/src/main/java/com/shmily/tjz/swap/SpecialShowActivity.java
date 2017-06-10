@@ -58,8 +58,8 @@ public class SpecialShowActivity extends AppCompatActivity {
 
         String url="http://www.shmilyz.com/ForAndroidHttp/select.action";
         Map<String, String> maps=new HashMap<String, String>();
-        maps.put("uname","select * from discuss where special="+special_Specialname );
-        Log.i("select_special","select * from discuss where special="+special_Specialname);
+        maps.put("uname","select * from shoes where special="+special_Specialname );
+        Log.i("select_special","select * from shoes where special="+special_Specialname);
         xutils.post(url, maps, new Xutils.XCallBack() {
             @Override
             public void onResponse(String result) {

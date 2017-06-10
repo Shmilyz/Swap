@@ -30,12 +30,12 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.main">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".ShoesActivity"
@@ -83,7 +83,11 @@
 
         <!-- 为6.0以上用户调用相机并显示所提供的provider -->
 
-        <activity android:name=".ContactsActivity" />
+        <activity android:name=".ContactsActivity" >
+
+
+
+        </activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

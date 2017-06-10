@@ -23,5 +23,10 @@
     <list>
         <mapping class="com.shmily.tjz.swap.LitePal.DiscussAllLite"/>
     </list>
+    <dbname value="friends"/>
+    <version value="1"/>
+    <list>
+        <mapping class="com.shmily.tjz.swap.LitePal.FriendsLite"/>
+    </list>
 </litepal>
 

@@ -1,16 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<com.weavey.loading.lib.LoadingLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EFEEEC"
+    android:id="@+id/friends_fragment_load_layout"
+    app:isFirstVisible="true">
+
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+<ScrollView
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none"
     >
+
+
+
+
     <LinearLayout
-android:background="#FFF"
+    android:background="#FFF"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
     <RelativeLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:padding="10dp"
         android:background="?attr/colorPrimary"
@@ -21,7 +43,7 @@ android:background="#FFF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/username"
-            android:text="田俊哲"
+            android:text="阿田"
             android:textColor="#FFF"
             android:textSize="20sp"
             android:layout_marginBottom="14dp"
@@ -37,22 +59,7 @@ android:background="#FFF"
             android:layout_above="@+id/username"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/friends_toast"
-        android:background="#FFFFFFCC"
-        android:layout_width="match_parent"
-        android:layout_height="38dp">
-    <TextView
-        android:gravity="center_vertical"
-        android:layout_marginLeft="10dp"
-        android:textSize="12sp"
-        android:text="点击看看你的好友都在买些什么"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
 
-         />
-
-    </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -63,5 +70,13 @@ android:background="#FFF"
 
   </android.support.v7.widget.RecyclerView>
     </RelativeLayout>
+
+
+
 </LinearLayout>
-    </ScrollView>
+
+
+</ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</com.weavey.loading.lib.LoadingLayout>
