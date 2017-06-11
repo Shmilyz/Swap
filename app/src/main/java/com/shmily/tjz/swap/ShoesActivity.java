@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -80,22 +81,28 @@ public class ShoesActivity extends AppCompatActivity {
     private RoundButton discuss;
     private String username_get;
     private List<Discuss> discussList = new ArrayList<>();
+    private Xutils xutil;
 private String shoesimageurl;
     private TextView activty_shoes_price;
+    private boolean collect=true;
+    private String setcollect;
     @Override
     protected void onResume() {
         super.onResume();
         lovelite();
         Alldiscuss();
-    }
+        getcollect();
 
+    }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoes);
-
-
+        Fade fade = new Fade();
+        fade.setDuration(500L);
+        getWindow().setEnterTransition(fade);
+        xutil=Xutils.getInstance();
         SwipeBackHelper.onCreate(this);
         Intent intent=getIntent();
         shoesid=intent.getStringExtra(SHOES_ID);
@@ -108,6 +115,9 @@ private String shoesimageurl;
 
         SharedPreferences prefs=getSharedPreferences("user", Context.MODE_PRIVATE);
         username_get=prefs.getString("username",null);
+        fab= (FloatingActionButton) findViewById(R.id.fab);
+
+
 
 
         discuss_headimage= (CircleImageView) findViewById(R.id.discuss_headimage);
@@ -126,27 +136,97 @@ private String shoesimageurl;
         info_date= (TextView) findViewById(R.id.info_date);
         info_desc= (TextView) findViewById(R.id.info_desc);
         activty_shoes_price= (TextView) findViewById(R.id.activty_shoes_price);
-        fab= (FloatingActionButton) findViewById(R.id.fab);
         setSupportActionBar(toolbar);
         Glide.with(this).load(shoesimageurl).into(ShoesImageView);
         finid();
 
 //        fruitContentText.setText(fruitName);
 
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v,"确认收藏？？",Snackbar.LENGTH_LONG)
-                        .setAction("确认", new View.OnClickListener() {
 
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(ShoesActivity.this, "收藏成功！！", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .show();
+                if (collect){
+
+                    fab.setImageResource(R.mipmap.love_love);
+                    collect=false;
+                    setlove(true);
+
+
+                }
+                else {
+                    fab.setImageResource(R.mipmap.love);
+                    collect=true;
+                    setlove(false);
+
+                }
+
             }
         });
+    }
+
+    private void setlove(boolean type) {
+        String url="http://www.shmilyz.com/ForAndroidHttp/update.action";
+        Map<String, String> map=new HashMap<String, String>();
+        if (type){
+            setcollect="insert into collect(username,shoesid) value ('"+username_get+"',"+shoesid+")";
+            Log.i("setcollect",setcollect);
+        }else {
+            setcollect="DELETE FROM collect WHERE username='"+username_get+"' and shoesid="+shoesid;
+            Log.i("setcollects",setcollect);
+        }
+
+        map.put("uname",setcollect);
+        xutil.post(url, map, new Xutils.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+
+            }
+        });
+
+
+
+    }
+
+    private void getcollect() {
+
+        String url="http://www.shmilyz.com/ForAndroidHttp/exist.action";
+        Map<String, String> maps=new HashMap<String, String>();
+        String select="select id from collect where username='"+username_get+"' and shoesid="+shoesid;
+        maps.put("uname",select);
+        xutil.post(url, maps, new Xutils.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+
+                try {
+                    JSONObject json = new JSONObject(result);
+                    String results = json.getString("result");
+                    if (results.equals("1")){
+                        fab.setImageResource(R.mipmap.love_love);
+                        collect=false;
+                    }
+                    else {
+                        fab.setImageResource(R.mipmap.love);
+                        collect=true;
+                    }
+
+
+
+
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
+
+
+
     }
 
     private void finid() {

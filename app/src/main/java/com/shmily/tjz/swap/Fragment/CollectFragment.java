@@ -53,6 +53,7 @@ public class CollectFragment extends Fragment {
     private CollectAdapter adapter;
     private LoadingLayout collect_fragment_load_layout;
     int width;
+    private Xutils xutils;
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
@@ -60,9 +61,10 @@ public class CollectFragment extends Fragment {
         rootview = inflater.inflate(R.layout.collect_fragment, container, false);
         menu_recy_view= (SwipeMenuRecyclerView) rootview.findViewById(R.id.menu_recy_view);
         collect_fragment_load_layout= (LoadingLayout) rootview.findViewById(R.id.collect_fragment_load_layout);
+        xutils=Xutils.getInstance();
+
         SharedPreferences prefs=getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor=prefs.edit();
-        boolean isGuideLoaded=prefs.getBoolean("denglu",false);
         username=prefs.getString("username",null);
         collect_fragment_load_layout.setStatus(LoadingLayout.Loading);
         width = getResources().getDimensionPixelSize(R.dimen.item_height);
@@ -73,7 +75,6 @@ public class CollectFragment extends Fragment {
     }
 
     private void getcollect() {
-        Xutils xutils=Xutils.getInstance();
 
         Map<String, String> maps=new HashMap<String, String>();
         String url="http://www.shmilyz.com/ForAndroidHttp/select.action";
@@ -127,6 +128,18 @@ public class CollectFragment extends Fragment {
                 closeable.smoothCloseMenu();// 关闭被点击的菜单。
 
                 if (menuPosition == 0) {// 删除按钮被点击。
+
+                    String url="http://www.shmilyz.com/ForAndroidHttp/update.action";
+                    Map<String, String> map=new HashMap<String, String>();
+                   String  setcollect="DELETE FROM collect WHERE username='"+username+"' and shoesid="+shoesList.get(adapterPosition).getId();
+                    Log.i("setcollecta",setcollect);
+                    map.put("uname",setcollect);
+                    xutils.post(url, map, new Xutils.XCallBack() {
+                        @Override
+                        public void onResponse(String result) {
+
+                        }
+                    });
                     shoesList.remove(adapterPosition);
                     adapter.notifyItemRemoved(adapterPosition);
                 }

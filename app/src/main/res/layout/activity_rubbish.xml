@@ -99,7 +99,6 @@ android:orientation="horizontal"
         android:layout_height="wrap_content"
         android:id="@+id/fab"
         android:layout_margin="16dp"
-        android:src="@mipmap/love"
         app:layout_anchor="@id/appBar"
         app:layout_anchorGravity="bottom|end" />
 

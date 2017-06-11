@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
                         item.setChecked(true);
                         mDrawerLayout.closeDrawers();
-                        navView.setCheckedItem(R.id.nav_theme);
+                        navView.setCheckedItem(R.id.nav_me);
 
                         mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
                             @Override
@@ -196,16 +196,23 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         MainActivity.this.finish();
                         break;
-                    case R.id.nav_manage:
+                    case R.id.nav_friend:
                         mDrawerLayout.closeDrawers();
-                        navView.setCheckedItem(R.id.nav_theme);
+                        item.setChecked(true);
+
+
                         mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+
                             @Override
                             public void onDrawerSlide(View drawerView, float slideOffset) {
-                                if (slideOffset == 0) {
-                                    replaceFragment(new CollectFragment());
-                                    release=true;
-                                    main=true;
+                                if (slideOffset == 0 && item.getItemId()==R.id.nav_friend) {
+
+                                        replaceFragment(new CollectFragment());
+                                        release=true;
+                                        main=true;
+
+
+
                                 }
                             }
 
@@ -224,43 +231,23 @@ public class MainActivity extends AppCompatActivity {
 
                             }
                         });
+
+
                         break;
                     case R.id.nav_theme:
-
-
-                      /*  List<String> permissionList = new ArrayList<>();
-                        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                            permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
-                        }
-                        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                            permissionList.add(Manifest.permission.READ_PHONE_STATE);
-                        }
-                        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                            permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                        }
-                        if (!permissionList.isEmpty()) {
-                            String [] permissions = permissionList.toArray(new String[permissionList.size()]);
-                            ActivityCompat.requestPermissions(MainActivity.this, permissions, 1);
-                        } else {
-                        }*/
-
-
                         mDrawerLayout.closeDrawers();
-
-
-
+                        item.setChecked(true);
 
                         mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
 
                             @Override
                             public void onDrawerSlide(View drawerView, float slideOffset) {
-                                if (slideOffset == 0) {
+                                if (slideOffset == 0 && item.getItemId()==R.id.nav_theme) {
                                     if (release) {
-                                        item.setChecked(true);
-
                                         replaceFragment(new ReleaseFragment());
                                         release=false;
                                         main=true;
+
 
                                     }
                                 }
