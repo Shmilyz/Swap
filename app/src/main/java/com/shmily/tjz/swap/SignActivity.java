@@ -171,6 +171,8 @@ public class SignActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign);
+        Snackbar.make(getWindow().getDecorView(),"手机验证成功,开始注册",Snackbar.LENGTH_SHORT)
+                .show();
         uname= (EditText) findViewById(R.id.editText3);
         upass= (EditText) findViewById(R.id.editText4);
         button= (ButtonProgressBar) findViewById(R.id.registerbutton);

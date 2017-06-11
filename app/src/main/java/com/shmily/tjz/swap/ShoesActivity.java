@@ -99,9 +99,7 @@ private String shoesimageurl;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoes);
-        Fade fade = new Fade();
-        fade.setDuration(500L);
-        getWindow().setEnterTransition(fade);
+
         xutil=Xutils.getInstance();
         SwipeBackHelper.onCreate(this);
         Intent intent=getIntent();

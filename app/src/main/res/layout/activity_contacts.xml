@@ -49,7 +49,7 @@
         android:layout_marginRight="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="下一步"
+        android:text="进   入"
         android:textColor="#FFFFFF"
         android:background="#5A87E4"
         android:textSize="15dp"

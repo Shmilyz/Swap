@@ -108,8 +108,7 @@ private View v;
                     if (result == SMSSDK.RESULT_COMPLETE) {
                         // 短信注册成功后，返回MainActivity,然后提示
                         if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {// 提交验证码成功
-                            Snackbar.make(getWindow().getDecorView(),"手机验证成功,开始注册",Snackbar.LENGTH_SHORT)
-                                    .show();
+
                             Intent intent = new Intent(VerifyMobActivity.this,
                                     SignActivity.class);
                             intent.putExtra("phone",phoneNums);

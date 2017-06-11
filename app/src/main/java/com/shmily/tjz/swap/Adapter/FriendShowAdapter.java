@@ -73,7 +73,7 @@ public class FriendShowAdapter extends RecyclerView.Adapter<FriendShowAdapter.Vi
         if (mContext == null) {
             mContext = parent.getContext();
         }
-        View view = LayoutInflater.from(mContext).inflate(R.layout.collect_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.friends_show_item, parent, false);
         final ViewHolder holder = new ViewHolder(view);
         return holder;
     }

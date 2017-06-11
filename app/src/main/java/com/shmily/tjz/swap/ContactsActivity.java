@@ -112,7 +112,7 @@ private LoadingLayout activity_contacts_load_layout;
                 activity_contacts_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent=new Intent(ContactsActivity.this,ContactsActivity.class);
+                        Intent intent=new Intent(ContactsActivity.this,MainActivity.class);
                         startActivity(intent);
                         ContactsActivity.this.finish();
                     }
