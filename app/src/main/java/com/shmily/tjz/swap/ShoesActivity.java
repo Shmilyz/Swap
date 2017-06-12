@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.transition.Explode;
 import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
@@ -82,7 +83,7 @@ public class ShoesActivity extends AppCompatActivity {
     private String username_get;
     private List<Discuss> discussList = new ArrayList<>();
     private Xutils xutil;
-private String shoesimageurl;
+    private String shoesimageurl;
     private TextView activty_shoes_price;
     private boolean collect=true;
     private String setcollect;
@@ -91,7 +92,7 @@ private String shoesimageurl;
         super.onResume();
         lovelite();
         Alldiscuss();
-        getcollect();
+//        getcollect();
 
     }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -109,6 +110,8 @@ private String shoesimageurl;
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
         collapsingToolbar= (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         ImageView ShoesImageView= (ImageView) findViewById(R.id.fruit_image_view);
+        Glide.with(this).load(shoesimageurl).into(ShoesImageView);
+
         discuss= (RoundButton) findViewById(R.id.discuss);
 
         SharedPreferences prefs=getSharedPreferences("user", Context.MODE_PRIVATE);
@@ -135,7 +138,6 @@ private String shoesimageurl;
         info_desc= (TextView) findViewById(R.id.info_desc);
         activty_shoes_price= (TextView) findViewById(R.id.activty_shoes_price);
         setSupportActionBar(toolbar);
-        Glide.with(this).load(shoesimageurl).into(ShoesImageView);
         finid();
 
 //        fruitContentText.setText(fruitName);
@@ -368,7 +370,7 @@ private String shoesimageurl;
                             dis.setUsername(discuss.getUsername());
                             dis.save();
                         }*/
-                        String dis_user=discussList.get(0).getUsername();
+                    String dis_user=discussList.get(0).getUsername();
                     String url="http://www.shmilyz.com/headimage/"+dis_user+".jpg";
                     Glide.with(ShoesActivity.this).load(url).into(discuss_headimage);
                     discuss_username.setText(dis_user);
@@ -455,9 +457,7 @@ private String shoesimageurl;
             List<Shoes> shoesList=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<Shoes>>(){}.getType());
         /*    for(Shoes shoes : shoesList)
             {
-
                 recommendList.add(shoes);
-
             }*/
             for (int i=0;i<=6;i++){
                 Random random=new Random();
