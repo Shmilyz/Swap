@@ -1,6 +1,7 @@
 package com.shmily.tjz.swap.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -17,6 +19,7 @@ import com.like.OnLikeListener;
 import com.shmily.tjz.swap.Gson.Friends;
 import com.shmily.tjz.swap.LitePal.DiscussLite;
 import com.shmily.tjz.swap.R;
+import com.shmily.tjz.swap.ShoesActivity;
 import com.shmily.tjz.swap.Utils.Xutils;
 
 import org.litepal.crud.DataSupport;
@@ -50,18 +53,21 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public class LoveHolder extends RecyclerView.ViewHolder {
             TextView friends_love_username,friends_love_shoesname,friends_love_date;
         ImageView friends_love_image;
+         LinearLayout friends_love_item;
         public LoveHolder(View view) {
             super(view);
             friends_love_username= (TextView) view.findViewById(R.id.friends_love_username);
             friends_love_shoesname= (TextView) view.findViewById(R.id.friends_love_shoesname);
             friends_love_date= (TextView) view.findViewById(R.id.friends_love_date);
             friends_love_image= (ImageView) view.findViewById(R.id.friends_love_image);
-
+            friends_love_item= (LinearLayout) view.findViewById(R.id.friends_love_item);
         }
     }
     public class DiscussHolder extends RecyclerView.ViewHolder {
                 TextView firends_discuss_username,firends_discuss_discuss,firends_discuss_date;
         ImageView friends_discuss_headview;
+        LinearLayout friends_discuss_item;
+
         public DiscussHolder(View view) {
 
             super(view);
@@ -69,12 +75,15 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             firends_discuss_discuss= (TextView) view.findViewById(R.id.firends_discuss_discuss);
             firends_discuss_date= (TextView) view.findViewById(R.id.firends_discuss_date);
             friends_discuss_headview= (ImageView) view.findViewById(R.id.friends_discuss_headview);
+            friends_discuss_item= (LinearLayout) view.findViewById(R.id.friends_discuss_item);
 
         }
     }
     public class ReleaseHolder extends RecyclerView.ViewHolder {
             TextView friends_release_username,friends_release_name,friends_release_date;
         ImageView friends_release_headview;
+        LinearLayout friends_release_item;
+
         public ReleaseHolder(View view) {
             super(view);
             friends_release_username= (TextView) view.findViewById(R.id.friends_release_username);
@@ -82,6 +91,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             friends_release_date= (TextView) view.findViewById(R.id.friends_release_date);
             friends_release_headview= (ImageView) view.findViewById(R.id.friends_release_headview);
 
+            friends_release_item= (LinearLayout) view.findViewById(R.id.friends_release_item);
 
 
 
@@ -101,6 +111,23 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             String url=mShoesList.get(position).getShoesurl();
             Log.i("pictureurl",url);
             Glide.with(mContext).load(url).into(((LoveHolder)holder).friends_love_image);
+            ((LoveHolder)holder).friends_love_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    int position = holder.getAdapterPosition();
+                    Friends shoes = mShoesList.get(position);
+                    Intent intent = new Intent(mContext, ShoesActivity.class);
+
+                    intent.putExtra(ShoesActivity.SHOES_ID, String.valueOf(shoes.getShoesid()));
+
+                    intent.putExtra(ShoesActivity.SHOES_IMAGE_URL, shoes.getShoesurl());
+                    mContext.startActivity(intent);
+
+
+                }
+            });
+
 
         }
         else if (holder instanceof DiscussHolder){
@@ -110,6 +137,22 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             ((DiscussHolder)holder).firends_discuss_date.setText(mShoesList.get(position).getUserdate());
             String url=mShoesList.get(position).getShoesurl();
             Glide.with(mContext).load(url).into(((DiscussHolder)holder).friends_discuss_headview);
+            ((DiscussHolder)holder).friends_discuss_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    int position = holder.getAdapterPosition();
+                    Friends shoes = mShoesList.get(position);
+                    Intent intent = new Intent(mContext, ShoesActivity.class);
+
+                    intent.putExtra(ShoesActivity.SHOES_ID, String.valueOf(shoes.getShoesid()));
+
+                    intent.putExtra(ShoesActivity.SHOES_IMAGE_URL, shoes.getShoesurl());
+                    mContext.startActivity(intent);
+
+
+                }
+            });
 
 
         }
@@ -120,6 +163,23 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             String url=mShoesList.get(position).getShoesurl();
             Glide.with(mContext).load(url).into(((ReleaseHolder)holder).friends_release_headview);
+
+            ((ReleaseHolder)holder).friends_release_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    int position = holder.getAdapterPosition();
+                    Friends shoes = mShoesList.get(position);
+                    Intent intent = new Intent(mContext, ShoesActivity.class);
+
+                    intent.putExtra(ShoesActivity.SHOES_ID, String.valueOf(shoes.getShoesid()));
+
+                    intent.putExtra(ShoesActivity.SHOES_IMAGE_URL, shoes.getShoesurl());
+                    mContext.startActivity(intent);
+
+
+                }
+            });
 
         }
 

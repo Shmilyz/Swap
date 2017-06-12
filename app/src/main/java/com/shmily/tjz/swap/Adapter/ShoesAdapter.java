@@ -96,10 +96,7 @@ public class ShoesAdapter extends RecyclerView.Adapter<ShoesAdapter.ViewHolder>{
 
                intent.putExtra(ShoesActivity.SHOES_IMAGE_URL, shoes.getPicture());
 
-/*
-                mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) mContext).toBundle());
-*/
-mContext.startActivity(intent);
+                mContext.startActivity(intent);
 
             }
         });
