@@ -21,6 +21,7 @@ import com.shmily.tjz.swap.LitePal.DiscussLite;
 import com.shmily.tjz.swap.R;
 import com.shmily.tjz.swap.ShoesActivity;
 import com.shmily.tjz.swap.Utils.Xutils;
+import com.yarolegovich.discretescrollview.transform.Pivot;
 
 import org.litepal.crud.DataSupport;
 
@@ -116,12 +117,13 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 public void onClick(View view) {
 
                     int position = holder.getAdapterPosition();
-                    Friends shoes = mShoesList.get(position);
+                    Friends friend = mShoesList.get(position);
+                    getshoes(String.valueOf(friend.getShoesid()));
                     Intent intent = new Intent(mContext, ShoesActivity.class);
 
-                    intent.putExtra(ShoesActivity.SHOES_ID, String.valueOf(shoes.getShoesid()));
+                    intent.putExtra(ShoesActivity.SHOES_ID, String.valueOf(friend.getShoesid()));
+                    intent.putExtra(ShoesActivity.SHOES_IMAGE_URL, friend.getShoesurl());
 
-                    intent.putExtra(ShoesActivity.SHOES_IMAGE_URL, shoes.getShoesurl());
                     mContext.startActivity(intent);
 
 
@@ -142,12 +144,12 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 public void onClick(View view) {
 
                     int position = holder.getAdapterPosition();
-                    Friends shoes = mShoesList.get(position);
+                    Friends friend = mShoesList.get(position);
                     Intent intent = new Intent(mContext, ShoesActivity.class);
 
-                    intent.putExtra(ShoesActivity.SHOES_ID, String.valueOf(shoes.getShoesid()));
+                    intent.putExtra(ShoesActivity.SHOES_ID, String.valueOf(friend.getShoesid()));
 
-                    intent.putExtra(ShoesActivity.SHOES_IMAGE_URL, shoes.getShoesurl());
+                    intent.putExtra(ShoesActivity.SHOES_IMAGE_URL, friend.getShoesurl());
                     mContext.startActivity(intent);
 
 
@@ -169,12 +171,12 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 public void onClick(View view) {
 
                     int position = holder.getAdapterPosition();
-                    Friends shoes = mShoesList.get(position);
+                    Friends friend = mShoesList.get(position);
                     Intent intent = new Intent(mContext, ShoesActivity.class);
 
-                    intent.putExtra(ShoesActivity.SHOES_ID, String.valueOf(shoes.getShoesid()));
+                    intent.putExtra(ShoesActivity.SHOES_ID, String.valueOf(friend.getShoesid()));
 
-                    intent.putExtra(ShoesActivity.SHOES_IMAGE_URL, shoes.getShoesurl());
+                    intent.putExtra(ShoesActivity.SHOES_IMAGE_URL, friend.getShoesurl());
                     mContext.startActivity(intent);
 
 
@@ -187,6 +189,16 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
     }
+
+    private void getshoes(String shoesid) {
+        Xutils xutils=Xutils.getInstance();
+        String url="http://www.shmilyz.com/ForAndroidHttp/select.action";
+        Map<String, String> maps=new HashMap<String, String>();
+        maps.put("uname","select * from shoes where id=");
+
+
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view=null;

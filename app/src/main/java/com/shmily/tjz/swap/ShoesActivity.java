@@ -62,6 +62,26 @@ import ezy.ui.view.RoundButton;
 public class ShoesActivity extends AppCompatActivity {
     public static final String SHOES_IMAGE_URL ="shoes_url";
     public static final String SHOES_ID ="shoes_id";
+    public static final String SHOES_BIAOTI="shoes_biaoti";
+    public static final String SHOES_BRAND="shoes_brand";
+    public static final String SHOES_STYLE="shoes_style";
+    public static final String SHOES_USERNAME="shoes_username";
+    public static final String SHOES_POSITION="shoes_position";
+    public static final String SHOES_SIZE="shoes_size";
+    public static final String SHOES_DATE="shoes_date";
+    public static final String SHOES_MIAOSHU="shoes_miaoshu";
+    public static final String SHOES_PRICE="shoes_price";
+    public static final String SHOES_PICTUREAMOUNT="shoes_amount";
+    public static final String SHOES_FILE="shoes_file";
+    public static final String SHOES_PICTURENAME="shoes_picturename";
+
+
+
+
+
+
+
+
     FloatingActionButton fab;
     private Handler handler;
     final int WHAT_NEWS = 1 ;
@@ -69,8 +89,8 @@ public class ShoesActivity extends AppCompatActivity {
     private ShoesShowAdapter adapter;
     private List<ShoesSpecial> shoessearchList = new ArrayList<>();
     private List<Shoes> recommendList = new ArrayList<>();
-    private List<Shoes> shoesList = new ArrayList<>();
-    private  List<DiscussLove> discussloveList = new ArrayList<>();
+    private  List<DiscussLove> discussloveList = new ArrayList<//    private List<Shoes> shoesList = new ArrayList<>();
+        >();
 
     private int shoesid_int;
     private String shoesid;
@@ -83,16 +103,17 @@ public class ShoesActivity extends AppCompatActivity {
     private String username_get;
     private List<Discuss> discussList = new ArrayList<>();
     private Xutils xutil;
-    private String shoesimageurl;
+    private String shoesimageurl,shoesbiaoti,shoesusername;
     private TextView activty_shoes_price;
     private boolean collect=true;
     private String setcollect;
+    private Intent intent;
     @Override
     protected void onResume() {
         super.onResume();
         lovelite();
         Alldiscuss();
-//        getcollect();
+//       getcollect();
 
     }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -103,10 +124,12 @@ public class ShoesActivity extends AppCompatActivity {
 
         xutil=Xutils.getInstance();
         SwipeBackHelper.onCreate(this);
-        Intent intent=getIntent();
+
+        intent=getIntent();
         shoesid=intent.getStringExtra(SHOES_ID);
         shoesimageurl=intent.getStringExtra(SHOES_IMAGE_URL);
-
+        shoesbiaoti=intent.getStringExtra(SHOES_BIAOTI);
+        shoesusername=intent.getStringExtra(SHOES_USERNAME);
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
         collapsingToolbar= (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         ImageView ShoesImageView= (ImageView) findViewById(R.id.fruit_image_view);
@@ -137,6 +160,7 @@ public class ShoesActivity extends AppCompatActivity {
         info_date= (TextView) findViewById(R.id.info_date);
         info_desc= (TextView) findViewById(R.id.info_desc);
         activty_shoes_price= (TextView) findViewById(R.id.activty_shoes_price);
+        getcollect();
         setSupportActionBar(toolbar);
         finid();
 
@@ -231,114 +255,41 @@ public class ShoesActivity extends AppCompatActivity {
 
     private void finid() {
 
-        handler = new Handler() {
+        collapsingToolbar.setTitle(shoesbiaoti);
+        shoesContentText.setText(shoesbiaoti);
+        model.setText(intent.getStringExtra(SHOES_BRAND));
+        type.setText(intent.getStringExtra(SHOES_STYLE));
+
+        username.setText(shoesusername);
+        position.setText(intent.getStringExtra(SHOES_POSITION));
+        String headimage_url="http://www.shmilyz.com/headimage/"+shoesusername+".jpg";
+        Glide.with(ShoesActivity.this).load(headimage_url).into(headimage);
+
+        info_name.setText(shoesbiaoti);
+        info_size.setText(intent.getStringExtra(SHOES_SIZE));
+        info_date.setText(intent.getStringExtra(SHOES_DATE));
+        info_position.setText(intent.getStringExtra(SHOES_POSITION));
+        info_desc.setText(intent.getStringExtra(SHOES_MIAOSHU));
+        activty_shoes_price.setText("¥"+intent.getStringExtra(SHOES_PRICE));
+        discuss.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
-            public void handleMessage(Message msg) {
-                // 负责接收Handler消息，并执行UI更新
-                // 判断消息的来源：通过消息的类型 what
-                switch (msg.what) {
-                    case WHAT_NEWSS:
+            public void onClick(View view) {
 
-                        collapsingToolbar.setTitle(shoesList.get(0).getBiaoti());
-                        shoesContentText.setText(shoesList.get(0).getBiaoti());
-                        model.setText(shoesList.get(0).getBrand());
-                        type.setText(shoesList.get(0).getStyle());
+                Intent intent=new Intent(ShoesActivity.this,DiscussActivity.class);
+                intent.putExtra("discuss_shoes_id",shoesid);
+                intent.putExtra("discuss_showimage",shoesimageurl);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(ShoesActivity.this).toBundle());
 
-                        username.setText(shoesList.get(0).getUsername());
-                        position.setText(shoesList.get(0).getPosition());
-                        String headimage_url="http://www.shmilyz.com/headimage/"+shoesList.get(0).getUsername()+".jpg";
-                        Glide.with(ShoesActivity.this).load(headimage_url).into(headimage);
-
-                        info_name.setText(shoesList.get(0).getBiaoti());
-                        info_size.setText(shoesList.get(0).getSize());
-                        info_date.setText(shoesList.get(0).getDate());
-                        info_position.setText(shoesList.get(0).getPosition());
-                        info_desc.setText(shoesList.get(0).getMiaoshu());
-                        activty_shoes_price.setText("¥"+shoesList.get(0).getPrice());
-                        discuss.setOnClickListener(new View.OnClickListener() {
-                            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-                            @Override
-                            public void onClick(View view) {
-
-                                Intent intent=new Intent(ShoesActivity.this,DiscussActivity.class);
-                                intent.putExtra("discuss_shoes_id",String.valueOf(shoesList.get(0).getId()));
-                                intent.putExtra("discuss_showimage",shoesimageurl);
-                                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(ShoesActivity.this).toBundle());
-
-                            }
-                        });
-                        initview();
-                        recyview();
-
-                        break;
-
-                }
-
-            }
-        } ;
-
-
-        RequestParams params=new RequestParams("http://www.shmilyz.com/ForAndroidHttp/select.action");
-        String results= "select * from shoes where id="+shoesid;
-        params.addBodyParameter("uname",results);
-
-        x.http().post(params, new Callback.CacheCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-              /*  JSONObject jsonobject=new JSONObject(result);
-                JSONArray shoesArray=jsonobject.getJSONArray("result");*/
-
-                JSONObject jsonobject= null;
-                try {
-                    jsonobject = new JSONObject(result);
-                    JSONArray shoesArray=jsonobject.getJSONArray("result");
-                    Gson gson=new Gson();
-                    shoesList=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<Shoes>>(){}.getType());
-
-
-
-
-                    Message msg = handler.obtainMessage() ;
-                    // 设置消息内容（可选）
-                    // 设置消息类型
-                    msg.what = WHAT_NEWSS;
-                    // 发送消息
-                    handler.sendMessage(msg) ;
-
-
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-
-
-
-
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-
-            @Override
-            public boolean onCache(String result) {
-                return false;
             }
         });
+        initview();
+        recyview();
+
+
+
+
+
 
 
 
@@ -441,7 +392,6 @@ public class ShoesActivity extends AppCompatActivity {
                             RecommendAdapter adapter=new RecommendAdapter(recommendList);
                             recyclerView.setAdapter(adapter);
 
-
                             break;
 
                     }
@@ -479,9 +429,12 @@ public class ShoesActivity extends AppCompatActivity {
     }
 
     private void initview() {
-        for (int i = 1; i <= shoesList.get(0).getPictureamount(); i++) {
+        int amount=Integer.parseInt(intent.getStringExtra(SHOES_PICTUREAMOUNT));
+        String shoesfile=intent.getStringExtra(SHOES_FILE);
+        String shoespicturename=intent.getStringExtra(SHOES_PICTURENAME);
+        for (int i = 1; i <= amount; i++) {
             StringBuilder url = new StringBuilder();
-            url.append("http://www.shmilyz.com/").append( shoesList.get(0).getFile()).append("/").append(shoesList.get(0).getPicturename()).append("_").append(String.valueOf(i)).append(".jpg");
+            url.append("http://www.shmilyz.com/").append( shoesfile).append("/").append(shoespicturename).append("_").append(String.valueOf(i)).append(".jpg");
             String urls = String.valueOf(url);
 
             ShoesSpecial shoessearch = new ShoesSpecial(urls);
