@@ -24,7 +24,7 @@ public class Shoes {
      * brand : 品牌
      * username : 田俊哲
      */
-
+    private int id;
     private String date;
     private String no;
     private String iid;
@@ -38,7 +38,6 @@ public class Shoes {
     private String style;
     private String special;
     private String biaoti;
-    private int id;
     private String position;
     private String brand;
     private String username;

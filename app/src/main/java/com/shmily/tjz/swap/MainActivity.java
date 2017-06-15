@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.Handler;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -21,7 +19,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,13 +26,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jcodecraeer.imageloader.ImageLoader;
 import com.shmily.tjz.swap.Fragment.CollectFragment;
-import com.shmily.tjz.swap.Fragment.LocationFragment;
 import com.shmily.tjz.swap.Fragment.ReleaseFragment;
 import com.shmily.tjz.swap.Fragment.ViewPagerFragmwnt;
 import com.shmily.tjz.swap.Srevice.SearchService;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -71,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent Startservice=new Intent(this, SearchService.class);
         startService(Startservice);
+
 
         SharedPreferences prefs=getSharedPreferences("user", Context.MODE_PRIVATE);
         editor=prefs.edit();
@@ -162,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
                                     if (main) {
                                         Intent stopservice = new Intent(MainActivity.this, SearchService.class);
                                         stopService(stopservice);
+
                                         Intent intent1 = new Intent(MainActivity.this, MainActivity.class);
                                         startActivity(intent1);
                                         MainActivity.this.finish();

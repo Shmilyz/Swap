@@ -1,12 +1,11 @@
 package com.shmily.tjz.swap.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,20 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.shmily.tjz.swap.Adapter.DiscussAdapter;
-import com.shmily.tjz.swap.Adapter.FriendShowAdapter;
 import com.shmily.tjz.swap.Adapter.FriendsAdapter;
-import com.shmily.tjz.swap.ContactsActivity;
 import com.shmily.tjz.swap.Db.Contacts;
-import com.shmily.tjz.swap.Gson.Discuss;
 import com.shmily.tjz.swap.Gson.Friends;
 import com.shmily.tjz.swap.Gson.NumberResult;
 import com.shmily.tjz.swap.R;
-import com.shmily.tjz.swap.Utils.GridSpacingItemDecoration;
 import com.shmily.tjz.swap.Utils.ReadContacts;
 import com.shmily.tjz.swap.Utils.Xutils;
 import com.weavey.loading.lib.LoadingLayout;
@@ -116,7 +109,6 @@ private RelativeLayout friends_toast;
         }
 
         String personInfos = jsonArray.toString();
-        Log.i("哈",personInfos);
         Map<String, String> maps=new HashMap<String, String>();
         String url="http://www.shmilyz.com/ForAndroidHttp/contacts.action";
         maps.put("uname",personInfos);
@@ -166,7 +158,6 @@ private RelativeLayout friends_toast;
         }
         stringbuilder.append(" or username='").append(username).append("'").append("  Order By userdate Desc");
         String result=String.valueOf(stringbuilder);
-        Log.i("哈",result);
         String url="http://www.shmilyz.com/ForAndroidHttp/select.action";
         Map<String, String> maps=new HashMap<String, String>();
         maps.put("uname",result);

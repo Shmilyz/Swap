@@ -30,7 +30,6 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.main">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -83,11 +82,7 @@
 
         <!-- 为6.0以上用户调用相机并显示所提供的provider -->
 
-        <activity android:name=".ContactsActivity" >
-
-
-
-        </activity>
+        <activity android:name=".ContactsActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -99,7 +94,10 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".VerifyMobActivity">
+        <activity android:name=".VerifyMobActivity" />
+        <activity android:name=".FriendShoesActivity"
+            android:theme="@style/FruitActivityTheme"
+            >
 
         </activity>
     </application>

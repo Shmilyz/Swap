@@ -21,7 +21,6 @@
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:id="@+id/icon_image"
-        android:src="@mipmap/aa"
         android:layout_marginLeft="16dp"
         />
 
@@ -29,7 +28,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/username"
-        android:text="你的微笑百度搜不到。"
         android:layout_marginTop="12dp"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/icon_image"
@@ -42,7 +40,6 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/icon_image"
         android:layout_below="@id/username"
-        android:text="中国 天津市 西青区"
         android:textColor="#42DEB7"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"

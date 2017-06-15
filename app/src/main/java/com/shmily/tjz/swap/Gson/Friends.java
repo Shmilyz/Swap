@@ -17,10 +17,9 @@ public class Friends {
      * username : 张梦
      * discuss : 我很喜欢这款鞋，我很想要。
      */
-
+    private int id;
     private int shoesid;
     private String shoesurl;
-    private int id;
     private int type;
     private String userdate;
     private String shoesname;

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
+import com.shmily.tjz.swap.FriendShoesActivity;
 import com.shmily.tjz.swap.Gson.Friends;
 import com.shmily.tjz.swap.LitePal.DiscussLite;
 import com.shmily.tjz.swap.R;
@@ -86,6 +87,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         LinearLayout friends_release_item;
 
         public ReleaseHolder(View view) {
+
             super(view);
             friends_release_username= (TextView) view.findViewById(R.id.friends_release_username);
             friends_release_name= (TextView) view.findViewById(R.id.friends_release_name);
@@ -118,13 +120,13 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                     int position = holder.getAdapterPosition();
                     Friends friend = mShoesList.get(position);
-                    getshoes(String.valueOf(friend.getShoesid()));
-                    Intent intent = new Intent(mContext, ShoesActivity.class);
+                    Intent intent = new Intent(mContext, FriendShoesActivity.class);
 
-                    intent.putExtra(ShoesActivity.SHOES_ID, String.valueOf(friend.getShoesid()));
-                    intent.putExtra(ShoesActivity.SHOES_IMAGE_URL, friend.getShoesurl());
+                    intent.putExtra(FriendShoesActivity.SHOES_ID, String.valueOf(friend.getShoesid()));
 
+                    intent.putExtra(FriendShoesActivity.SHOES_IMAGE_URL, friend.getShoesurl());
                     mContext.startActivity(intent);
+
 
 
                 }
@@ -145,12 +147,13 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                     int position = holder.getAdapterPosition();
                     Friends friend = mShoesList.get(position);
-                    Intent intent = new Intent(mContext, ShoesActivity.class);
+                    Intent intent = new Intent(mContext, FriendShoesActivity.class);
 
-                    intent.putExtra(ShoesActivity.SHOES_ID, String.valueOf(friend.getShoesid()));
+                    intent.putExtra(FriendShoesActivity.SHOES_ID, String.valueOf(friend.getShoesid()));
 
-                    intent.putExtra(ShoesActivity.SHOES_IMAGE_URL, friend.getShoesurl());
+                    intent.putExtra(FriendShoesActivity.SHOES_IMAGE_URL, friend.getShoesurl());
                     mContext.startActivity(intent);
+
 
 
                 }
@@ -172,11 +175,11 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                     int position = holder.getAdapterPosition();
                     Friends friend = mShoesList.get(position);
-                    Intent intent = new Intent(mContext, ShoesActivity.class);
+                    Intent intent = new Intent(mContext, FriendShoesActivity.class);
 
-                    intent.putExtra(ShoesActivity.SHOES_ID, String.valueOf(friend.getShoesid()));
+                    intent.putExtra(FriendShoesActivity.SHOES_ID, String.valueOf(friend.getShoesid()));
 
-                    intent.putExtra(ShoesActivity.SHOES_IMAGE_URL, friend.getShoesurl());
+                    intent.putExtra(FriendShoesActivity.SHOES_IMAGE_URL, friend.getShoesurl());
                     mContext.startActivity(intent);
 
 
@@ -190,14 +193,6 @@ public class FriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     }
 
-    private void getshoes(String shoesid) {
-        Xutils xutils=Xutils.getInstance();
-        String url="http://www.shmilyz.com/ForAndroidHttp/select.action";
-        Map<String, String> maps=new HashMap<String, String>();
-        maps.put("uname","select * from shoes where id=");
-
-
-    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
