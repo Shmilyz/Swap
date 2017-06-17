@@ -1,6 +1,5 @@
 package com.shmily.tjz.swap;
 
-
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
@@ -24,14 +23,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.huewu.pla.lib.MultiColumnListView;
-import com.huewu.pla.lib.internal.PLA_AdapterView;
 import com.jude.swipbackhelper.SwipeBackHelper;
 import com.shmily.tjz.swap.Adapter.RecommendAdapter;
 import com.shmily.tjz.swap.Adapter.ShoesShowAdapter;
