@@ -137,7 +137,6 @@ public class DiscussActivity extends AppCompatActivity {
                     Map<String, String> maps=new HashMap<String, String>();
                     maps.put("uname","INSERT INTO discuss(shoesid,username,date,love,content) VALUES ("+shoes_id+","+"'"+username+"'"+","+"'"+dateUtil.getCurrentTime(DateUtil.DateFormat.YYYY_MM_DD)+"'"+","+"0"+","+"'"+discuss_write_edit.getText().toString().trim()+"'"+")");
                     maps.put("upass","insert into friends(shoesid,shoesurl,username,userdate,type,discuss) value("+shoes_id+",'"+discuss_showimage_url+"','"+username+"',"+"NOW(),"+"2"+",'"+discuss_write_edit.getText().toString().trim()+"'"+")");
-                    Log.i("discussup","insert into friends(shoesid,shoesurl,username,userdate,type,discuss) value("+shoes_id+",'"+discuss_showimage_url+"','"+username+"',"+"NOW(),"+"2"+",'"+discuss_write_edit.getText().toString().trim()+"'"+")");
 
                     discuss_write_edit.setText(null);
 

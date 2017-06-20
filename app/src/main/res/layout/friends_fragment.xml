@@ -10,10 +10,13 @@
 
 
     <android.support.v4.widget.SwipeRefreshLayout
+        android:background="#FFF"
+
         android:id="@+id/swipRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 <ScrollView
+    android:background="#FFF"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -42,8 +45,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/username"
-            android:text="阿田"
+            android:id="@+id/set_username"
             android:textColor="#FFF"
             android:textSize="20sp"
             android:layout_marginBottom="14dp"
@@ -54,9 +56,8 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:id="@+id/friends_headview"
-            android:src="@mipmap/one"
             android:layout_marginBottom="24dp"
-            android:layout_above="@+id/username"
+            android:layout_above="@+id/set_username"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
 

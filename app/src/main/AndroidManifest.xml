@@ -95,11 +95,10 @@
         </provider>
 
         <activity android:name=".VerifyMobActivity" />
-        <activity android:name=".FriendShoesActivity"
-            android:theme="@style/FruitActivityTheme"
-            >
-
-        </activity>
+        <activity
+            android:name=".FriendShoesActivity"
+            android:theme="@style/FruitActivityTheme"></activity>
+        <activity android:name=".WaitActivity"></activity>
     </application>
 
 </manifest><!--

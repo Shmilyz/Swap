@@ -13,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shmily.tjz.swap.Adapter.FriendsAdapter;
@@ -34,6 +36,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by Shmily_Z on 2017/6/7.
  */
@@ -48,8 +52,10 @@ private RelativeLayout friends_toast;
     private List<NumberResult> return_resultlist = new ArrayList<>();
     private LoadingLayout friends_fragment_load_layout;
     private String username;
+    private TextView set_username;
     private FriendsAdapter adapter;
     private SwipeRefreshLayout swipRefresh;
+    private CircleImageView friends_headview;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.friends_fragment, container, false);
@@ -57,11 +63,15 @@ private RelativeLayout friends_toast;
         swipRefresh= (SwipeRefreshLayout) rootView.findViewById(R.id.swipRefresh);
         friends_fragment_load_layout= (LoadingLayout) rootView.findViewById(R.id.friends_fragment_load_layout);
         friends_fragment_load_layout.setStatus(LoadingLayout.Loading);
+        set_username= (TextView) rootView.findViewById(R.id.set_username);
+        friends_headview= (CircleImageView) rootView.findViewById(R.id.friends_headview);
         SharedPreferences prefs=getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor=prefs.edit();
 
         username=prefs.getString("username"," ");
-
+        set_username.setText(username);
+        String headimage_url="http://www.shmilyz.com/headimage/"+username+".jpg";
+        Glide.with(getActivity()).load(headimage_url).into(friends_headview);
         findnumber();
 
 

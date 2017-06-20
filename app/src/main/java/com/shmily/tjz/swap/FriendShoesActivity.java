@@ -88,7 +88,6 @@ public class FriendShoesActivity extends AppCompatActivity {
         super.onResume();
         lovelite();
         Alldiscuss();
-//        getcollect();
 
     }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -135,6 +134,8 @@ public class FriendShoesActivity extends AppCompatActivity {
         info_desc= (TextView) findViewById(R.id.info_desc);
         activty_shoes_price= (TextView) findViewById(R.id.activty_shoes_price);
         setSupportActionBar(toolbar);
+        getcollect();
+
         finid();
 
 //        fruitContentText.setText(fruitName);

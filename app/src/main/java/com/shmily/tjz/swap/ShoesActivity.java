@@ -195,10 +195,15 @@ public class ShoesActivity extends AppCompatActivity {
         Map<String, String> map=new HashMap<String, String>();
         if (type){
             setcollect="insert into collect(username,shoesid) value ('"+username_get+"',"+shoesid+")";
+            String sshowlove="insert into friends(shoesid,shoesname,shoesurl,username,userdate,type) value("+shoesid+",'"+shoesbiaoti+"','"+shoesimageurl+"','"+username_get+"',"+"NOW(),"+"1"+")";
             Log.i("setcollect",setcollect);
+            Log.i("sshowlove",sshowlove);
+
+            map.put("uname",setcollect);
+            map.put("upass",sshowlove);
         }else {
             setcollect="DELETE FROM collect WHERE username='"+username_get+"' and shoesid="+shoesid;
-            Log.i("setcollects",setcollect);
+            map.put("uname",setcollect);
         }
 
         map.put("uname",setcollect);
