@@ -26,13 +26,7 @@ public class ShowPhotoResultActivity extends AppCompatActivity {
                 ShowPhotoResultActivity.this.finish();
             }
         });
-        /*dragPhotoView.setOnTapListener(new DragPhotoView.OnTapListener() {
-            @Override
-            public void onTap(DragPhotoView dragPhotoView) {
-                ShowPhotoResultActivity.this.finish();
-
-            }
-        });*/
+      
 
     }
 }
