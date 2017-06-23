@@ -26,7 +26,7 @@ public class ShowPhotoResultActivity extends AppCompatActivity {
                 ShowPhotoResultActivity.this.finish();
             }
         });
-      
+
 
     }
 }

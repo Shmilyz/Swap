@@ -100,7 +100,6 @@ public class SignActivity extends AppCompatActivity {
                     }).launch();    //启动压缩*/
 
 
-            Toast.makeText(SignActivity.this, localMedia.getCompressPath(), Toast.LENGTH_SHORT).show();
         }
     };
 
