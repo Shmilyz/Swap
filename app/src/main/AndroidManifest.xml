@@ -93,16 +93,16 @@
             android:name=".FriendShoesActivity"
             android:theme="@style/FruitActivityTheme" />
         <activity android:name=".WaitActivity">
-
-        </activity>
-        <activity android:name=".WelcomeActivity"></activity>
-        <activity android:name=".BuyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".WelcomeActivity" />
+        <activity android:name=".BuyActivity" />
+        <activity android:name=".ShowPositionsActivity" />
+        <activity android:name=".WritePositionActivity"></activity>
     </application>
 
 </manifest><!--

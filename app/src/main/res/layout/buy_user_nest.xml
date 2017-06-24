@@ -15,27 +15,17 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="收货人: "
-
+        android:textSize="15sp"
         android:id="@+id/buy_user_shr"
-        android:textSize="15sp"
 
         />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="张梦"
-        android:textSize="15sp"
-        android:layout_toRightOf="@id/buy_user_shr"
-        android:id="@+id/buy_user_name"
-        />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buy_user_number"
-        android:text="15522902120"
         android:textSize="15sp"
-        android:layout_toRightOf="@id/buy_user_name"
+        android:layout_toRightOf="@id/buy_user_shr"
         android:layout_marginLeft="40dp"
 
         />
@@ -45,7 +35,7 @@
         android:layout_marginTop="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="收货地址：天津天津市北辰区北仓镇天津市北辰区盛仓新苑赤霞园8-2-5-1"
+        android:text=""
         android:textSize="13sp"
         android:layout_below="@+id/buy_user_shr"
         android:layout_alignStart="@+id/buy_user_shr"

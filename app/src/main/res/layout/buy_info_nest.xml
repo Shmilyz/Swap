@@ -80,6 +80,35 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:text="买家留言: "
+            android:id="@+id/buy_info_mjly"
+            android:textSize="15sp"
+
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="2dp"
+            android:id="@+id/buy_info_leave"
+            android:layout_alignParentRight="true"
+            android:hint="选填:对本次交易的说明"
+            android:background="@null"
+            android:layout_toEndOf="@+id/buy_info_mjly"
+            android:textSize="15sp"
+            android:cursorVisible="false"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:textSize="15sp"
 
             android:text="宝贝型号: "
@@ -135,35 +164,7 @@
         android:layout_height="1dp">
 
     </LinearLayout>
-    <RelativeLayout
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:layout_marginTop="1dp"
-        android:layout_width="match_parent"
-        android:layout_height="45dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="买家留言: "
-            android:id="@+id/buy_info_mjly"
-            android:textSize="15sp"
-
-            />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="2dp"
-            android:id="@+id/buy_info_leave"
-            android:layout_alignParentRight="true"
-            android:hint="选填:对本次交易的说明"
-            android:background="@null"
-            android:layout_toEndOf="@+id/buy_info_mjly"
-            android:textSize="15sp"
-            android:cursorVisible="false"
-            />
-    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:background="#FAFAFA"

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:background="#FAFAFA"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="83dp">
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@mipmap/aa"
+            android:id="@+id/buy_info_shoesimage"
+            />
+        <TextView
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buy_info_shoesname"
+            android:layout_toRightOf="@id/buy_info_shoesimage"
+            android:textSize="15sp"
+            android:layout_marginLeft="3dp"
+            android:text="彪马运动鞋穿着，很叔叔"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/buy_info_shoesimage"
+            android:layout_alignParentBottom="true"
+            android:textSize="15sp"
+            android:layout_marginLeft="3dp"
+            android:text="￥1080"
+            android:textColor="#EC5E2A"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+        <TextView
+            android:textColor="#42DEB7"
+            android:gravity="center"
+            android:text="立即购买"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:background="#bfbfbf"
+        android:layout_height="1dp">
+
+    </LinearLayout>
+</LinearLayout>

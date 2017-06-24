@@ -1,5 +1,8 @@
 <resources>
 
+
+
+
     <style name="ShowPhotoResult" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
