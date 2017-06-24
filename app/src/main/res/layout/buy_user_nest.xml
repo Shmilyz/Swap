@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingTop="10dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="10dp"
+    android:layout_marginTop="6dp"
+
+    android:background="#FFF"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="收货人: "
+
+        android:id="@+id/buy_user_shr"
+        android:textSize="15sp"
+
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="张梦"
+        android:textSize="15sp"
+        android:layout_toRightOf="@id/buy_user_shr"
+        android:id="@+id/buy_user_name"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buy_user_number"
+        android:text="15522902120"
+        android:textSize="15sp"
+        android:layout_toRightOf="@id/buy_user_name"
+        android:layout_marginLeft="40dp"
+
+        />
+
+    <TextView
+
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="收货地址：天津天津市北辰区北仓镇天津市北辰区盛仓新苑赤霞园8-2-5-1"
+        android:textSize="13sp"
+        android:layout_below="@+id/buy_user_shr"
+        android:layout_alignStart="@+id/buy_user_shr"
+        android:id="@+id/buy_user_position"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buy_user_position"
+        android:layout_alignStart="@+id/buy_user_position"
+        android:textSize="10sp"
+        android:layout_marginTop="5dp"
+        android:text="(请保证信息具体正确)"
+        android:textColor="#42DEB7"
+        />
+
+
+</RelativeLayout>

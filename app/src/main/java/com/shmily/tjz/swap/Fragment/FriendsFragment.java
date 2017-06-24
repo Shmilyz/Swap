@@ -48,6 +48,8 @@ private RelativeLayout friends_toast;
     private View rootView;
     Xutils xutils=Xutils.getInstance();
     private List<Friends> friendsList = new ArrayList<>();
+    private List<Friends> friendnamesList = new ArrayList<>();
+
     private List<Contacts> resultlist =new ArrayList<>();
     private List<NumberResult> return_resultlist = new ArrayList<>();
     private LoadingLayout friends_fragment_load_layout;
@@ -79,6 +81,7 @@ private RelativeLayout friends_toast;
         swipRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+
                 findnumber();
                 adapter.notifyDataSetChanged();
                 swipRefresh.setRefreshing(false);
@@ -95,6 +98,7 @@ private RelativeLayout friends_toast;
 
 
         ReadContacts readcontacts=new ReadContacts();
+        resultlist.clear();
         resultlist=readcontacts.getContacts();
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
@@ -128,25 +132,20 @@ private RelativeLayout friends_toast;
             public void onResponse(String result) {
 
                 try {
-                    Log.i("result",result);
-
                     JSONObject jsonobject = new JSONObject(result);
                     JSONArray shoesArray=jsonobject.getJSONArray("result");
 
                     Gson gson=new Gson();
+                    return_resultlist.clear();
                     return_resultlist=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<NumberResult>>(){}.getType());
-
+                    Log.i("zy",String.valueOf(shoesArray));
+                    selectfriend();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    NumberResult num=new NumberResult();
-                    num.setUsername("");
-                    num.setId(1);
-                    num.setPhone("15522902120");
-                    num.setName("自己");
-                    return_resultlist.add(num);
+
                 }
 
-                selectfriend();
+
 
                 friends_fragment_load_layout.setStatus(LoadingLayout.Success);//加载成功
 
@@ -158,6 +157,7 @@ private RelativeLayout friends_toast;
     }
 
     private void selectfriend() {
+        friendnamesList.clear();
         StringBuilder stringbuilder=new StringBuilder();
         stringbuilder.append("select * from friends where ");
         if (return_resultlist.size()>0){
@@ -168,6 +168,7 @@ private RelativeLayout friends_toast;
         }
         stringbuilder.append(" or username='").append(username).append("'").append("  Order By userdate Desc");
         String result=String.valueOf(stringbuilder);
+
         String url="http://www.shmilyz.com/ForAndroidHttp/select.action";
         Map<String, String> maps=new HashMap<String, String>();
         maps.put("uname",result);
@@ -179,7 +180,27 @@ private RelativeLayout friends_toast;
                     JSONArray shoesArray=jsonobject.getJSONArray("result");
                     Gson gson=new Gson();
                     friendsList=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<Friends>>(){}.getType());
-                    
+                    for(Friends friends:friendsList){
+                        Friends friends1 = new Friends();
+                        friends1.setId(friends.getId());
+                        friends1.setShoesname(friends.getShoesname());
+                        friends1.setDiscuss(friends.getDiscuss());
+                        friends1.setShoesid(friends.getShoesid());
+                        friends1.setShoesurl(friends.getShoesurl());
+                        friends1.setType(friends.getType());
+                        friends1.setUserdate(friends.getUserdate());
+                         for(NumberResult num:return_resultlist){
+
+                             if (num.getUsername().equals(friends.getUsername())){
+                                 friends1.setUsername(num.getName());
+
+
+                                 break;
+                             }
+
+                         }
+                        friendnamesList.add(friends1);
+                    }
 
 
 
@@ -189,7 +210,7 @@ private RelativeLayout friends_toast;
 
                 LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
                 friends_recy.setLayoutManager(layoutManager);
-                adapter=new FriendsAdapter(friendsList);
+                adapter=new FriendsAdapter(friendnamesList);
                 friends_recy.setAdapter(adapter);
 
 

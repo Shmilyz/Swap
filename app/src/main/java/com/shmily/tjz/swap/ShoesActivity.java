@@ -83,6 +83,7 @@ public class ShoesActivity extends AppCompatActivity {
 
 
     FloatingActionButton fab;
+    private  ImageView intent_map;
     private Handler handler;
     final int WHAT_NEWS = 1 ;
     final int WHAT_NEWSS = 2;
@@ -140,7 +141,7 @@ public class ShoesActivity extends AppCompatActivity {
         SharedPreferences prefs=getSharedPreferences("user", Context.MODE_PRIVATE);
         username_get=prefs.getString("username",null);
         fab= (FloatingActionButton) findViewById(R.id.fab);
-
+        intent_map= (ImageView) findViewById(R.id.intent_map);
 
 
 
@@ -185,6 +186,18 @@ public class ShoesActivity extends AppCompatActivity {
                     setlove(false);
 
                 }
+
+            }
+        });
+
+    }
+
+    private void intentmap() {
+        intent_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(ShoesActivity.this,MapActivity.class);
+                startActivity(intent);
 
             }
         });

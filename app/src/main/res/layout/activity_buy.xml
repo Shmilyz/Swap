@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context="com.shmily.tjz.swap.BuyActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:text="确认订单"
+            android:textColor="#FFF"
+            android:background="@color/colorPrimary"
+            android:id="@+id/specoal_show_title"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            >
+            <include layout="@layout/buy_user_nest"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            >
+
+            <include layout="@layout/buy_info_nest" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <Button
+            android:id="@+id/activity_buy_sure"
+            android:layout_width="100dp"
+            android:text="提交订单"
+            android:textColor="#FFF"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:background="#EE8E35"
+            android:layout_height="match_parent" />
+
+
+        <TextView
+            android:layout_marginRight="7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="￥1080"
+            android:gravity="center"
+            android:textColor="#EC5E2A"
+            android:id="@+id/activity_buy_price"
+            android:layout_toLeftOf="@id/activity_buy_sure"
+
+            />
+        <TextView
+            android:layout_marginRight="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="合计: "
+            android:gravity="center"
+            android:id="@+id/activity_buy_hj"
+            android:layout_toLeftOf="@id/activity_buy_price"
+            />
+    </RelativeLayout>
+</RelativeLayout>

@@ -8,11 +8,16 @@
     android:layout_height="match_parent"
     tools:context="com.shmily.tjz.swap.WaitActivity">
 <ImageView
+
+    android:id="@+id/wait_imageView"
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="5"
+    android:scaleType="centerCrop"
+
     />
     <TextView
+        android:id="@+id/wait_text"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
