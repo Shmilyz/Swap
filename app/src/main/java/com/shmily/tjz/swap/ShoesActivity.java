@@ -22,6 +22,7 @@ import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -109,6 +110,7 @@ public class ShoesActivity extends AppCompatActivity {
     private boolean collect=true;
     private String setcollect;
     private Intent intent;
+    private LinearLayout shoes_buy;
     @Override
     protected void onResume() {
         super.onResume();
@@ -186,6 +188,15 @@ public class ShoesActivity extends AppCompatActivity {
                     setlove(false);
 
                 }
+
+            }
+        });
+        shoes_buy= (LinearLayout) findViewById(R.id.shoes_buy);
+        shoes_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(ShoesActivity.this,BuyActivity.class);
+                startActivity(intent);
 
             }
         });

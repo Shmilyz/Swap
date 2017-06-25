@@ -1,9 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#FFF"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.shmily.tjz.swap.WritePositionActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/colorPrimary"
+        android:id="@+id/activity_write_position_re"
+
+        >
+    <TextView
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/activity_write_position_tj"
+        android:gravity="center"
+        android:text="添加新地址"
+        android:textColor="#FFF"
+        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/activity_write_position_keep"
+            android:text="保存"
+            android:layout_alignParentRight="true"
+            android:textColor="#FFF"
+            android:gravity="center"
+            android:layout_marginRight="8dp"
+            />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="收货人 "
+            android:id="@+id/buy_info_mjly"
+            android:textSize="15sp"
+
+            />
+
+        <EditText
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="2dp"
+            android:id="@+id/activity_write_position_name"
+            android:layout_alignParentRight="true"
+            android:hint=""
+            android:background="@null"
+            android:layout_toEndOf="@+id/buy_info_mjly"
+            android:textSize="15sp"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D3D3D3"
+        ></LinearLayout>
+    <RelativeLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="联系电话 "
+            android:id="@+id/buy_info_mjly1"
+            android:textSize="15sp"
+
+            />
+        <EditText
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="2dp"
+            android:id="@+id/activity_write_position_number"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:layout_toEndOf="@+id/buy_info_mjly1"
+            android:textSize="15sp"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D3D3D3"
+        ></LinearLayout>
+    <EditText
+        android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:id="@+id/activity_write_position_pos"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:textSize="15sp"
+            android:hint="请填写详细的家庭地址,方便快递公司找到您家地址"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:inputType="textMultiLine"
+            android:gravity="left|top"
+            android:minLines="7"
+            android:maxLength="60"
+            android:textColor="@color/black"
+            />
+    <LinearLayout
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D3D3D3"
+        ></LinearLayout>
+    <RelativeLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="设为默认 "
+            android:id="@+id/buy_info_mjly5"
+            android:textSize="15sp"
+
+            />
+        <android.support.v7.widget.SwitchCompat
+            android:theme="@style/mySwitch"
+            android:layout_toEndOf="@+id/buy_info_mjly5"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:id="@+id/switch_compat"
+            android:typeface="normal"
+            android:switchMinWidth="40dp"
+            android:switchPadding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D3D3D3"
+        ></LinearLayout>
+
+
+</LinearLayout>

@@ -100,9 +100,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".WelcomeActivity" />
-        <activity android:name=".BuyActivity" />
-        <activity android:name=".ShowPositionsActivity" />
-        <activity android:name=".WritePositionActivity"></activity>
+        <activity android:name=".BuyActivity" >
+
+
+        </activity>
+        <activity android:name=".ShowPositionsActivity" >
+
+        </activity>
+        <activity android:name=".WritePositionActivity">
+
+
+        </activity>
     </application>
 
 </manifest><!--
