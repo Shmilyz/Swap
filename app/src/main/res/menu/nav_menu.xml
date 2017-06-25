@@ -33,7 +33,7 @@
             android:title="同城发布"
             />
         <item android:id="@+id/nav_night"
-            android:title="夜间模式"/>
+            android:title="我的购物车"/>
         <item android:id="@+id/nav_setting"
             android:title="退出登录"/>
         <item android:id="@+id/nav_suggestion"

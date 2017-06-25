@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jcodecraeer.imageloader.ImageLoader;
+import com.shmily.tjz.swap.Fragment.BuyCarFragment;
 import com.shmily.tjz.swap.Fragment.CollectFragment;
 import com.shmily.tjz.swap.Fragment.ReleaseFragment;
 import com.shmily.tjz.swap.Fragment.ViewPagerFragmwnt;
@@ -182,6 +183,45 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
 
+
+                        break;
+
+                    case R.id.nav_night:
+
+                        mDrawerLayout.closeDrawers();
+                        item.setChecked(true);
+
+
+                        mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+
+                            @Override
+                            public void onDrawerSlide(View drawerView, float slideOffset) {
+                                if (slideOffset == 0 && item.getItemId()==R.id.nav_night) {
+
+                                    replaceFragment(new BuyCarFragment());
+                                    release=true;
+                                    main=true;
+
+
+
+                                }
+                            }
+
+                            @Override
+                            public void onDrawerOpened(View drawerView) {
+
+                            }
+
+                            @Override
+                            public void onDrawerClosed(View drawerView) {
+
+                            }
+
+                            @Override
+                            public void onDrawerStateChanged(int newState) {
+
+                            }
+                        });
 
                         break;
                     case R.id.nav_setting:

@@ -21,6 +21,7 @@ import android.transition.Explode;
 import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -112,6 +113,7 @@ public class ShoesActivity extends AppCompatActivity {
     private Intent intent;
     private LinearLayout shoes_buy;
     private String shoesprice,shoessize;
+    private Button shoes_buy_car;
     @Override
     protected void onResume() {
         super.onResume();
@@ -125,7 +127,9 @@ public class ShoesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoes);
-
+        Fade fade = new Fade();
+        fade.setDuration(500L);
+        getWindow().setEnterTransition(fade);
         xutil=Xutils.getInstance();
         SwipeBackHelper.onCreate(this);
 
@@ -195,6 +199,29 @@ public class ShoesActivity extends AppCompatActivity {
             }
         });
         shoes_buy= (LinearLayout) findViewById(R.id.shoes_buy);
+        shoes_buy_car= (Button) findViewById(R.id.shoes_buy_car);
+        shoes_buy_car.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Map<String, String> maps=new HashMap<String, String>();
+                String url="http://www.shmilyz.com/ForAndroidHttp/update.action";
+                StringBuilder builder=new StringBuilder();
+                builder.append("insert into wantbuy value(null,").append(shoesid).append(",'").append(username_get).append("');");
+                String sql=String.valueOf(builder);
+                Log.i("wantbuysql",sql);
+                maps.put("uname",sql);
+                xutil.post(url, maps, new Xutils.XCallBack() {
+                    @Override
+                    public void onResponse(String result) {
+
+                        Toast.makeText(ShoesActivity.this, "成功加入购物车,快去结算吧!", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+
+            }
+        });
         shoes_buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -206,7 +233,7 @@ public class ShoesActivity extends AppCompatActivity {
                 intent.putExtra(ShoesActivity.SHOES_USERNAME,shoesusername);
                 intent.putExtra(ShoesActivity.SHOES_SIZE,shoessize);
                 intent.putExtra(ShoesActivity.SHOES_PRICE,shoesprice);
-                startActivity(intent);
+                startActivityForResult(intent, 1,ActivityOptions.makeSceneTransitionAnimation(ShoesActivity.this).toBundle());
 
             }
         });
@@ -244,6 +271,8 @@ public class ShoesActivity extends AppCompatActivity {
         xutil.post(url, map, new Xutils.XCallBack() {
             @Override
             public void onResponse(String result) {
+
+
 
             }
         });

@@ -143,6 +143,7 @@
         android:orientation="horizontal"
         >
         <Button
+            android:id="@+id/shoes_buy_car"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:background="@color/translucent"
