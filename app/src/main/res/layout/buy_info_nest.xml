@@ -67,6 +67,7 @@
             android:layout_marginLeft="3dp"
             android:text="￥1080"
             android:textColor="#EC5E2A"
+            android:id="@+id/buy_info_price"
             />
     </RelativeLayout>
     <RelativeLayout

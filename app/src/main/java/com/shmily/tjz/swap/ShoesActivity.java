@@ -111,6 +111,7 @@ public class ShoesActivity extends AppCompatActivity {
     private String setcollect;
     private Intent intent;
     private LinearLayout shoes_buy;
+    private String shoesprice,shoessize;
     @Override
     protected void onResume() {
         super.onResume();
@@ -133,6 +134,8 @@ public class ShoesActivity extends AppCompatActivity {
         shoesimageurl=intent.getStringExtra(SHOES_IMAGE_URL);
         shoesbiaoti=intent.getStringExtra(SHOES_BIAOTI);
         shoesusername=intent.getStringExtra(SHOES_USERNAME);
+        shoessize=intent.getStringExtra(SHOES_SIZE);
+        shoesprice=intent.getStringExtra(SHOES_PRICE);
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
         collapsingToolbar= (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         ImageView ShoesImageView= (ImageView) findViewById(R.id.fruit_image_view);
@@ -195,7 +198,14 @@ public class ShoesActivity extends AppCompatActivity {
         shoes_buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent =new Intent(ShoesActivity.this,BuyActivity.class);
+                intent.putExtra(ShoesActivity.SHOES_ID,shoesid);
+                intent.putExtra(ShoesActivity.SHOES_IMAGE_URL,shoesimageurl);
+                intent.putExtra(ShoesActivity.SHOES_BIAOTI,shoesbiaoti);
+                intent.putExtra(ShoesActivity.SHOES_USERNAME,shoesusername);
+                intent.putExtra(ShoesActivity.SHOES_SIZE,shoessize);
+                intent.putExtra(ShoesActivity.SHOES_PRICE,shoesprice);
                 startActivity(intent);
 
             }

@@ -33,8 +33,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/username"
-                        android:text="阿田"
+                        android:id="@+id/collect_username"
                         android:textColor="#FFF"
                         android:textSize="20sp"
                         android:layout_marginBottom="14dp"
@@ -44,8 +43,7 @@
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:id="@+id/friends_headview"
-                        android:src="@mipmap/one"
+                        android:id="@+id/collect_headview"
                         android:layout_marginBottom="24dp"
                         android:layout_above="@+id/username"
                         android:layout_centerHorizontal="true" />

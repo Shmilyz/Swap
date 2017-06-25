@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.liuguangqiang.cookie.CookieBar;
+import com.liuguangqiang.cookie.OnActionClickListener;
 import com.shmily.tjz.swap.Utils.Xutils;
 
 import org.json.JSONArray;
@@ -133,6 +135,18 @@ public class LoginActivity extends AppCompatActivity {
                                             editor.putString("username",username);
                                             editor.putBoolean("denglu",true);
                                             editor.commit();
+                                            new CookieBar.Builder(LoginActivity.this)
+                                                    .setTitle("欢迎您")
+                                                    .setMessage(username)
+                                                    .setBackgroundColor(R.color.colorPrimary)
+                                                    .setAction("确认", new OnActionClickListener() {
+                                                        @Override
+                                                        public void onClick() {
+
+                                                        }
+                                                    })
+                                                    .show();
+
                                             Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                                             intent.putExtra("username",username);
                                             button.stopLoader();

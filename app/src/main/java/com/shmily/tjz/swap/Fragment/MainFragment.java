@@ -124,17 +124,6 @@ public class MainFragment extends Fragment {
         setHasOptionsMenu(true);
         initView();
 
-            new CookieBar.Builder(getActivity())
-                    .setTitle("欢迎您")
-                    .setMessage(username)
-                    .setBackgroundColor(R.color.colorPrimary)
-                    .setAction("确认", new OnActionClickListener() {
-                        @Override
-                        public void onClick() {
-
-                        }
-                    })
-                    .show();
 
 
         loadnet();

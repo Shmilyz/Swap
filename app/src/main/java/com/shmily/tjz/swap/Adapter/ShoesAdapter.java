@@ -103,9 +103,7 @@ public class ShoesAdapter extends RecyclerView.Adapter<ShoesAdapter.ViewHolder>{
                 intent.putExtra(ShoesActivity.SHOES_DATE,shoes.getDate());
                 intent.putExtra(ShoesActivity.SHOES_MIAOSHU,shoes.getMiaoshu());
                 intent.putExtra(ShoesActivity.SHOES_PRICE,String.valueOf(shoes.getPrice()));
-                intent.putExtra(ShoesActivity.SHOES_PRICE,String.valueOf(shoes.getPrice()));
-                intent.putExtra(ShoesActivity.SHOES_PRICE,String.valueOf(shoes.getPrice()));
-                intent.putExtra(ShoesActivity.SHOES_PRICE,String.valueOf(shoes.getPrice()));
+
                 intent.putExtra(ShoesActivity.SHOES_PICTUREAMOUNT,String.valueOf(shoes.getPictureamount()));
                 intent.putExtra(ShoesActivity.SHOES_FILE,shoes.getFile());
                 intent.putExtra(ShoesActivity.SHOES_PICTURENAME,shoes.getPicturename());

@@ -65,7 +65,7 @@ public class WaitActivity extends AppCompatActivity {
                                                       overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                                                   }
                                               };
-                                              timer.schedule(task, 1000);
+                                              timer.schedule(task, 500);
                                               super.onResourceReady(drawable, anim);
 
                                               //在这里添加一些图片加载完成的操作
