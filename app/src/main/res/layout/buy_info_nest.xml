@@ -97,6 +97,9 @@
             android:layout_toEndOf="@+id/buy_info_mjly"
             android:textSize="15sp"
             android:cursorVisible="false"
+            android:inputType="text"
+            android:imeOptions="actionDone"
+
             />
     </RelativeLayout>
     <RelativeLayout

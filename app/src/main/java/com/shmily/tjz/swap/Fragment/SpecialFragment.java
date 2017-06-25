@@ -73,14 +73,15 @@ public class SpecialFragment extends Fragment {
         intentFilter.addAction("com.shmily.tjz.swap.LOCAL_SPECIAL");
         localReceiver=new LocalReceiver();
         localBroadcastManger.registerReceiver(localReceiver,intentFilter);
+        loadingLayout=(LoadingLayout)rootView.findViewById(R.id.special_fragment_load_layout);
+        loadingLayout.setLoadingPage(R.layout.define_loading_page);
         loadnet();
         initroll();
         initview();
         return rootView;
     }
     private void loadnet() {
-        loadingLayout=(LoadingLayout)rootView.findViewById(R.id.special_fragment_load_layout);
-        loadingLayout.setLoadingPage(R.layout.define_loading_page);
+
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(CONNECTIVITY_SERVICE);
         //获取系统的连接服务。

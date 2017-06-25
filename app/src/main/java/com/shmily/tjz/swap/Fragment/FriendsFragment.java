@@ -1,10 +1,15 @@
 package com.shmily.tjz.swap.Fragment;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +28,7 @@ import com.shmily.tjz.swap.Db.Contacts;
 import com.shmily.tjz.swap.Gson.Friends;
 import com.shmily.tjz.swap.Gson.NumberResult;
 import com.shmily.tjz.swap.R;
+import com.shmily.tjz.swap.Utils.MyApplication;
 import com.shmily.tjz.swap.Utils.ReadContacts;
 import com.shmily.tjz.swap.Utils.Xutils;
 import com.weavey.loading.lib.LoadingLayout;
@@ -37,6 +43,8 @@ import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.content.Context.CONNECTIVITY_SERVICE;
 
 /**
  * Created by Shmily_Z on 2017/6/7.
@@ -58,25 +66,36 @@ private RelativeLayout friends_toast;
     private FriendsAdapter adapter;
     private SwipeRefreshLayout swipRefresh;
     private CircleImageView friends_headview;
+
+    private IntentFilter intentFilter;
+    private LocalReceiver localReceiver;
+    private LocalBroadcastManager localBroadcastManger;
+private  String headimage_url;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.friends_fragment, container, false);
+        SharedPreferences prefs=getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+         SharedPreferences.Editor editor=prefs.edit();
+        username=prefs.getString("username"," ");
+
+        localBroadcastManger=LocalBroadcastManager.getInstance(getActivity());
+        intentFilter=new IntentFilter();
+        intentFilter.addAction("com.shmily.tjz.swap.LOCAL_SPECIAL");
+        localReceiver=new LocalReceiver();
+        localBroadcastManger.registerReceiver(localReceiver,intentFilter);
         friends_recy= (RecyclerView) rootView.findViewById(R.id.friends_recy);
         swipRefresh= (SwipeRefreshLayout) rootView.findViewById(R.id.swipRefresh);
         friends_fragment_load_layout= (LoadingLayout) rootView.findViewById(R.id.friends_fragment_load_layout);
+
         friends_fragment_load_layout.setStatus(LoadingLayout.Loading);
         set_username= (TextView) rootView.findViewById(R.id.set_username);
         friends_headview= (CircleImageView) rootView.findViewById(R.id.friends_headview);
-        SharedPreferences prefs=getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor=prefs.edit();
 
-        username=prefs.getString("username"," ");
+
         set_username.setText(username);
-        String headimage_url="http://www.shmilyz.com/headimage/"+username+".jpg";
-        Glide.with(getActivity()).load(headimage_url).into(friends_headview);
+         headimage_url="http://www.shmilyz.com/headimage/"+username+".jpg";
+
         findnumber();
-
-
         swipRefresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         swipRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -90,6 +109,10 @@ private RelativeLayout friends_toast;
         });
         return rootView;
     }
+
+
+
+
 
 
 
@@ -219,6 +242,16 @@ private RelativeLayout friends_toast;
         });
 
 
+    }
+    class LocalReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            friends_fragment_load_layout.setStatus(LoadingLayout.Success);//加载成功
+            Glide.with(MyApplication.getContext()).load(headimage_url).into(friends_headview);
+
+
+            findnumber();
+        }
     }
 
 

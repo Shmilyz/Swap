@@ -1,8 +1,11 @@
 package com.shmily.tjz.swap;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,6 +51,7 @@ public class BuyActivity extends AppCompatActivity {
     private EditText buy_info_leave;
     private ImageView buy_info_shoesimage;
     private String shoesid;
+    private Dialog progressDialog;
 
     @Override
     protected void onRestart() {
@@ -84,13 +88,76 @@ public class BuyActivity extends AppCompatActivity {
         activity_buy_price= (TextView) findViewById(R.id.activity_buy_price);
         buy_info_shoesimage= (ImageView) findViewById(R.id.buy_info_shoesimage);
         activity_buy_sure= (Button) findViewById(R.id.activity_buy_sure);
-
+        buy_info_leave= (EditText) findViewById(R.id.buy_info_leave);
         SharedPreferences prefs=getSharedPreferences("user", Context.MODE_PRIVATE);
         username=prefs.getString("username",null);
 
 
         others();
         positions();
+        buy();
+    }
+
+    private void buy() {
+
+
+        activity_buy_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                progressDialog = new Dialog(BuyActivity.this,R.style.progress_dialog);
+                progressDialog.setContentView(R.layout.dialog);
+                progressDialog.setCancelable(true);
+                progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                TextView msg = (TextView) progressDialog.findViewById(R.id.id_tv_loadingmsg);
+                msg.setText("卖力上传中");
+                progressDialog.show();
+                String buy_leave=buy_info_leave.getText().toString().trim();
+               String buy_pos= buy_user_position.getText().toString().trim();
+
+                    Map<String, String> maps=new HashMap<String, String>();
+                    String url="http://www.shmilyz.com/ForAndroidHttp/update.action";
+                StringBuilder builder=new StringBuilder();
+                builder.append("insert into buy value(null,").append("'").append(username).append("',")
+                        .append(shoesid).append(",'").append(buy_leave).append("',")
+                        .append("now(),'").append(buy_pos).append("');");
+                    String sql=String.valueOf(builder);
+                    Log.i("buysql",sql);
+                    maps.put("uname",sql);
+                    xutils.post(url, maps, new Xutils.XCallBack() {
+                        @Override
+                        public void onResponse(String result) {
+
+                            progressDialog.dismiss();
+                            Snackbar.make(getWindow().getDecorView(),"信息上传成功",Snackbar.LENGTH_SHORT)
+                                    .setAction("确认", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                        }
+                                    })
+                                    .show();
+
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    BuyActivity.this.finish();
+                                }
+                            }, 1000);
+
+
+                        }
+                    });
+
+
+                }
+
+
+
+
+
+
+
+        });
+
     }
 
     private void others() {
