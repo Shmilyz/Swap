@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/collect_item"
+    android:layout_width="match_parent"
+    android:layout_height="120dp">
+
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@mipmap/blackback"
+        android:id="@+id/collect_image"
+        />
+    <TextView
+        android:layout_marginTop="20dp"
+        android:id="@+id/collect_shoesname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/collect_image"
+        />
+    <TextView
+        android:layout_marginBottom="10dp"
+        android:textSize="17sp"
+        android:textColor="#F64E09"
+        android:id="@+id/coolect_coast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/collect_image" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/release_show_cs"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="20dp"
+        android:textColor="#D3D3D3"
+        android:textSize="12sp"
+
+        />
+</RelativeLayout>

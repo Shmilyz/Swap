@@ -255,7 +255,7 @@ public class ReleaseFragment extends Fragment {
 //                                release_button.startLoader();
 
                                 StringBuilder builders=new StringBuilder();
-                                builders.append("insert into friends(shoesid,shoesname,shoesurl,username,userdate,type) value('").append(return_result).append("'").append(text_nest_title_result).append("','").append(picture_url).append("','").append(username).append("',").append("NOW()").append(",").append("3");
+                                builders.append("insert into friends(shoesid,shoesname,shoesurl,username,userdate,type) value(").append(return_result).append(",").append(text_nest_title_result).append(",").append(picture_url).append(",").append(username).append(",").append("NOW()").append(",").append("3").append(");");
                                 addresult=String.valueOf(builders);
                                 Log.i("addresult",addresult);
                                 Map<String, String> maps=new HashMap<String, String>();
@@ -289,7 +289,7 @@ public class ReleaseFragment extends Fragment {
                                         } catch (JSONException e) {
                                             e.printStackTrace();
 
-                                            Snackbar.make(view,"很抱歉，上传失败1。",Snackbar.LENGTH_LONG)
+                                            Snackbar.make(view,"很抱歉，上传失败",Snackbar.LENGTH_LONG)
                                                     .show();
                                         }
                                     }
@@ -300,7 +300,7 @@ public class ReleaseFragment extends Fragment {
 
                             }else{
 
-                                Snackbar.make(view,"很抱歉，上传失败2。",Snackbar.LENGTH_LONG)
+                                Snackbar.make(view,"很抱歉，上传失败",Snackbar.LENGTH_LONG)
                                         .show();
                             }
                         } catch (JSONException e) {
@@ -371,7 +371,7 @@ public class ReleaseFragment extends Fragment {
                                 public void run() {
 
                                         MainActivity mainactivity= (MainActivity) getActivity();
-                                    mainactivity.replaceFragment(new LocationFragment(),R.id.nav_manage);
+                                    mainactivity.replaceFragment(new ReleaseShowFragment(),R.id.nav_message);
                                         release_button.stopLoader();
 
 

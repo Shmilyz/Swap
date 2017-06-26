@@ -25,9 +25,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jcodecraeer.imageloader.ImageLoader;
+import com.shmily.tjz.swap.Fragment.AlreadyBuyFragment;
 import com.shmily.tjz.swap.Fragment.BuyCarFragment;
 import com.shmily.tjz.swap.Fragment.CollectFragment;
 import com.shmily.tjz.swap.Fragment.ReleaseFragment;
+import com.shmily.tjz.swap.Fragment.ReleaseShowFragment;
 import com.shmily.tjz.swap.Fragment.ViewPagerFragmwnt;
 import com.shmily.tjz.swap.Srevice.SearchService;
 
@@ -43,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     boolean release=true;
     boolean main=false;
+    boolean reshow=true;
+    boolean wantbuy=true;
+    boolean collect=true;
+    boolean buy=true;
     int a = 0;
     Toolbar toolbar;
     NavigationView navView;
@@ -186,6 +192,49 @@ public class MainActivity extends AppCompatActivity {
 
                         break;
 
+                    case R.id.nav_message:
+
+                        mDrawerLayout.closeDrawers();
+                        item.setChecked(true);
+
+
+                        mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+
+                            @Override
+                            public void onDrawerSlide(View drawerView, float slideOffset) {
+                                if (slideOffset == 0 && item.getItemId()==R.id.nav_message) {
+
+                                    replaceFragment(new ReleaseShowFragment());
+                                    if (reshow) {
+                                        release = true;
+                                        main = true;
+                                        reshow = false;
+                                        wantbuy = true;
+                                        collect = true;
+                                        buy = true;
+                                    }
+
+
+                                }
+                            }
+
+                            @Override
+                            public void onDrawerOpened(View drawerView) {
+
+                            }
+
+                            @Override
+                            public void onDrawerClosed(View drawerView) {
+
+                            }
+
+                            @Override
+                            public void onDrawerStateChanged(int newState) {
+
+                            }
+                        });
+
+                        break;
                     case R.id.nav_night:
 
                         mDrawerLayout.closeDrawers();
@@ -197,12 +246,58 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onDrawerSlide(View drawerView, float slideOffset) {
                                 if (slideOffset == 0 && item.getItemId()==R.id.nav_night) {
+                                    if (wantbuy) {
+                                        replaceFragment(new BuyCarFragment());
+                                        release = true;
+                                        main = true;
+                                        reshow = true;
+                                        wantbuy = false;
+                                        collect = true;
+                                        buy = true;
+                                    }
 
-                                    replaceFragment(new BuyCarFragment());
-                                    release=true;
-                                    main=true;
+
+                                }
+                            }
+
+                            @Override
+                            public void onDrawerOpened(View drawerView) {
+
+                            }
+
+                            @Override
+                            public void onDrawerClosed(View drawerView) {
+
+                            }
+
+                            @Override
+                            public void onDrawerStateChanged(int newState) {
+
+                            }
+                        });
+
+                        break;
+
+                    case R.id.nav_notification:
+
+                        mDrawerLayout.closeDrawers();
+                        item.setChecked(true);
 
 
+                        mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+
+                            @Override
+                            public void onDrawerSlide(View drawerView, float slideOffset) {
+                                if (slideOffset == 0 && item.getItemId()==R.id.nav_notification) {
+                                    if (buy) {
+                                        replaceFragment(new AlreadyBuyFragment());
+                                        release = true;
+                                        main = true;
+                                        reshow = true;
+                                        wantbuy = true;
+                                        collect = true;
+                                        buy = false;
+                                    }
 
                                 }
                             }
@@ -243,11 +338,15 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onDrawerSlide(View drawerView, float slideOffset) {
                                 if (slideOffset == 0 && item.getItemId()==R.id.nav_friend) {
-
+                                    if (collect) {
                                         replaceFragment(new CollectFragment());
-                                        release=true;
-                                        main=true;
-
+                                        release = true;
+                                        main = true;
+                                        reshow = true;
+                                        wantbuy = true;
+                                        collect = false;
+                                        buy = true;
+                                    }
 
 
                                 }
@@ -284,7 +383,10 @@ public class MainActivity extends AppCompatActivity {
                                         replaceFragment(new ReleaseFragment());
                                         release=false;
                                         main=true;
-
+                                         reshow=true;
+                                         wantbuy=true;
+                                         collect=true;
+                                         buy=true;
 
                                     }
                                 }

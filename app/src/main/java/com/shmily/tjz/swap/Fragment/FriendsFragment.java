@@ -117,9 +117,7 @@ private  String headimage_url;
 
 
     private void findnumber() {
-
-
-
+        Glide.with(MyApplication.getContext()).load(headimage_url).into(friends_headview);
         ReadContacts readcontacts=new ReadContacts();
         resultlist.clear();
         resultlist=readcontacts.getContacts();
@@ -247,7 +245,6 @@ private  String headimage_url;
         @Override
         public void onReceive(Context context, Intent intent) {
             friends_fragment_load_layout.setStatus(LoadingLayout.Success);//加载成功
-            Glide.with(MyApplication.getContext()).load(headimage_url).into(friends_headview);
 
 
             findnumber();

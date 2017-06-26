@@ -92,7 +92,9 @@
         <activity
             android:name=".FriendShoesActivity"
             android:theme="@style/FruitActivityTheme" />
-        <activity android:name=".WaitActivity">
+        <activity android:name=".WaitActivity"
+            android:theme="@style/AppTheme.Wait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -100,14 +102,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".WelcomeActivity" />
-        <activity android:name=".BuyActivity" >
-
-
-        </activity>
-        <activity android:name=".ShowPositionsActivity" >
-
-        </activity>
-        <activity android:name=".WritePositionActivity">
+        <activity android:name=".BuyActivity"></activity>
+        <activity android:name=".ShowPositionsActivity"></activity>
+        <activity android:name=".WritePositionActivity"></activity>
+        <activity android:name=".ShowBuyInfoActivity">
 
 
         </activity>

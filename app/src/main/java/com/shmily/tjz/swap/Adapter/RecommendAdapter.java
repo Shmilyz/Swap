@@ -73,6 +73,22 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
                 Intent intent = new Intent(mContext, ShoesActivity.class);
                 intent.putExtra(ShoesActivity.SHOES_ID, String.valueOf(shoes.getId()));
                 intent.putExtra(ShoesActivity.SHOES_IMAGE_URL, shoes.getPicture());
+                intent.putExtra(ShoesActivity.SHOES_BIAOTI,shoes.getBiaoti());
+                intent.putExtra(ShoesActivity.SHOES_BRAND,shoes.getBrand());
+                intent.putExtra(ShoesActivity.SHOES_STYLE,shoes.getStyle());
+                intent.putExtra(ShoesActivity.SHOES_USERNAME,shoes.getUsername());
+                intent.putExtra(ShoesActivity.SHOES_POSITION,shoes.getPosition());
+                intent.putExtra(ShoesActivity.SHOES_SIZE,shoes.getSize());
+                intent.putExtra(ShoesActivity.SHOES_DATE,shoes.getDate());
+                intent.putExtra(ShoesActivity.SHOES_MIAOSHU,shoes.getMiaoshu());
+                intent.putExtra(ShoesActivity.SHOES_PRICE,String.valueOf(shoes.getPrice()));
+
+                intent.putExtra(ShoesActivity.SHOES_PICTUREAMOUNT,String.valueOf(shoes.getPictureamount()));
+                intent.putExtra(ShoesActivity.SHOES_FILE,shoes.getFile());
+                intent.putExtra(ShoesActivity.SHOES_PICTURENAME,shoes.getPicturename());
+
+
+
                 mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) mContext).toBundle());
                 ((Activity) mContext).finish();
             }

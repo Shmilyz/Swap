@@ -21,8 +21,12 @@ import android.transition.Explode;
 import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -83,6 +87,10 @@ public class FriendShoesActivity extends AppCompatActivity {
     private TextView activty_shoes_price;
     private boolean collect=true;
     private String setcollect;
+    private Intent intent;
+    private LinearLayout shoes_buy;
+    private String shoesprice,shoessize;
+    private Button shoes_buy_car;
     @Override
     protected void onResume() {
         super.onResume();
@@ -162,6 +170,51 @@ public class FriendShoesActivity extends AppCompatActivity {
 
             }
         });
+
+
+
+        shoes_buy= (LinearLayout) findViewById(R.id.shoes_buy);
+        shoes_buy_car= (Button) findViewById(R.id.shoes_buy_car);
+        shoes_buy_car.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Map<String, String> maps=new HashMap<String, String>();
+                String url="http://www.shmilyz.com/ForAndroidHttp/update.action";
+                StringBuilder builder=new StringBuilder();
+                builder.append("insert into wantbuy value(null,").append(shoesid).append(",'").append(username_get).append("');");
+                String sql=String.valueOf(builder);
+                Log.i("wantbuysql",sql);
+                maps.put("uname",sql);
+                xutil.post(url, maps, new Xutils.XCallBack() {
+                    @Override
+                    public void onResponse(String result) {
+
+                        Toast.makeText(FriendShoesActivity.this, "成功加入购物车,快去结算吧!", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+
+            }
+        });
+        shoes_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent =new Intent(FriendShoesActivity.this,BuyActivity.class);
+                intent.putExtra(ShoesActivity.SHOES_ID,shoesid);
+                intent.putExtra(ShoesActivity.SHOES_IMAGE_URL,shoesimageurl);
+                intent.putExtra(ShoesActivity.SHOES_BIAOTI,shoesList.get(0).getBiaoti());
+                intent.putExtra(ShoesActivity.SHOES_USERNAME,shoesList.get(0).getUsername());
+                intent.putExtra(ShoesActivity.SHOES_SIZE,shoessize);
+                intent.putExtra(ShoesActivity.SHOES_PRICE,shoesprice);
+                startActivityForResult(intent, 1,ActivityOptions.makeSceneTransitionAnimation(FriendShoesActivity.this).toBundle());
+
+            }
+        });
+
+
+
     }
 
     private void setlove(boolean type) {
@@ -169,16 +222,23 @@ public class FriendShoesActivity extends AppCompatActivity {
         Map<String, String> map=new HashMap<String, String>();
         if (type){
             setcollect="insert into collect(username,shoesid) value ('"+username_get+"',"+shoesid+")";
+            String sshowlove="insert into friends(shoesid,shoesname,shoesurl,username,userdate,type) value("+shoesid+",'"+shoesList.get(0).getBiaoti()+"','"+shoesimageurl+"','"+username_get+"',"+"NOW(),"+"1"+")";
             Log.i("setcollect",setcollect);
+            Log.i("sshowlove",sshowlove);
+
+            map.put("uname",setcollect);
+            map.put("upass",sshowlove);
         }else {
             setcollect="DELETE FROM collect WHERE username='"+username_get+"' and shoesid="+shoesid;
-            Log.i("setcollects",setcollect);
+            map.put("uname",setcollect);
         }
 
         map.put("uname",setcollect);
         xutil.post(url, map, new Xutils.XCallBack() {
             @Override
             public void onResponse(String result) {
+
+
 
             }
         });
@@ -253,6 +313,9 @@ public class FriendShoesActivity extends AppCompatActivity {
                         info_position.setText(shoesList.get(0).getPosition());
                         info_desc.setText(shoesList.get(0).getMiaoshu());
                         activty_shoes_price.setText("¥"+shoesList.get(0).getPrice());
+                        shoessize=shoesList.get(0).getSize();
+                        shoesprice=String.valueOf(shoesList.get(0).getPrice());
+
                         discuss.setOnClickListener(new View.OnClickListener() {
                             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                             @Override

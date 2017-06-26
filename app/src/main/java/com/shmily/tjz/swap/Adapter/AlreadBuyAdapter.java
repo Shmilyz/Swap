@@ -11,30 +11,29 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.shmily.tjz.swap.Gson.Friends;
-import com.shmily.tjz.swap.Gson.NumberResult;
+import com.shmily.tjz.swap.Gson.AlreadBuy;
 import com.shmily.tjz.swap.Gson.Shoes;
 import com.shmily.tjz.swap.R;
 import com.shmily.tjz.swap.ShoesActivity;
+import com.shmily.tjz.swap.ShowBuyInfoActivity;
 import com.shmily.tjz.swap.Utils.Xutils;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 /**
- * Created by Shmily_Z on 2017/6/11.
+ * Created by Shmily_Z on 2017/6/26.
  */
 
-public class CollectAdapter extends SwipeMenuAdapter<CollectAdapter.ViewHolder> {
+public class AlreadBuyAdapter extends SwipeMenuAdapter<AlreadBuyAdapter.ViewHolder> {
 
 
     private Context mContext;
 
-    private List<Shoes> mShoesList = new ArrayList<>();
+    private List<AlreadBuy> mShoesList = new ArrayList<>();
     String username;
+    private String loveurl = "http://www.shmilyz.com/ForAndroidHttp/love.action";
     private Xutils xutils;
 
     @Override
@@ -43,16 +42,16 @@ public class CollectAdapter extends SwipeMenuAdapter<CollectAdapter.ViewHolder> 
         if (mContext == null) {
             mContext = parent.getContext();
         }
-        View view = LayoutInflater.from(mContext).inflate(R.layout.release_show_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.collect_item, parent, false);
 
         return view;
     }
 
     @Override
-    public ViewHolder onCompatCreateViewHolder(View realContentView, int viewType) {
+    public AlreadBuyAdapter.ViewHolder onCompatCreateViewHolder(View realContentView, int viewType) {
 
 
-        return new ViewHolder(realContentView);
+        return new AlreadBuyAdapter.ViewHolder(realContentView);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -70,15 +69,15 @@ public class CollectAdapter extends SwipeMenuAdapter<CollectAdapter.ViewHolder> 
         }
     }
 
-    public CollectAdapter(List<Shoes> shoesList) {
+    public AlreadBuyAdapter(List<AlreadBuy> shoesList) {
         mShoesList = shoesList;
     }
 
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final AlreadBuyAdapter.ViewHolder holder, int position) {
 
-        final Shoes number = mShoesList.get(position);
+        final AlreadBuy number = mShoesList.get(position);
         holder.collect_shoesname.setText(number.getBiaoti());
         holder.coolect_coast.setText("¥"+String.valueOf(number.getPrice()));
         Glide.with(mContext).load(number.getPicture()).into(holder.collect_image);
@@ -86,23 +85,21 @@ public class CollectAdapter extends SwipeMenuAdapter<CollectAdapter.ViewHolder> 
             @Override
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
-                Shoes shoes = mShoesList.get(position);
-                Intent intent = new Intent(mContext, ShoesActivity.class);
+                AlreadBuy shoes = mShoesList.get(position);
+                Intent intent = new Intent(mContext, ShowBuyInfoActivity.class);
 
                 intent.putExtra(ShoesActivity.SHOES_ID, String.valueOf(shoes.getId()));
                 intent.putExtra(ShoesActivity.SHOES_IMAGE_URL, shoes.getPicture());
                 intent.putExtra(ShoesActivity.SHOES_BIAOTI,shoes.getBiaoti());
-                intent.putExtra(ShoesActivity.SHOES_BRAND,shoes.getBrand());
-                intent.putExtra(ShoesActivity.SHOES_STYLE,shoes.getStyle());
                 intent.putExtra(ShoesActivity.SHOES_USERNAME,shoes.getUsername());
-                intent.putExtra(ShoesActivity.SHOES_POSITION,shoes.getPosition());
                 intent.putExtra(ShoesActivity.SHOES_SIZE,shoes.getSize());
-                intent.putExtra(ShoesActivity.SHOES_DATE,shoes.getDate());
-                intent.putExtra(ShoesActivity.SHOES_MIAOSHU,shoes.getMiaoshu());
+                intent.putExtra("buy_position",shoes.getBuyposition());
+                intent.putExtra("buy_say",shoes.getSay());
+                intent.putExtra("buy_buyid",String.valueOf(shoes.getBuyid()));
+                intent.putExtra("buy_date",shoes.getDate().replace("T"," "));
+
                 intent.putExtra(ShoesActivity.SHOES_PRICE,String.valueOf(shoes.getPrice()));
-                intent.putExtra(ShoesActivity.SHOES_PICTUREAMOUNT,String.valueOf(shoes.getPictureamount()));
-                intent.putExtra(ShoesActivity.SHOES_FILE,shoes.getFile());
-                intent.putExtra(ShoesActivity.SHOES_PICTURENAME,shoes.getPicturename());
+
                 mContext.startActivity(intent);
             }
         });
@@ -114,6 +111,5 @@ public class CollectAdapter extends SwipeMenuAdapter<CollectAdapter.ViewHolder> 
     public int getItemCount() {
         return mShoesList.size();
     }
+
 }
-
-

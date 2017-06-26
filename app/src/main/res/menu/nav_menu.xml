@@ -18,6 +18,8 @@
             android:id="@+id/nav_message"
             android:title="我的发布"
             />
+        <item android:id="@+id/nav_night"
+            android:title="我的购物车"/>
     </group>
     <group android:checkableBehavior="single"
         android:id="@+id/group_manage">
@@ -32,8 +34,7 @@
             android:id="@+id/nav_manage"
             android:title="同城发布"
             />
-        <item android:id="@+id/nav_night"
-            android:title="我的购物车"/>
+
         <item android:id="@+id/nav_setting"
             android:title="退出登录"/>
         <item android:id="@+id/nav_suggestion"
