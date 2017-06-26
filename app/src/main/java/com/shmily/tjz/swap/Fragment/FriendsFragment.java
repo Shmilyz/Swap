@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -51,7 +52,7 @@ import static android.content.Context.CONNECTIVITY_SERVICE;
  */
 
 public class FriendsFragment extends Fragment {
-private RelativeLayout friends_toast;
+    private RelativeLayout friends_toast;
     private RecyclerView friends_recy;
     private View rootView;
     Xutils xutils=Xutils.getInstance();
@@ -70,12 +71,12 @@ private RelativeLayout friends_toast;
     private IntentFilter intentFilter;
     private LocalReceiver localReceiver;
     private LocalBroadcastManager localBroadcastManger;
-private  String headimage_url;
+    private  String headimage_url;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.friends_fragment, container, false);
         SharedPreferences prefs=getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
-         SharedPreferences.Editor editor=prefs.edit();
+        SharedPreferences.Editor editor=prefs.edit();
         username=prefs.getString("username"," ");
 
         localBroadcastManger=LocalBroadcastManager.getInstance(getActivity());
@@ -93,7 +94,7 @@ private  String headimage_url;
 
 
         set_username.setText(username);
-         headimage_url="http://www.shmilyz.com/headimage/"+username+".jpg";
+        headimage_url="http://www.shmilyz.com/headimage/"+username+".jpg";
 
         findnumber();
         swipRefresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
@@ -117,14 +118,19 @@ private  String headimage_url;
 
 
     private void findnumber() {
+
         Glide.with(MyApplication.getContext()).load(headimage_url).into(friends_headview);
+
         ReadContacts readcontacts=new ReadContacts();
+
         resultlist.clear();
         resultlist=readcontacts.getContacts();
+
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
         JSONObject tmpObj = null;
         int count = resultlist.size();
+        Log.i("tianjunzhe",String.valueOf(count));
         for(int i = 0; i < count; i++)
         {
 
@@ -137,6 +143,8 @@ private  String headimage_url;
                 jsonArray.put(tmpObj);
                 tmpObj = null;
             } catch (JSONException e) {
+                Toast.makeText(MyApplication.getContext(), "3", Toast.LENGTH_SHORT).show();
+
                 e.printStackTrace();
             }
 
@@ -153,6 +161,8 @@ private  String headimage_url;
             public void onResponse(String result) {
 
                 try {
+                    Toast.makeText(MyApplication.getContext(), "2", Toast.LENGTH_SHORT).show();
+
                     JSONObject jsonobject = new JSONObject(result);
                     JSONArray shoesArray=jsonobject.getJSONArray("result");
 
@@ -162,6 +172,8 @@ private  String headimage_url;
                     Log.i("zy",String.valueOf(shoesArray));
                     selectfriend();
                 } catch (JSONException e) {
+                    Toast.makeText(MyApplication.getContext(), "1", Toast.LENGTH_SHORT).show();
+
                     e.printStackTrace();
 
                 }
@@ -178,6 +190,8 @@ private  String headimage_url;
     }
 
     private void selectfriend() {
+        Toast.makeText(MyApplication.getContext(), "0", Toast.LENGTH_SHORT).show();
+
         friendnamesList.clear();
         StringBuilder stringbuilder=new StringBuilder();
         stringbuilder.append("select * from friends where ");
@@ -197,6 +211,8 @@ private  String headimage_url;
             @Override
             public void onResponse(String result) {
                 try {
+                    Toast.makeText(MyApplication.getContext(), "6", Toast.LENGTH_SHORT).show();
+
                     JSONObject jsonobject = new JSONObject(result);
                     JSONArray shoesArray=jsonobject.getJSONArray("result");
                     Gson gson=new Gson();
@@ -210,16 +226,16 @@ private  String headimage_url;
                         friends1.setShoesurl(friends.getShoesurl());
                         friends1.setType(friends.getType());
                         friends1.setUserdate(friends.getUserdate());
-                         for(NumberResult num:return_resultlist){
+                        for(NumberResult num:return_resultlist){
 
-                             if (num.getUsername().equals(friends.getUsername())){
-                                 friends1.setUsername(num.getName());
+                            if (num.getUsername().equals(friends.getUsername())){
+                                friends1.setUsername(num.getName());
 
 
-                                 break;
-                             }
+                                break;
+                            }
 
-                         }
+                        }
                         friendnamesList.add(friends1);
                     }
 

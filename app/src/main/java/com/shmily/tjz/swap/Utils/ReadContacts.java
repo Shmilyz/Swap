@@ -26,21 +26,38 @@ public class ReadContacts {
             // 查询联系人数据
             cursor = MyApplication.getContext().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
             if (cursor != null) {
-                while (cursor.moveToNext()) {
-                    // 获取联系人姓名
-                    String displayName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-                    // 获取联系人手机号
-                    String number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                    Contacts contacts=new Contacts();
-                    contacts.setName(displayName);
-                    contacts.setNumber(number);
+                if (cursor.getCount() > 0) {
+                    while (cursor.moveToNext()) {
+
+                        // 获取联系人姓名
+                        String displayName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                        // 获取联系人手机号
+                        String number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        Contacts contacts = new Contacts();
+                        contacts.setName(displayName);
+                        contacts.setNumber(number);
+                        resultlist.add(contacts);
+
+                    }
+                }
+                else{
+                    Contacts contacts = new Contacts();
+                    contacts.setName("暂时无数据");
+                    contacts.setNumber("暂时无数据");
                     resultlist.add(contacts);
+
                 }
             }
+
         } catch (Exception e) {
+
+
             e.printStackTrace();
 
-        } finally {
+        }
+
+
+        finally {
             if (cursor != null) {
                 cursor.close();
             }
