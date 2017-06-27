@@ -32,7 +32,7 @@
         android:id="@+id/group_settings">
         <item
             android:id="@+id/nav_manage"
-            android:title="同城发布"
+            android:title="夜间模式"
             />
 
         <item android:id="@+id/nav_setting"

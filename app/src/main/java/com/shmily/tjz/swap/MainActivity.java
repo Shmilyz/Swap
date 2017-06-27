@@ -16,12 +16,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.sdk.android.push.CloudPushService;
+import com.alibaba.sdk.android.push.CommonCallback;
+import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jcodecraeer.imageloader.ImageLoader;
@@ -49,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     boolean wantbuy=true;
     boolean collect=true;
     boolean buy=true;
+    boolean black=true;
     int a = 0;
     Toolbar toolbar;
     NavigationView navView;
@@ -129,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void init() {
+
 
         mDrawerLayout= (DrawerLayout) findViewById(R.id.activity_main);
 
@@ -331,8 +338,6 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_friend:
                         mDrawerLayout.closeDrawers();
                         item.setChecked(true);
-
-
                         mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
 
                             @Override
@@ -367,7 +372,6 @@ public class MainActivity extends AppCompatActivity {
 
                             }
                         });
-
 
                         break;
                     case R.id.nav_theme:
@@ -407,6 +411,59 @@ public class MainActivity extends AppCompatActivity {
 
                             }
                         });
+                        break;
+                    case R.id.nav_manage:
+                        mDrawerLayout.closeDrawers();
+                        mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+
+                            @Override
+                            public void onDrawerSlide(View drawerView, float slideOffset) {
+                                if (slideOffset == 0 && item.getItemId()==R.id.nav_manage) {
+                                    if (black) {
+                                        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                                        recreate();
+                                        item.setTitle("日间模式");
+                                        black=false;
+                                        main=true;
+                                        reshow=true;
+                                        wantbuy=true;
+                                        collect=true;
+                                        buy=true;
+
+                                    }
+                                    else {
+                                        item.setTitle("夜间模式");
+                                        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                                        recreate();
+                                        black=true;
+                                        main=true;
+                                        reshow=true;
+                                        wantbuy=true;
+                                        collect=true;
+                                        buy=true;
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onDrawerOpened(View drawerView) {
+
+                            }
+
+                            @Override
+                            public void onDrawerClosed(View drawerView) {
+
+                            }
+
+                            @Override
+                            public void onDrawerStateChanged(int newState) {
+
+                            }
+                        });
+
+                        item.setTitle("");
+
+                        break;
                     }
 
 
@@ -416,6 +473,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     public void replaceFragment(Fragment fragement) {
 

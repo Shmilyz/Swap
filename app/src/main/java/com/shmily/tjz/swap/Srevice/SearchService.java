@@ -48,7 +48,7 @@ public class SearchService extends Service {
         update();
         updates();
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        int anHour = 20*60*1000; // 这是8小时的毫秒数
+        int anHour = 20*60*1000; // 这是20分钟的毫秒数
         long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
         Intent i = new Intent(this, SearchService.class);
         PendingIntent pi = PendingIntent.getService(this, 0, i, 0);

@@ -143,7 +143,6 @@ public class FriendsFragment extends Fragment {
                 jsonArray.put(tmpObj);
                 tmpObj = null;
             } catch (JSONException e) {
-                Toast.makeText(MyApplication.getContext(), "3", Toast.LENGTH_SHORT).show();
 
                 e.printStackTrace();
             }
@@ -161,7 +160,6 @@ public class FriendsFragment extends Fragment {
             public void onResponse(String result) {
 
                 try {
-                    Toast.makeText(MyApplication.getContext(), "2", Toast.LENGTH_SHORT).show();
 
                     JSONObject jsonobject = new JSONObject(result);
                     JSONArray shoesArray=jsonobject.getJSONArray("result");
@@ -172,7 +170,6 @@ public class FriendsFragment extends Fragment {
                     Log.i("zy",String.valueOf(shoesArray));
                     selectfriend();
                 } catch (JSONException e) {
-                    Toast.makeText(MyApplication.getContext(), "1", Toast.LENGTH_SHORT).show();
 
                     e.printStackTrace();
 
@@ -190,7 +187,6 @@ public class FriendsFragment extends Fragment {
     }
 
     private void selectfriend() {
-        Toast.makeText(MyApplication.getContext(), "0", Toast.LENGTH_SHORT).show();
 
         friendnamesList.clear();
         StringBuilder stringbuilder=new StringBuilder();
@@ -211,7 +207,6 @@ public class FriendsFragment extends Fragment {
             @Override
             public void onResponse(String result) {
                 try {
-                    Toast.makeText(MyApplication.getContext(), "6", Toast.LENGTH_SHORT).show();
 
                     JSONObject jsonobject = new JSONObject(result);
                     JSONArray shoesArray=jsonobject.getJSONArray("result");

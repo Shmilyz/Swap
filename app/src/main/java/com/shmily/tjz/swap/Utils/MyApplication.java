@@ -6,9 +6,13 @@ package com.shmily.tjz.swap.Utils;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 
-
+import com.alibaba.sdk.android.push.CloudPushService;
+import com.alibaba.sdk.android.push.CommonCallback;
+import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
+import com.shmily.tjz.swap.MainActivity;
 import com.shmily.tjz.swap.R;
 import com.weavey.loading.lib.LoadingLayout;
 
@@ -26,6 +30,8 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         x.Ext.init(this);
+        initCloudChannel(this);
+
         x.Ext.setDebug(true);
         context=getApplicationContext();
         LitePal.initialize(context);
@@ -50,6 +56,20 @@ public class MyApplication extends Application {
     * */
     public  static Context getContext(){
         return  context;
+    }
+    private void initCloudChannel(Context applicationContext) {
+        PushServiceFactory.init(applicationContext);
+        CloudPushService pushService = PushServiceFactory.getCloudPushService();
+        pushService.register(applicationContext, new CommonCallback() {
+            @Override
+            public void onSuccess(String response) {
+                Log.d("TAG", "init cloudchannel success");
+            }
+            @Override
+            public void onFailed(String errorCode, String errorMessage) {
+                Log.d("TAG", "init cloudchannel failed -- errorcode:" + errorCode + " -- errorMessage:" + errorMessage);
+            }
+        });
     }
 
 }

@@ -10,6 +10,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'x86'
+        }
     }
     buildTypes {
         release {
@@ -75,6 +79,13 @@ dependencies {
     compile 'com.yanzhenjie:recyclerview-swipe:1.0.4'
     compile 'com.kyleduo.switchbutton:library:1.4.6'
 
+
+    compile 'com.aliyun.ams:alicloud-android-push:3.0.8@aar'
+    compile 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
+    compile 'com.aliyun.ams:alicloud-android-ut:5.0.0'
+//    阿里云推送
+
+
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 
@@ -82,7 +93,12 @@ dependencies {
 allprojects {
     repositories {
         jcenter()
-        maven { url "https://jitpack.io" }
+        maven {
+            url "https://jitpack.io"
+        }
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/repositories/releases/'
+        }
         flatDir{
             dirs 'libs' //就是你放aar的目录地址
         }
