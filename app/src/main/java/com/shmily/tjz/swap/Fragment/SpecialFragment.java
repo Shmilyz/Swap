@@ -12,6 +12,7 @@ import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +23,15 @@ import com.google.gson.reflect.TypeToken;
 import com.huewu.pla.lib.MultiColumnListView;
 import com.huewu.pla.lib.internal.PLA_AdapterView;
 import com.shmily.tjz.swap.Db.ShoesSpecial;
+import com.shmily.tjz.swap.FriendShoesActivity;
+import com.shmily.tjz.swap.Gson.Shoes;
 import com.shmily.tjz.swap.Gson.Special;
 import com.shmily.tjz.swap.R;
 import com.shmily.tjz.swap.Adapter.SpecialAdapter;
+import com.shmily.tjz.swap.ShoesActivity;
 import com.shmily.tjz.swap.SpecialShowActivity;
 import com.shmily.tjz.swap.Utils.GlideImageLoader;
+import com.shmily.tjz.swap.Utils.Xutils;
 import com.weavey.loading.lib.LoadingLayout;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -41,7 +46,9 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
 
@@ -64,6 +71,9 @@ public class SpecialFragment extends Fragment {
     private LocalBroadcastManager localBroadcastManger;
     private LoadingLayout loadingLayout;
     private List<Special> shoesList;
+    private List<Shoes> shoesLists =new ArrayList<>();
+
+    private Xutils xutils;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,6 +85,8 @@ public class SpecialFragment extends Fragment {
         localBroadcastManger.registerReceiver(localReceiver,intentFilter);
         loadingLayout=(LoadingLayout)rootView.findViewById(R.id.special_fragment_load_layout);
         loadingLayout.setLoadingPage(R.layout.define_loading_page);
+        xutils=Xutils.getInstance();
+
         loadnet();
         initroll();
         initview();
@@ -109,7 +121,6 @@ public class SpecialFragment extends Fragment {
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                Toast.makeText(getActivity(),String.valueOf(position), Toast.LENGTH_SHORT).show();
                 Special special=shoesList.get(position);
                 Intent intent=new Intent(getActivity(), SpecialShowActivity.class);
                 intent.putExtra("special_Name",special.getName());
@@ -238,6 +249,8 @@ public class SpecialFragment extends Fragment {
             ShoesSpecial shoessearch = new ShoesSpecial(urls);
             shoessearchList.add(shoessearch);
 
+
+
         }
         MultiColumnListView multicolumn = (MultiColumnListView) rootView.findViewById(R.id.list);
         adapter = new SpecialAdapter(getActivity(), shoessearchList);
@@ -245,13 +258,50 @@ public class SpecialFragment extends Fragment {
         multicolumn.setOnItemClickListener(new PLA_AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(PLA_AdapterView<?> parent, View view, int position, long id) {
-                String pos= String.valueOf(position);
-                Toast.makeText(getActivity(), pos, Toast.LENGTH_SHORT).show();
+
+                getshoes();
+
+
+
             }
         });
     }
 
-     class LocalReceiver extends BroadcastReceiver{
+    private void getshoes() {
+
+
+        Map<String, String> maps=new HashMap<String, String>();
+        String url="http://www.shmilyz.com/ForAndroidHttp/select.action";
+        String sql="SELECT * FROM shoes WHERE id=1";
+        Log.i("collect_result",sql);
+        maps.put("uname",sql);
+        xutils.post(url, maps, new Xutils.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+
+                try {
+                    JSONObject jsonobject=new JSONObject(result);
+                    JSONArray shoesArray=jsonobject.getJSONArray("result");
+                    Gson gson=new Gson();
+                    shoesLists=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<Shoes>>(){}.getType());
+                    Intent intent =new Intent(getActivity(), FriendShoesActivity.class);
+                    intent.putExtra(ShoesActivity.SHOES_ID, String.valueOf(shoesLists.get(0).getId()));
+                    intent.putExtra(ShoesActivity.SHOES_IMAGE_URL, shoesLists.get(0).getPicture());
+                    getActivity().startActivity(intent);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                }
+
+
+            }
+        });
+
+
+
+    }
+
+    class LocalReceiver extends BroadcastReceiver{
          @Override
          public void onReceive(Context context, Intent intent) {
              loadnet();

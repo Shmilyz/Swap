@@ -144,7 +144,7 @@ public class ShoesActivity extends AppCompatActivity {
         collapsingToolbar= (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         ImageView ShoesImageView= (ImageView) findViewById(R.id.fruit_image_view);
         Glide.with(this).load(shoesimageurl).into(ShoesImageView);
-
+        Log.i("shoesimageurl",shoesimageurl);
         discuss= (RoundButton) findViewById(R.id.discuss);
 
         SharedPreferences prefs=getSharedPreferences("user", Context.MODE_PRIVATE);
@@ -504,8 +504,8 @@ public class ShoesActivity extends AppCompatActivity {
             StringBuilder url = new StringBuilder();
             url.append("http://www.shmilyz.com/").append( shoesfile).append("/").append(shoespicturename).append("_").append(String.valueOf(i)).append(".jpg");
             String urls = String.valueOf(url);
-
             ShoesSpecial shoessearch = new ShoesSpecial(urls);
+
             shoessearchList.add(shoessearch);
 
         }

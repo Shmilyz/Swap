@@ -1,11 +1,14 @@
 package com.shmily.tjz.swap.Utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.alibaba.sdk.android.push.MessageReceiver;
 import com.alibaba.sdk.android.push.notification.CPushMessage;
+import com.shmily.tjz.swap.BuyActivity;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -20,6 +23,7 @@ public class MyMessageReceiver extends MessageReceiver {
     @Override
     public void onNotification(Context context, String title, String summary, Map<String, String> extraMap) {
         // TODO 处理推送通知
+
         Log.e("MyMessageReceiver", "Receive notification, title: " + title + ", summary: " + summary + ", extraMap: " + extraMap);
     }
     @Override
@@ -28,6 +32,7 @@ public class MyMessageReceiver extends MessageReceiver {
     }
     @Override
     public void onNotificationOpened(Context context, String title, String summary, String extraMap) {
+
         Log.e("MyMessageReceiver", "onNotificationOpened, title: " + title + ", summary: " + summary + ", extraMap:" + extraMap);
     }
     @Override

@@ -21,7 +21,6 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:gravity="center"
-        android:text="BOOST"
         android:textColor="#FFF"
         android:background="@color/colorPrimary"
         android:id="@+id/specoal_show_title"

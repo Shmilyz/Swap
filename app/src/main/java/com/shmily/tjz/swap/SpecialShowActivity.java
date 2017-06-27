@@ -3,6 +3,7 @@ package com.shmily.tjz.swap;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,6 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shmily.tjz.swap.Adapter.DiscussAdapter;
 import com.shmily.tjz.swap.Adapter.ShoesAdapter;
+import com.shmily.tjz.swap.Adapter.ShoesResultAdapter;
 import com.shmily.tjz.swap.Gson.Discuss;
 import com.shmily.tjz.swap.Gson.Shoes;
 import com.shmily.tjz.swap.Utils.Xutils;
@@ -34,7 +36,7 @@ public class SpecialShowActivity extends AppCompatActivity {
     private RecyclerView specoal_show_recy;
     private ImageView specoal_show_image;
     private List<Shoes> shoesList =new ArrayList<>();
-    public ShoesAdapter adapter;
+    public ShoesResultAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +50,9 @@ public class SpecialShowActivity extends AppCompatActivity {
         Intent intent=getIntent();
         special_Name=intent.getStringExtra("special_Name");
         special_Specialcontent=intent.getStringExtra("special_Specialcontent");
-        special_Specialname=intent.getStringExtra("special_Specialname");
+        special_Specialname="'"+intent.getStringExtra("special_Specialname")+"'";
         special_Url=intent.getStringExtra("special_Url");
         Glide.with(this).load(special_Url).placeholder(R.mipmap.blackback)
-                .diskCacheStrategy( DiskCacheStrategy.NONE )
                 .crossFade().into(specoal_show_image);
         specoal_show_title.setText(special_Name);
         specoal_show_detail.setText(special_Specialcontent);
@@ -64,14 +65,21 @@ public class SpecialShowActivity extends AppCompatActivity {
             @Override
             public void onResponse(String result) {
                 try {
+                    Log.i("specialShowresult",result);
                     JSONObject jsonobject = new JSONObject(result);
                     JSONArray shoesArray=jsonobject.getJSONArray("result");
                     Gson gson=new Gson();
                     shoesList=gson.fromJson(String.valueOf(shoesArray),new TypeToken<List<Shoes>>(){}.getType());
-                    LinearLayoutManager layoutManager=new LinearLayoutManager(SpecialShowActivity.this);
-                    specoal_show_recy.setLayoutManager(layoutManager);
-                    adapter=new ShoesAdapter(shoesList);
+
+                    GridLayoutManager layoutManger=new GridLayoutManager(SpecialShowActivity.this,2);
+//        StaggeredGridLayoutManager layoutManger=new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.HORIZONTAL);
+//        瀑布。
+                    specoal_show_recy.setLayoutManager(layoutManger);
+                    adapter=new ShoesResultAdapter(shoesList);
                     specoal_show_recy.setAdapter(adapter);
+
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

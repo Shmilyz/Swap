@@ -412,58 +412,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                         break;
-                    case R.id.nav_manage:
-                        mDrawerLayout.closeDrawers();
-                        mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
 
-                            @Override
-                            public void onDrawerSlide(View drawerView, float slideOffset) {
-                                if (slideOffset == 0 && item.getItemId()==R.id.nav_manage) {
-                                    if (black) {
-                                        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                                        recreate();
-                                        item.setTitle("日间模式");
-                                        black=false;
-                                        main=true;
-                                        reshow=true;
-                                        wantbuy=true;
-                                        collect=true;
-                                        buy=true;
-
-                                    }
-                                    else {
-                                        item.setTitle("夜间模式");
-                                        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                                        recreate();
-                                        black=true;
-                                        main=true;
-                                        reshow=true;
-                                        wantbuy=true;
-                                        collect=true;
-                                        buy=true;
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onDrawerOpened(View drawerView) {
-
-                            }
-
-                            @Override
-                            public void onDrawerClosed(View drawerView) {
-
-                            }
-
-                            @Override
-                            public void onDrawerStateChanged(int newState) {
-
-                            }
-                        });
-
-                        item.setTitle("");
-
-                        break;
                     }
 
 
